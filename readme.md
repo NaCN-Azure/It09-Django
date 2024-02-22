@@ -12,6 +12,7 @@ python manage.py runserver
 这一部分是主要的开发区域，绝大部分python后端代码应该在这里完成
 - 子目录migrations：这一部分是和数据库迁移有关的，目前为止用不到
 - 子目录models：这一部分定义了和**数据库连通**的模型，是和数据库连接用的
+- 子目录forms：这一部分定义了和**前端连通**的表单
 - 子目录services：这一部分是对接models的**主要业务区**，其他的逻辑实现代码应该在这一层实现
 - 子目录views：这一部分对接了**前端的request请求**，向前端调用以及url的调用
 - admin.py：貌似是管理员用户管理，好像用不到
@@ -31,3 +32,6 @@ python manage.py runserver
 - 1.txt：服务器mysql的密码，具体怎么访问去setting里看，或者下个navicat或者别的什么数据库管理的东西自己看，具体教程问GPT
 - manage.py：用于启动Django服务的文件，不需要动
 - nacnit.sql：咱们服务的SQL转储文件，这是备份
+
+## 四、近期留言：
+简单把models连通一下，搞了个简单的登陆注册用于测试连通（后面界面肯定要修改）

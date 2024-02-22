@@ -5,3 +5,6 @@ def index(request):
     # request.GET
     return HttpResponse("Yeah!")
 # Create your views here.
+
+def index_view(request):
+    return render(request, 'index.html')
