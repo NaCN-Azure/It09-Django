@@ -8,3 +8,6 @@ def index(request):
 
 def index_view(request):
     return render(request, 'index.html')
+
+def job_detail_view(request):
+    return render(request, 'job-detail.html')
