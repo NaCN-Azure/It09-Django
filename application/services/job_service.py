@@ -1,10 +1,9 @@
 from django.contrib import messages
 from django.utils import timezone
-from application.models import Job
 from django.db.models import Case, When, Value, IntegerField
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from .models import Job, User
+from application.models import Job
 from django.core.exceptions import ObjectDoesNotExist
 
 #Employer side functions
