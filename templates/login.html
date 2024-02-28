@@ -14,7 +14,7 @@
             {{ form.as_p }}
             <button type="submit">登录</button>
         </form>
-        <p>没有账号？<a href="{% url 'register' %}">注册</a></p>
+        <p>没有账号？<a href="{% url 'register' user_type=1 %}">注册</a></p>
     </div>
 </body>
 </html>

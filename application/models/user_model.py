@@ -14,7 +14,8 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
+        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('type',0)
         if not extra_fields.get('is_staff'):
             raise ValueError('Superuser must have is_staff=True.')
         if not extra_fields.get('is_superuser'):
@@ -32,7 +33,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=255)
     date = models.DateTimeField(default=timezone.now)
     password = models.CharField(max_length=255)
-    salt = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
     is_active = models.BooleanField(default=True)

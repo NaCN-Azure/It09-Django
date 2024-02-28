@@ -1,23 +1,33 @@
-<!-- register.html -->
 {% load static %}
-<!-- 这是个模版测试 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注册</title>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">  <!-- 引用CSS文件 -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
     <div class="register-container">
         <h2>注册</h2>
-        <form method="post" action="{% url 'register' %}">
+        <form method="post" action="">
             {% csrf_token %}
             {{ form.as_p }}
+            <select name="user_type" id="userTypeSelect">
+                <option value="1">普通用户</option>
+                <option value="2">雇主</option>
+            </select>
             <button type="submit">注册</button>
         </form>
-        <p>已经有账号了？登录</p>
+        <p>已经有账号了？<a href="{% url 'login' %}">登录</a></p>
     </div>
+
+    <script>
+        document.getElementById("registerForm").onsubmit = function(event) {
+            var userType = document.getElementById("userTypeSelect").value;
+            this.action = "/register/" + userType + "/";
+        };
+    </script>
 </body>
 </html>
+
