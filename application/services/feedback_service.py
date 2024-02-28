@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 
 def add_feedback(request, user_id, job_id):
-    data = request.POST()
+    data = request.POST
     feedback = Feedback(
         job = job_id,
         user = user_id,
@@ -19,7 +19,7 @@ def add_feedback(request, user_id, job_id):
     return feedback
 
 def delete_feedback(feedback_id):
-    feedback=Feedback.objects.get(pl=feedback_id)
+    feedback=Feedback.objects.get(pk=feedback_id)
     feedback.delete()
     return JsonResponse({'message': 'Feedback deleted successfully'})
 

@@ -48,7 +48,7 @@ def get_job_by_jobID(job_id):
     try:
         return Job.objects.get(pk=job_id)
     except Job.DoesNotExist:
-        return False
+        return None
 
 def get_jobs_by_city(city):
     return Job.objects.filter(city=city).order_by('title')
