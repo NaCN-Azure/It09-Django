@@ -23,9 +23,9 @@ python manage.py runserver
 - settings.py：整个项目的配置文件，一般来说不需要改太多，正常开发中也不需要太多改动他
 - urls.py：配置前端网页的访问urls，可以类比为**前后端的接口**
 ### 3.static
-- css：存放前端的css文件
-- image：存放用于装饰网页的图片/图标文件
-- js：存放javaScript文件
+- css：**存放前端的css文件**
+- image：**存放用于装饰网页的图片/图标文件**
+- js：**存放javaScript文件**
 ### 4.template
 存放前端的静态html文件
 ### 5.根目录下的其他文件
@@ -34,4 +34,6 @@ python manage.py runserver
 - nacnit.sql：咱们服务的SQL转储文件，这是备份
 
 ## 四、近期留言：
-简单把models连通一下，搞了个简单的登陆注册用于测试连通（后面界面肯定要修改）
+- user和application的视图完毕，调用因为缺少前端，post方法我没法正常测试，数据库连通应该是没问题的
+- login和register稍微定义了一点点的逻辑，这个写login和register的人可以看看，尤其是register的，当然界面本质上只写了逻辑
+- **_(:з」∠)_那个回头哈**，咱都把css和js尽量写status里（我承认我在register里也犯懒了），自己命个名比如index.css或者index.js啥的，然后拿来引用调用，现在看着是没多大事哈，要是全塞html里后面连通后就成灾难了，不然后面**血压会有点高**

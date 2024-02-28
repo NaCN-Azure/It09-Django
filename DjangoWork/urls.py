@@ -22,6 +22,7 @@ from django.urls import path, re_path
 
 # 我说明一下，这个name字段是给前端html获取这个url的名称，比如{% url 'get_user_info' 1 %}，就会得到userInfo/1，虽然不知道为什么出现在这里
 # user的地方除了info没有其他返回的，具体返回的数据被分装在Json里，具体的你们可以去看get_user_info的逻辑，前端可以通过字典拿到那个json,其他的get方法你可以沿用这个逻辑
+# 一般而言，调用时肯定要用到ajax
 urlpatterns = [
     #这部分就是主要的视图方法
     path('admin/', admin.site.urls),
@@ -36,6 +37,7 @@ urlpatterns = [
 
     path("index/",job_views.index_view, name='index'),
 
+    #application视图部分
     path('application/create/', apply_views.create_application_view, name='create_application'),
     path('application/update/<int:application_id>/', apply_views.update_application_status_view, name='update_application_status'),
     path('application/searchByUser/<int:user_id>/', apply_views.get_applications_by_user_view, name='get_applications_by_user'),

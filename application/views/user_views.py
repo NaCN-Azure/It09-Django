@@ -28,7 +28,10 @@ def login_view(request):
         if user_service.login_user(request, form):
             return redirect(reverse('index'))
     return render(request, 'login.html', {'form': form})
-''''''
+
+'''
+根据用户id获取用户的所有信息
+'''
 @login_required
 def get_user_info(request, user_id):
     user_info = user_service.get_user_info(user_id)
@@ -37,6 +40,9 @@ def get_user_info(request, user_id):
     else:
         return JsonResponse({'error': 'User not found'}, status=404)
 
+'''
+根据用户id更新用户信息（除密码）
+'''
 @require_POST
 @login_required
 def update_user_info(request, user_id):
@@ -46,6 +52,9 @@ def update_user_info(request, user_id):
     else:
         return JsonResponse({'error': 'User not found'}, status=404)
 
+'''
+根据请求修改密码，貌似根据Django的安全性，不让我直接传id
+'''
 @login_required
 def change_password(request):
     user = request.user
@@ -57,6 +66,10 @@ def change_password(request):
     else:
         return JsonResponse({'error': 'Wrong password'}, status=400)
 
+
+'''
+登出用户
+'''
 def logout_user(request):
     user_service.logout_user(request)
     return HttpResponseRedirect(reverse('login')) #这个重定向回头需要改一下，暂时这样
