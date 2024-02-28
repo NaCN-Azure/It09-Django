@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Job Seeker Information
+{% endblock %}
+
+
+{% block body_block %}
+
+<!-- My profile部分 -->
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    My Profile
+</h3>
+
+<div class="bd-content ps-lg-2 pb-4 mb-2">
+    <ul>
+        <li><strong>Username:</strong> zhangsan</li>
+        <li><strong>Age:</strong> 22</li>
+        <li><strong>Phone:</strong> +44 07123456789</li>
+        <li><strong>Email:</strong> zhangsan@gmail.com</li>
+        <li><strong>City:</strong> Glasgow</li>
+        <li><strong>Self Description:</strong> I am a highly motivated and results-driven professional
+            with a
+            strong background in IT. With a proven track record of 3
+            of experience, I bring a unique blend of technical expertise, strategic
+            thinking,
+            and effective communication skills.
+        </li>
+    </ul>
+</div>
+
+
+<!-- My Jobs部分 -->
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    My Jobs
+</h3>
+
+<div class="bd-content ps-lg-2  pb-4 mb-4 ">
+    <div class=list-group>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Administrator</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">Lidl</p>
+            <p class="mb-1">Glasgow G41</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Restaurant Customer Advisor</h4>
+                    <small class="text-muted">5 days ago</small>
+            </div>
+            <p class="mb-1">Dobbies Garden Centres Ltd</p>
+            <p class="mb-1">Glasgow G21</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Accounts Assistant</h4>
+                    <small class="text-muted">7 days ago</small>
+            </div>
+            <p class="mb-1">Architectural Ironmongers</p>
+            <p class="mb-1">Glasgow</p>
+        </a>
+    </div>
+</div>
+
+
+<!-- My reviews部分 -->
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    My Reviews
+</h3>
+
+<div class="bd-content ps-lg-2  pb-4 mb-4 ">
+    <div class=list-group>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Lottery Fundraiser</h4>
+            </div>
+            <p class="mb-1">Excel Fundraising</p>
+            <p class="mb-1">Rate: 3.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
+                                has
+                                been a positive experience for
+                                me.
+                                Having a supportive and understanding boss has made the work environment
+                                enjoyable.</span></p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Lottery Fundraiser</h4>
+            </div>
+            <p class="mb-1">Excel Fundraising</p>
+            <p class="mb-1">Rate: 3.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
+                                has
+                                been a positive experience for
+                                me.
+                                Having a supportive and understanding boss has made the work environment
+                                enjoyable.</span></p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Lottery Fundraiser</h4>
+            </div>
+            <p class="mb-1">Excel Fundraising</p>
+            <p class="mb-1">Rate: 3.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
+                                has
+                                been a positive experience for
+                                me.
+                                Having a supportive and understanding boss has made the work environment
+                                enjoyable.</span></p>
+        </a>
+    </div>
+</div>
+
+
+{% endblock %}

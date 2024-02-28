@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+Company Information
+{% endblock %}
+
+
+{% block body_block %}
+
+<!-- My profile部分 -->
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    My Profile
+</h3>
+
+<div class="bd-content ps-lg-2 pb-4 mb-2">
+    <ul>
+        <li><strong>Company Name:</strong> Lidl</li>
+        <li><strong>Phone:</strong> +44 07123456789</li>
+        <li><strong>Email:</strong> Lidluk@gmail.com</li>
+        <li><strong>City:</strong> Glasgow</li>
+        <li><strong>Address:</strong> G2 61N</li>
+        <li><strong>Company Introduction:</strong> Lidl is a leading global supermarket chain known for
+            its commitment to providing high-quality products at affordable prices. With a strong
+            presence in the retail industry, we strive to make shopping convenient, enjoyable, and
+            budget-friendly for our customers.
+        </li>
+    </ul>
+</div>
+
+
+<!-- My Posts部分 -->
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    My Posts
+</h3>
+
+<div class="bd-content ps-lg-2  pb-4 mb-4 ">
+    <div class=list-group>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Sales Associate</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">Salary: £18.90 / hour</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Sales Associate</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">Salary: £18.90 / hour</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Sales Associate</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">Salary: £18.90 / hour</p>
+        </a>
+    </div>
+</div>
+
+
+<!-- My reviews部分 -->
+<h3 class="pb-4 mb-4 fst-italic border-bottom">
+    My Reviews
+</h3>
+
+<div class="bd-content ps-lg-2  pb-4 mb-4 ">
+    <div class=list-group>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">shangsan</h4>
+            </div>
+            <p class="mb-1">Job: Sales Associate</p>
+            <p class="mb-1">Rate: 3.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">He consistently demonstrated excellent
+                                customer service skills, always ensuring that our shoppers had a positive and
+                                satisfying experience. Their friendly demeanor, coupled with a strong product
+                                knowledge, made them a valuable asset in assisting customers with their inquiries
+                                and product choices.</span></p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">shangsan</h4>
+            </div>
+            <p class="mb-1">Job: Sales Associate</p>
+            <p class="mb-1">Rate: 3.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">He consistently demonstrated excellent
+                                customer service skills, always ensuring that our shoppers had a positive and
+                                satisfying experience. Their friendly demeanor, coupled with a strong product
+                                knowledge, made them a valuable asset in assisting customers with their inquiries
+                                and product choices.</span></p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">shangsan</h4>
+            </div>
+            <p class="mb-1">Job: Sales Associate</p>
+            <p class="mb-1">Rate: 5.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">This student exhibited great attention
+                                to detail
+                                in maintaining the store's appearance and cleanliness. Their commitment to keeping
+                                shelves organized and well-stocked significantly contributed to a pleasant shopping
+                                environment for our customers..</span></p>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
