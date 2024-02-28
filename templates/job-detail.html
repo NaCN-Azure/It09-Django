@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% block title_block %}Weekend Serviced Apartment Assistance(Reception){% endblock %}
+<html lang="en">
+   
+    <body>
+        {% block body_block %}
+        <style>
+
+            body, html {
+                height: 100%;
+                margin-left: 20px;
+                padding: 0;
+                overflow-x: hidden; 
+                margin-left: 0;
+
+            }
+
+            .row {
+                height: 100%;
+            }
+
+            .col-8 {
+                height: 100%;
+                overflow: auto; /* Allow scrolling in the content area if needed */
+            }
+
+            .job-details {
+                border-top: 2px solid #dcdcdc; /* Add a 2px solid border at the top with a light gray color */
+                padding-top: 20px; /* Add some padding to separate the border from the content */
+                margin-top: 20px;  
+                color: #474747;   
+            }
+
+            .fixed-sidebar {
+                position: fixed;
+                top: 4.6em ;
+                right: 0;
+                height: 100%;
+                padding: 2em;
+                border-left: 1px solid #dcdcdc;
+                width: 30%;
+                max-width: 300px;          
+            }
+            .review-section {
+                background-color: #f5f5f5; /* Background color for the entire review section */
+                padding: 20px;
+                border-radius: 10px;
+                
+            }
+
+            .review-form {
+                margin: 20px;
+                
+            }
+
+            .star-container {
+                display: inline-block;
+                font-size: 24px;
+                cursor: pointer;
+            }
+
+            .star {
+                display: inline-block;
+                margin-right: 10px;
+                font-size: 32px;
+            }
+
+            .star.selected {
+                color: #f8d150; 
+            }
+            .review-block {
+                border-bottom: 1px solid #dcdcdc;
+                padding-bottom: 10px;  
+                margin: 20px;
+            }
+            
+
+        </style>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-8 offset-md-1">
+                    <h4>Weekend Serviced Apartment Assistance(Reception)</h4>
+                    <h6>xxxx company</h6>
+
+                    <div class = "job-details">
+                        <h5>Job Details</h5>
+                            <p>&#128181; Salary: £10.75 an hour</p>
+                            <p>&#9201; Job Type: Temporary</p>
+                            <p>&#128187; Remote: In-Person</p>
+                            <p>&#9201; Shift and Schedule: weekend availability</p>
+                            <p>&#127891; Education Level Requirement: GCSE</p>
+                            <p>&#128172; Skills: Communication, Attention to details</p>    
+                    </div>
+
+                    <div class="job-details">
+                        <h5>Full Job Description</h5>
+                            <p>WE ARE LOOKING FOR A PART TIME RECEPTIONIST FOR OUR SMALL LUXURY HOTEL IN THE HEART OF THE PEAK DISTRICT- WORKING THURSDAY AND FRIDAY FROM 3PM UNTIL 11.30PM- Must be able to commute.</p>
+                            <p>The management and staff of this popular hotel pride themselves on creating an atmosphere like no other hotel - a really personal service with a 'can do' attitude. We are looking for a candidate with previous reception experience.</p>
+                            <p>As one of our Reception Team, you will ensure that the highest standards of hospitality and welcome are demonstrated at all times on front desk. We are looking for a bright personality - someone who can communicate at all levels and has a great telephone manner. You will be responsible for answering all telephone calls both reservations and general enquiries. You will develop a good knowledge of the hotel's facilities and local knowledge providing our guests with an exceptional level of customer service at all times and promoting the reputation of the hotel. During your shift you will be responsible for ensuring the smooth running of the reception area, managing your time efficiently whilst taking and entering reservations into the Hotel Executive system and dealing with confirmation letters and any other correspondence. Also our restaurant billing is performed by our Receptionists, both cash and credit cards.</p>
+                            <p>The position is 17hrs per week and 2 late shifts every Thursday and Friday. The shift starts at 3pm and finishes at 11.30pm, maybe later on busier nights. We are looking for a very special person who is friendly, professional, polite and bubbly with excellent customer service skills. The ideal candidate must have previous reception experience (not necessarily within a hospitality setting) and a knowledge of Front Office Systems would be a benefit, but not essential. Your application will not be considered if you do not have any form of reception experience.</p>
+                    </div>
+                    
+
+                    <div class="review-section text-center">
+                        <h4><b>Reviews</b></h4>
+
+                        <div class="review-form">
+                            <h5><b>Leave Your Review</b></h5>
+                            <div class="mb-3">
+                                <label for="starRating" class="form-label"><b>Rating:</b></label>
+                                    <div id="star1" class="star">&#9733;</div>
+                                    <div id="star2" class="star">&#9733;</div>
+                                    <div id="star3" class="star">&#9733;</div>
+                                    <div id="star4" class="star">&#9733;</div>
+                                    <div id="star5" class="star">&#9733;</div>
+                                <input type="hidden" id="starRating" name="starRating" value="0">
+                            </div>
+        
+                            <div class="mb-3">
+                                <label for="comment" class="form-label"><b>Your Comments:</b></label>
+                                <textarea class="form-control" id="comment" rows="3"></textarea>
+                            </div>
+    
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary btn-success">Submit Review</button>
+                            </div>
+                        </div>
+        
+                        <div class="review-block">
+                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
+                            <p>Customer review content goes here...</p>
+                        </div>
+    
+                        <div class="review-block">
+                            <div class="star-rating">⭐⭐⭐⭐</div>
+                            <p>Another customer review content goes here...</p>
+                        </div>
+    
+                    </div>
+                </div>
+        
+                <div class="col-4">
+                    <div class="fixed-sidebar">
+                        <button class="btn btn-primary btn-success btn-lg btn-block d-block" onclick="showPopup()">Apply Now</button>
+                    </div>
+                </div>
+            </div>   
+        </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <!--for add reviews-->
+        <script>
+            $(document).ready(function () {
+                $('.star').on('click', function () {
+                    const starNumber = $(this).index() ;
+    
+                    // Reset all stars to default state
+                    $('.star').removeClass('selected');
+    
+                    // Highlight selected stars
+                    for (let i = 1; i <= starNumber; i++) {
+                        $(`#star${i}`).addClass('selected');
+                    }
+    
+                    // Update the hidden input value
+                    $('#starRating').val(starNumber);
+                });
+            });
+        </script>
+       
+        <!--for add comment in to database-->
+        <script>
+        $(document).ready(function () {
+            // Function to submit a review
+            function submitReview() {
+                // Get the selected star rating and comment
+                const starRating = $('#starRating').val();
+                const comment = $('#comment').val();
+        
+                // AJAX request to submit the review
+                $.ajax({
+                    url: '/index/job_detail', // Replace with your actual endpoint
+                    method: 'POST',
+                    data: { starRating: starRating, comment: comment },
+                    dataType: 'json',
+                    success: function (response) {
+                        // Assuming your server returns the new review data in the response
+                        const newReview = response.review;
+        
+                        // Clear the comment input
+                        $('#comment').val('');
+        
+                        // Update the review section with the new review
+                        const reviewBlock = $('<div class="review-block"></div>');
+                        reviewBlock.append($('<div class="star-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>'));
+                        reviewBlock.append($('<p>').text(newReview.comment));
+        
+                        // Prepend the new review to the existing reviews
+                        $('.review-section').prepend(reviewBlock);
+                    },
+                    error: function (error) {
+                        console.error('Error submitting review:', error);
+                    }
+                });
+            }
+        
+            // Event listener for the submit button
+            $('.btn-primary').on('click', function () {
+                submitReview();
+            });
+        });
+        </script>
+
+        <script>
+            function showPopup() {
+                alert("Application submitted successfully!");
+            }
+        </script>
+       
+        {% endblock %}
+
+    </body>
+    
+</html>
