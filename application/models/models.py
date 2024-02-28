@@ -3,11 +3,34 @@ from .user_model import User
 
 class Job(models.Model):
     JOB_TYPE_CHOICES = (
-        (1, 'part-time'),
-        (2, 'full-time'),
+        (1, 'Part-Time'),
+        (2, 'Temporary'),
+        (3,'Volunteer')
     )
-    employer = models.ForeignKey(User,on_delete=models.CASCADE)
-    type = models.PositiveSmallIntegerField(choices=JOB_TYPE_CHOICES)
+    JOB_REQUEST_CHOICES = (
+        (1,'Foundation Degree'),
+        (2,'GCSE'),
+        (3,'Certificate of Higher Education'),
+        (4,'Bachelor\'s Degree')
+    )
+    JOB_REMOTE_CHOICES  = (
+        (1,'In-Person'),
+        (2,'Hybrid'),
+        (3,'Remote')
+    )
+    JOB_INDUSTRY_CHOICES = (
+        (1,'Retail'),
+        (2,'Construction, Repair and Maintenance Services'),
+        (3,'Personal Customer Services'),
+        (4,'Restaurants & Food Services'),
+        (5,'Hotel & Travel Accommodation'),
+        (6,'Others'),
+    )
+    employer = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    type = models.PositiveSmallIntegerField(choices=JOB_TYPE_CHOICES,null=True)
+    requirement = models.PositiveSmallIntegerField(choices=JOB_REQUEST_CHOICES,null=True)
+    remote = models.PositiveSmallIntegerField(choices=JOB_REMOTE_CHOICES,null=True)
+    industry = models.PositiveSmallIntegerField(choices=JOB_INDUSTRY_CHOICES,null=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     postcode = models.CharField(max_length=255)

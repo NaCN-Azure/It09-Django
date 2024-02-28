@@ -31,7 +31,7 @@ urlpatterns = [
     path('register/<int:user_type>', user_views.register, name='register'),
     path('login/', user_views.login_view, name='login'),
     path('userInfo/<int:user_id>/', user_views.get_user_info, name='get_user_info'),
-    path('user/<int:user_id>/update/', user_views.update_user_info, name='update_user_info'),
+    path('userInfo/<int:user_id>/update/', user_views.update_user_info, name='update_user_info'),
     path('logout/', user_views.logout_user, name='logout'),
     path('userInfo/<int:user_id>/change_password/', user_views.change_password, name='change_password'),
 
