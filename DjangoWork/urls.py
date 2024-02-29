@@ -43,8 +43,8 @@ urlpatterns = [
     
     
     path("index/",job_views.index_view, name='index'), #这里对应的应该是list_jobs_by_city_view,但是还不清楚怎么连
-    path("index/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId')
-    path("index/searchByCity/<str:city>/",job_views.list_jobs_by_city_view, name='list_jobs_by_city')
+    path("index/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId'),
+    path("index/searchByCity/<str:city>/",job_views.list_jobs_by_city_view, name='list_jobs_by_city'),
     # path("index/searchByJobtype/<int:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry')
     # path("index/searchByIndustry/<int:type>//",job_views.list_jobs_by_jobtype_view, name='list_jobs_by_jobtype')
     # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
