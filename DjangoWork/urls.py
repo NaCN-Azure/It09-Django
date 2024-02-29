@@ -35,7 +35,21 @@ urlpatterns = [
     path('logout/', user_views.logout_user, name='logout'),
     path('userInfo/<int:user_id>/change_password/', user_views.change_password, name='change_password'),
 
-    path("index/",job_views.index_view, name='index'),
+    #Employer
+    path("employer/createJob/",job_views.create_job_view, name='create_job'),
+    path("employer/updateJob/<int:job_id>/",job_views.update_job_view, name='update_job'),
+    path("employer/jobsByTitle/",job_views.list_jobs_by_employer_orderBytitle_view, name='list_jobs_by_employer_orderBytitle'),
+    path("employer/jobsByTime/",job_views.list_jobs_by_employer_orderBytime_view, name='list_jobs_by_employer_orderBytime'),
+    
+    
+    path("index/",job_views.index_view, name='index'), #这里对应的应该是list_jobs_by_city_view,但是还不清楚怎么连
+    path("index/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId')
+    path("index/searchByCity/<str:city>/",job_views.list_jobs_by_city_view, name='list_jobs_by_city')
+    # path("index/searchByJobtype/<int:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry')
+    # path("index/searchByIndustry/<int:type>//",job_views.list_jobs_by_jobtype_view, name='list_jobs_by_jobtype')
+    # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
+    # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
+    # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
 
     #application视图部分
     path('application/create/', apply_views.create_application_view, name='create_application'),

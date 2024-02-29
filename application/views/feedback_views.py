@@ -1,13 +1,54 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
-def index(request):
-    # request.POST
-    # request.GET
-    return HttpResponse("Yeah!")
-# Create your views here.
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from application.services import feedback_service  
+from django.contrib.auth.decorators import login_required
 
-def index_view(request):
-    return render(request, 'index.html')
+'''
+add feedback for the user
+'''
+@require_http_methods(["POST"])
+@login_required
+def add_feedback_view(request):
+   
+    job_id = request.POST.get('job_id')
+    user_id = request.POST.get('user_id')
+    feedback = feedback_service.add_feedback(request, user_id, job_id)
+    return JsonResponse({'message': 'Feedback added'})
+ 
+    
+'''
+delete feedback for user
+'''
+@require_http_methods(["DELETE"])
+@login_required
+def delete_feedback_view(request, feedback_id):
+    feedback_service.delete_feedback(feedback_id)
+    return JsonResponse({'message': 'Feedback deleted'})
+    
 
-def job_detail_view(request):
-    return render(request, 'job-detail.html')
+'''
+return the average rate for the job
+'''
+@require_http_methods(["GET"])
+@login_required
+def job_average_rate_view(request, job_id):
+    average_rate = feedback_service.job_average_rate(request, job_id)
+    if average_rate is not None:
+        return JsonResponse({'average_rate': average_rate})
+    else:
+        return JsonResponse({'error': 'No feedback found for this job'}, status=404)
+    
+
+'''
+return the feedbacks list for the user
+'''
+@require_http_methods(["GET"])
+@login_required
+def get_feedbacks_by_user_view(request, user_id):
+    feedbacks = feedback_service.get_feedbacks_by_user(user_id)
+    feedbacks_data = list(feedbacks.value('user','job__title','rate','comment','date'))
+    return JsonResponse({'feedbacks': feedbacks_data})
+    
+    

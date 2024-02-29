@@ -42,19 +42,22 @@ def get_jobs_by_employer_orderBytitle(employer_id):
 def get_jobs_by_employer_orderBytime(employer_id):
     return Job.objects.filter(employer_id=employer_id).order_by('start_date')
 
-#Job seeker side function
+#all user side function
 
 def get_job_by_jobID(job_id):
     try:
         return Job.objects.get(pk=job_id)
     except Job.DoesNotExist:
         return None
+    
+def get_all_jobs():
+    return Job.objects.all().order_by('title')
 
 def get_jobs_by_city(city):
     return Job.objects.filter(city=city).order_by('title')
 
 def get_jobs_by_industry(industry):
-    return Job.objects.filter(industry=industry).order_by('title')\
+    return Job.objects.filter(industry=industry).order_by('title')
 
 def get_jobs_by_jobtype(type):
     return Job.objects.filter(type=type).order_by('title')

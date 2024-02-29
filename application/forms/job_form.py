@@ -1,10 +1,10 @@
 from django import forms
-from .models import Job, User
+from application.models import Job, User
 
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ['__all__']
+        fields = '__all__'
         
     def clean(self):
         cleaned_data = super().clean()
