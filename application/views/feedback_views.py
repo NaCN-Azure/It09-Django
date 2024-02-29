@@ -11,12 +11,10 @@ add feedback for the user
 @require_http_methods(["POST"])
 @login_required
 def add_feedback_view(request):
-   
     job_id = request.POST.get('job_id')
     user_id = request.POST.get('user_id')
-    feedback = feedback_service.add_feedback(request, user_id, job_id)
+    feedback_service.add_feedback(request, user_id, job_id)
     return JsonResponse({'message': 'Feedback added'})
- 
     
 '''
 delete feedback for user
@@ -48,6 +46,13 @@ return the feedbacks list for the user
 @login_required
 def get_feedbacks_by_user_view(request, user_id):
     feedbacks = feedback_service.get_feedbacks_by_user(user_id)
+    feedbacks_data = list(feedbacks.value('user','job__title','rate','comment','date'))
+    return JsonResponse({'feedbacks': feedbacks_data})
+
+@require_http_methods(["GET"])
+@login_required
+def get_feedbacks_by_job_view(request, job_id):
+    feedbacks = feedback_service.get_feedbacks_by_job(job_id)
     feedbacks_data = list(feedbacks.value('user','job__title','rate','comment','date'))
     return JsonResponse({'feedbacks': feedbacks_data})
     

@@ -29,6 +29,9 @@ def get_average_rate_by_job(job):
     average_rate = Feedback.objects.filter(job=job).aggregate(average_rate=Avg('rate'))
     return average_rate['average_rate']
 
-def get_feedbacks_by_user(use):
+def get_feedbacks_by_user(user):
     return Feedback.objects.filter(user=user).order_by('date')
+
+def get_feedbacks_by_job(job):
+    return Feedback.objects.filter(job=job).order_by('date')
 

@@ -25,7 +25,12 @@ from django.urls import path, re_path
 # 一般而言，调用时肯定要用到ajax
 urlpatterns = [
     #这部分就是主要的视图方法
+    #这部分是静态的测试区域
     path('admin/', admin.site.urls),
+    path('index/',job_views.index,name='index'),
+    path('index/job_detail', job_views.job_detail, name='index'),
+    path('index/job/', job_views.job_info, name='index'),
+    path('index/seek/', job_views.job_em, name='index'),
 
     #user视图部分
     path('register/<int:user_type>', user_views.register, name='register'),
@@ -36,24 +41,23 @@ urlpatterns = [
     path('userInfo/<int:user_id>/change_password/', user_views.change_password, name='change_password'),
 
     #Employer
-    path("employer/createJob/",job_views.create_job_view, name='create_job'),
-    path("employer/updateJob/<int:job_id>/",job_views.update_job_view, name='update_job'),
-    path("employer/jobsByTitle/",job_views.list_jobs_by_employer_orderBytitle_view, name='list_jobs_by_employer_orderBytitle'),
-    path("employer/jobsByTime/",job_views.list_jobs_by_employer_orderBytime_view, name='list_jobs_by_employer_orderBytime'),
-    
-    
-    path("index/",job_views.index_view, name='index'), #这里对应的应该是list_jobs_by_city_view,但是还不清楚怎么连
-    path("index/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId')
-    path("index/searchByCity/<str:city>/",job_views.list_jobs_by_city_view, name='list_jobs_by_city')
-    # path("index/searchByJobtype/<int:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry')
-    # path("index/searchByIndustry/<int:type>//",job_views.list_jobs_by_jobtype_view, name='list_jobs_by_jobtype')
-    # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
-    # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
-    # path("index/searchByIndustry/<str:industry>/",job_views.list_jobs_by_industry_view, name='list_jobs_by_industry_view')
+    path("job/createJob/",job_views.create_job_view, name='create_job'),
+    path("job/updateJob/<int:job_id>/",job_views.update_job_view, name='update_job'),
+    path("job/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId'),
+    path("job/getByEmployer/<int:employer_id>/",job_views.list_jobs_by_employer, name='get_job_by_employer_Id'),
+    path("job/getAll/",job_views.list_all_jobs_view, name='get_job_all'),
 
     #application视图部分
     path('application/create/', apply_views.create_application_view, name='create_application'),
     path('application/update/<int:application_id>/', apply_views.update_application_status_view, name='update_application_status'),
     path('application/searchByUser/<int:user_id>/', apply_views.get_applications_by_user_view, name='get_applications_by_user'),
     path('application/searchByJob/<int:job_id>/', apply_views.get_applications_by_job_view, name='get_applications_by_job'),
+
+    #feedback视图部分
+    path('feedback/create/',feedback_views.add_feedback_view,name='create_feedback'),
+    path('feedback/delete/<int:feedback_id>/',feedback_views.delete_feedback_view,name='delete_feedback'),
+    path('feedback/getRateAverage/<int:job_id>',feedback_views.job_average_rate_view,name='get_average_view'),
+    path('feedback/getByUser/<int:user_id>',feedback_views.get_feedbacks_by_user_view,name='get_feedback_by_user'),
+    path('feedback/getByJob/<int:job_id>',feedback_views.get_feedbacks_by_job_view,name='get_feedback_by_job')
+
 ]

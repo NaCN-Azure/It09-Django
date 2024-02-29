@@ -2,8 +2,8 @@ pyc
 .DS_Store
 __pycache__/
 *.key
+*.pyc
 nacnit.sql
 thumbs.db
-*.pyc
 *.pyo
 *.pyd

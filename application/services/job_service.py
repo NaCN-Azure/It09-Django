@@ -36,11 +36,8 @@ def update_job_info(job_id, data):
     except Job.DoesNotExist:
         return False
     
-def get_jobs_by_employer_orderBytitle(employer_id):
-    return Job.objects.filter(employer_id=employer_id).order_by('title')
-
-def get_jobs_by_employer_orderBytime(employer_id):
-    return Job.objects.filter(employer_id=employer_id).order_by('start_date')
+def get_jobs_by_employer(employer_id):
+    return Job.objects.filter(employer_id=employer_id)
 
 #all user side function
 
@@ -52,24 +49,6 @@ def get_job_by_jobID(job_id):
     
 def get_all_jobs():
     return Job.objects.all().order_by('title')
-
-def get_jobs_by_city(city):
-    return Job.objects.filter(city=city).order_by('title')
-
-def get_jobs_by_industry(industry):
-    return Job.objects.filter(industry=industry).order_by('title')
-
-def get_jobs_by_jobtype(type):
-    return Job.objects.filter(type=type).order_by('title')
-
-def get_jobs_by_remote(remote):
-    return Job.objects.filter(remote=remote).order_by('title')
-
-def get_jobs_by_salaryHightoLow():
-    return Job.objects.all().order_by('-salary')
-
-def get_jobs_by_salaryLowtoHigh():
-    return Job.objects.all().order_by('salary')
 
 
         
