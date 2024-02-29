@@ -59,7 +59,21 @@ Return the job info selected by user
 @login_required
 def get_job_by_jobId_view(request, job_id):
     job = job_service.get_job_by_jobID(job_id)
-    return JsonResponse({'job_info': job})
+    job_info = {
+            'title': job.title,
+            'description': job.description,
+            "type": job.get_type_display(),
+            "requirement": job.get_requirement_display(),
+            "remote":  job.get_remote_display(),
+            "industry":  job.get_industry_display(),
+            "postcode":  job.postcode,
+            "start_date":  job.start_date,
+            "end_date":  job.end_date,
+            "city":  job.city,
+            "salary": job.salary,
+            "other": job.other,
+        }
+    return JsonResponse({'job_info': job_info})
 
 '''
 List all the job for user 
@@ -72,8 +86,26 @@ def list_all_jobs_view(request):
     return JsonResponse({'jobs': jobs_data})
    
 def serialize_jobs(jobs):
-    return list(jobs.values('id', 'title', 'type','requirement', 'remote','industry','description',
-                            'postcode','start_date','end_date','city','salary','other'))
+    # return list(jobs.values('id', 'title', 'type','requirement', 'remote','industry','description',
+    #                         'postcode','start_date','end_date','city','salary','other'))
+    jobs_data = []
+    for job in jobs:
+        job_dict = {
+            'title': job.title,
+            'description': job.description,
+            'type': job.get_type_display(),  # 使用 get_FOO_display() 获取描述性字符串
+            'requirement': job.get_requirement_display(),
+            'remote': job.get_remote_display(),
+            'industry': job.get_industry_display(),
+            'postcode': job.postcode,
+            'start_date': job.start_date,
+            'end_date': job.end_date,
+            'city': job.city,
+            'salary': job.salary,
+            'other': job.other,
+        }
+        jobs_data.append(job_dict)
+    return jobs_data
 
 
 
