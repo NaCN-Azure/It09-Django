@@ -16,6 +16,7 @@ def update_application_status(pk, new_status):
     application = Application.objects.get(pk=pk)
     application.status = new_status
     application.save()
+    return True
 
 def get_applications_by_user(user_id):
     return Application.objects.filter(user_id=user_id).order_by('status')

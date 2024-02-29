@@ -4,15 +4,16 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from application.services import feedback_service  
 from django.contrib.auth.decorators import login_required
-
+import json
 '''
 add feedback for the user
 '''
 @require_http_methods(["POST"])
 @login_required
 def add_feedback_view(request):
-    job_id = request.POST.get('job_id')
-    user_id = request.POST.get('user_id')
+    data = json.loads(request.body.decode('utf-8'))
+    job_id = data.get('job_id')
+    user_id = data.get('user_id')
     feedback_service.add_feedback(request, user_id, job_id)
     return JsonResponse({'message': 'Feedback added'})
     
@@ -46,14 +47,14 @@ return the feedbacks list for the user
 @login_required
 def get_feedbacks_by_user_view(request, user_id):
     feedbacks = feedback_service.get_feedbacks_by_user(user_id)
-    feedbacks_data = list(feedbacks.value('user','job__title','rate','comment','date'))
+    feedbacks_data = list(feedbacks.values('user','job__title','rate','comment','date'))
     return JsonResponse({'feedbacks': feedbacks_data})
 
 @require_http_methods(["GET"])
 @login_required
 def get_feedbacks_by_job_view(request, job_id):
     feedbacks = feedback_service.get_feedbacks_by_job(job_id)
-    feedbacks_data = list(feedbacks.value('user','job__title','rate','comment','date'))
+    feedbacks_data = list(feedbacks.values('user','job__title','rate','comment','date'))
     return JsonResponse({'feedbacks': feedbacks_data})
     
     

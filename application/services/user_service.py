@@ -50,6 +50,7 @@ def update_user_info(user_id, data):
     try:
         user = User.objects.get(pk=user_id)
         user.user_name = data.get('user_name', user.user_name)
+        user.email= data.get('email', user.email)
         user.phone = data.get('phone', user.phone)
         user.city = data.get('city', user.city)
         user.save()
@@ -60,14 +61,12 @@ def update_user_info(user_id, data):
         return False
 
 
-def change_password(user, old_password, new_password):
-    if user.check_password(old_password):
-        user.set_password(new_password)
-        user.save()
-        update_last_login(None, user)
-        return True
-    else:
-        return False
+def change_password(user_id, new_password):
+    user = User.objects.get(pk=user_id)
+    user.set_password(new_password)
+    user.save()
+    update_last_login(None, user)
+    return True
 
 
 def logout_user(request):

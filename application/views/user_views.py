@@ -8,6 +8,9 @@ from django.views.decorators.http import require_POST
 
 from application.forms.user_form import CustomUserCreationForm, CustomLoginForm
 from application.services import user_service
+from django.middleware.csrf import get_token
+import json
+
 
 '''
 用户注册，获取用户的表单填写，成功与否进行跳转
@@ -46,22 +49,21 @@ def get_user_info(request, user_id):
 @require_POST
 @login_required
 def update_user_info(request, user_id):
-    data = request.JSON
+    data = json.loads(request.body.decode('utf-8'))  # 正确获取 JSON 数据
+    print(data)
     if user_service.update_user_info(user_id, data):
         return JsonResponse({'success': 'User information updated successfully'})
     else:
         return JsonResponse({'error': 'User not found'}, status=404)
 
 '''
-根据请求修改密码，貌似根据Django的安全性，不让我直接传id
+根据请求修改密码，回头根据安全性，可能需要改为请求
 '''
 @login_required
-def change_password(request):
-    user = request.user
-    data = request.JSON
-    old_password = data.get('old_password')
+def change_password(request,user_id):
+    data = json.loads(request.body.decode('utf-8'))
     new_password = data.get('new_password')
-    if user_service.change_password(user, old_password, new_password):
+    if user_service.change_password(user_id, new_password):
         return JsonResponse({'success': 'Password changed successfully'})
     else:
         return JsonResponse({'error': 'Wrong password'}, status=400)

@@ -2,15 +2,15 @@ from django.shortcuts import render
 from application.services import apply_service
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-
+import json
 '''
 表单获取user_id和job_id，以此创建一个申请的对象
 '''
 @require_http_methods(["POST"])
 def create_application_view(request):
-    # 获取 user_id 和 job_id，这里用表单获取
-    user_id = request.POST.get('user_id')
-    job_id = request.POST.get('job_id')
+    data = json.loads(request.body.decode('utf-8'))
+    user_id = data.get('user_id')
+    job_id = data.get('job_id')
     application = apply_service.create_application(user_id, job_id)
     return JsonResponse({'message': 'Application created successfully', 'id': application.id})
 
@@ -20,7 +20,8 @@ def create_application_view(request):
 '''
 @require_http_methods(["POST"])
 def update_application_status_view(request, application_id):
-    new_status = request.POST.get('status')
+    data = json.loads(request.body.decode('utf-8'))
+    new_status = data.get('status')
     success = apply_service.update_application_status(application_id, new_status)
     if success:
         return JsonResponse({'message': 'Application status updated successfully'})
