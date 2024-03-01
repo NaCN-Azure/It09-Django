@@ -6,70 +6,15 @@
     <!-- ... -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-/* General body styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Styles for the login container */
-.login-container {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-}
-
-/* Heading styles */
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-/* Styles for form inputs */
-input[type="text"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-}
-
-/* Styles for buttons */
-button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  color: #fff;
-  cursor: pointer;
-}
-
-/* Specific styles for the register button */
-.register-button {
-  background-color: #007bff;
-  margin-bottom: 10px;
-}
-
-/* Specific styles for the sign-in button */
-.signin-button {
-  background-color: #28a745;
-}
-
-/* Styles for the 'forgot password' link */
-.forgot-password {
-  text-align: center;
-  display: block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: none;
-}
+<body>
+    <div class="login-container">
+        <h2>登录</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">登录</button>
+        </form>
+        <p>没有账号？<a href="{% url 'register' user_type=1 %}">注册</a></p>
+    </div>
+</body>
 </html>
