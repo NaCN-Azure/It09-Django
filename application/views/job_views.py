@@ -23,10 +23,15 @@ def job_em(request):
 @require_http_methods(["POST"])
 @login_required
 def create_job_view(request):
-    form = JobForm(request.POST or None)
-    employer_id = request.POST.get('employer')
-    job = job_service.create_job(request, form, employer_id)
-    return JsonResponse({'message': 'Job created successfully'})
+    data = json.loads(request.body.decode('utf-8'))
+    employer_id = data.get('employer_id')
+    if not employer_id:
+        return JsonResponse({'error': 'Employer ID is required'}, status=400)
+    job = job_service.create_job(request, employer_id, data)
+    if job:
+        return JsonResponse({'message': 'Job created successfully'})
+    else:
+        return JsonResponse({'error': 'Job creation failed'}, status=400)
 
 '''
 Update job view for Employer

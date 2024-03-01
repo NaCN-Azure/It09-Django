@@ -42,6 +42,33 @@ if login_response.status_code == 200:
 # 发送 POST 请求创建申请
     create_response = session.post(update_application_status_url, headers=login_headers, data=data)
 
+    job_data = json.dumps({
+            'title': 'Test Job',
+            'description': 'Test Description',
+            'type': 1,  # 假设对应的是'Part-Time'
+            'requirement': 1,  # 假设对应的是'Foundation Degree'
+            'remote': 1,  # 假设对应的是'In-Person'
+            'industry': 1,  # 假设对应的是'Retail'
+            'postcode': '12345',
+            'start_date':'2024-02-20',
+            'end_date':'2024-09-20',
+            'salary': 50000,
+            'city':None,
+            'other': 'Test Other Info',
+            'employer_id': 1,  # 使用创建的测试用户ID
+        })
+    
+
+# 发送创建工作职位的POST请求
+    job_create_url = "http://127.0.0.1:8000/job/createJob/"  # 假设这是创建工作职位的URL
+    job_response = session.post(job_create_url, headers=login_headers, data=job_data)
+
+    # 检查创建工作职位的响应
+    if job_response.status_code == 200:
+        print("工作职位创建成功：", job_response.json())
+    else:
+        print("工作职位创建失败：", job_response.text)
+
 # 检查响应
     if create_response.status_code == 200:
         print("申请创建成功：", create_response.json())

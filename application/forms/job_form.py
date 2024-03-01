@@ -6,12 +6,21 @@ class JobForm(forms.ModelForm):
         model = Job
         fields = '__all__'
         
-    def clean(self):
-        cleaned_data = super().clean()
-        city = cleaned_data.get('city')
-        employer_id = self.initial.get('employer_id')
+    def clean_city(self):
+        city = self.cleaned_data.get('city')
+        employer_id = self.cleaned_data.get('employer_id')
+        print(f"Original city: {city}, Employer ID: {employer_id}")
 
         if not city and employer_id:
-            employer = User.objects.get(pk=employer_id)
-            cleaned_data['city'] = employer.city
+            try:
+                employer = User.objects.get(pk=employer_id)
+                print(f"Employer's city: {employer.city}")
+                return employer.city  # 返回 employer 的 city 作为默认值
+            except User.DoesNotExist:
+                raise forms.ValidationError("Employer not found.")
+        return city
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        # 处理其他字段的清理逻辑...
         return cleaned_data
