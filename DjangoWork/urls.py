@@ -28,9 +28,9 @@ urlpatterns = [
     #这部分是静态的测试区域
     path('admin/', admin.site.urls),
     path('index/',job_views.index,name='index'),
-    path('index/job_detail', job_views.job_detail, name='index'),
-    path('index/job/', job_views.job_info, name='index'),
-    path('index/seek/', job_views.job_em, name='index'),
+    path('index/job_detail', job_views.job_detail, name='index_job_detail'),
+    path('index/job/', job_views.job_info, name='index_job'),
+    path('index/seek/', job_views.job_em, name='index_seek'),
 
     #user视图部分
     path('register/<int:user_type>', user_views.register, name='register'),

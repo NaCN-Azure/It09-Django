@@ -1,32 +1,64 @@
 {% load static %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>注册</title>-->
+<!--    <link href="{% static 'css/style.css' %}" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="register-container">-->
+<!--        <h2>注册</h2>-->
+<!--        <form method="post" action="">-->
+<!--            {% csrf_token %}-->
+<!--            {{ form.as_p }}-->
+<!--            <select name="user_type" id="userTypeSelect">-->
+<!--                <option value="1">普通用户</option>-->
+<!--                <option value="2">雇主</option>-->
+<!--            </select>-->
+<!--            <button type="submit">注册</button>-->
+<!--        </form>-->
+<!--        <p>已经有账号了？<a href="{% url 'login' %}">登录</a></p>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        document.getElementById("registerForm").onsubmit = function(event) {-->
+<!--            var userType = document.getElementById("userTypeSelect").value;-->
+<!--            this.action = "/register/" + userType + "/";-->
+<!--        };-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>注册</title>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <title>Register</title>
+    <!-- Path to your CSS file -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="register-container">
-        <h2>注册</h2>
-        <form method="post" action="">
+        <h2>FLEXIBLE WORK HUB</h2>
+        <div class="choice-container">
+            <div class="choice" onclick="updateAction(1);">I'M EMPLOYER</div>
+            <div class="choice" onclick="updateAction(2);">I'M JOB SEEKER</div>
+        </div>
+        <form id="registrationForm" method="post" action="{% url 'register' 1 %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <select name="user_type" id="userTypeSelect">
-                <option value="1">普通用户</option>
-                <option value="2">雇主</option>
-            </select>
-            <button type="submit">注册</button>
+            <input type="text" name="username" placeholder="USERNAME" required>
+            <input type="email" name="email" placeholder="E-MAIL" required>
+            <input type="password" name="password" placeholder="PASSWORD" required>
+            <button type="submit">Register</button>
         </form>
-        <p>已经有账号了？<a href="{% url 'login' %}">登录</a></p>
     </div>
 
     <script>
-        document.getElementById("registerForm").onsubmit = function(event) {
-            var userType = document.getElementById("userTypeSelect").value;
-            this.action = "/register/" + userType + "/";
-        };
+        function updateAction(userType) {
+            document.getElementById('registrationForm').action = '/register/' + userType + '/';
+        }
     </script>
 </body>
 </html>
