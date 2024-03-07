@@ -6,17 +6,28 @@ Job Seeker Information
 {% endblock %}
 
 
+
+
 {% block body_block %}
+
+<style>
+    .bd-sidebar {
+        height: 60vh;
+        overflow-y: auto;
+        padding: 20px;
+    }
+</style>
 
 <!-- My profile部分 -->
 <div class="row pb-4 mb-4 border-bottom">
     <div class="col">
         <h3 class=" fst-italic ">
             My Profile
-        </h3></div>
+        </h3>
+    </div>
     <div class="col-auto">
         <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
-                data-bs-target="#profileModal">Edit
+            data-bs-target="#profileModal">Edit
         </button>
 
         <!-- The Modal -->
@@ -36,33 +47,28 @@ Job Seeker Information
                         <form>
                             <div class="form-group mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username"
-                                       placeholder="Company name">
+                                <input type="text" class="form-control" id="username" placeholder="Company name">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="Age" class="form-label">Age</label>
-                                <input type="text" class="form-control" id="Age"
-                                       placeholder="Age">
+                                <input type="text" class="form-control" id="Age" placeholder="Age">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone"
-                                       placeholder="Phone">
+                                <input type="text" class="form-control" id="phone" placeholder="Phone">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="Email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="Email"
-                                       placeholder="name@example.com">
+                                <input type="email" class="form-control" id="Email" placeholder="name@example.com">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="City" class="form-label">City</label>
-                                <input type="text" class="form-control" id="City"
-                                       placeholder="City">
+                                <input type="text" class="form-control" id="City" placeholder="City">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="Introduction" class="form-label">Self Introduction</label>
                                 <textarea class="form-control" id="Introduction" rows="5"
-                                          placeholder="Introduction"></textarea>
+                                    placeholder="Introduction"></textarea>
                             </div>
 
                             <!-- Modal Footer -->
@@ -77,7 +83,6 @@ Job Seeker Information
         </div>
     </div>
 </div>
-
 
 <div class="bd-content ps-lg-2 pb-4 mb-2">
     <ul>
@@ -97,36 +102,48 @@ Job Seeker Information
 </div>
 
 
-<!-- My Jobs部分 -->
+<!-- My Applications部分 -->
 <h3 class="pb-4 mb-4 fst-italic border-bottom">
-    My Jobs
+    My Applications
 </h3>
 
-<div class="bd-content ps-lg-2  pb-4 mb-4 ">
+<div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
     <div class=list-group>
         <a href="#" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Administrator</h5>
-                <small>3 days ago</small>
+                <span><span class="badge bg-primary-subtle text-primary-emphasis rounded-pill">applying</span>
+                    <small> | 3 days ago</small></span>
             </div>
             <p class="mb-1">Lidl</p>
             <p class="mb-1">Glasgow G41</p>
         </a>
         <a href="#" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between my-2">
-                <h5 class="mb-1 text-primary">Restaurant Customer Advisor</h5>
-                <small class="text-muted">5 days ago</small>
+                <h5 class="mb-1 text-primary">Administrator</h5>
+                <span><span class="badge bg-success-subtle text-success-emphasis rounded-pill">success</span>
+                    <small> | 3 days ago</small></span>
             </div>
-            <p class="mb-1">Dobbies Garden Centres Ltd</p>
-            <p class="mb-1">Glasgow G21</p>
+            <p class="mb-1">Lidl</p>
+            <p class="mb-1">Glasgow G41</p>
         </a>
         <a href="#" class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between my-2">
-                <h5 class="mb-1 text-primary">Accounts Assistant</h5>
-                <small class="text-muted">7 days ago</small>
+                <h5 class="mb-1 text-primary">Administrator</h5>
+                <span><span class="badge bg-danger-subtle text-danger-emphasis rounded-pill">reject</span>
+                    <small> | 3 days ago</small></span>
             </div>
-            <p class="mb-1">Architectural Ironmongers</p>
-            <p class="mb-1">Glasgow</p>
+            <p class="mb-1">Lidl</p>
+            <p class="mb-1">Glasgow G41</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Administrator</h5>
+                <span><span class="badge bg-dark-subtle text-dark-emphasis rounded-pill">error</span>
+                    <small> | 3 days ago</small></span>
+            </div>
+            <p class="mb-1">Lidl</p>
+            <p class="mb-1">Glasgow G41</p>
         </a>
     </div>
 </div>
@@ -137,13 +154,13 @@ Job Seeker Information
     My Reviews
 </h3>
 
-<div class="bd-content ps-lg-2 pb-4 mb-4 ">
+<div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
     <div class=list-group>
         <a href="javascript:void(0)" class="list-group-item">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Lottery Fundraiser</h5>
                 <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
-                        data-bs-target="#EditReview1">Edit
+                    data-bs-target="#EditReview1">Edit
                 </button>
 
                 <!-- The Modal -->
@@ -155,7 +172,7 @@ Job Seeker Information
                             <div class="modal-header">
                                 <h4 class="modal-title">Edit Review</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    aria-label="Close"></button>
                             </div>
 
                             <!-- Modal Body -->
@@ -165,12 +182,12 @@ Job Seeker Information
                                     <div class="form-group mb-3">
                                         <label for="Rating" class="form-label">Rate</label>
                                         <input type="number" class="form-control" id="Rating" min="0" max="5" step="0.5"
-                                               placeholder="Enter your rating">
+                                            placeholder="Enter your rating">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="Comments" class="form-label">Comment</label>
                                         <textarea class="form-control" id="Comments" rows="5"
-                                                  placeholder="Add your comments here"></textarea>
+                                            placeholder="Add your comments here"></textarea>
                                     </div>
 
                                     <!-- Modal Footer -->
@@ -188,17 +205,17 @@ Job Seeker Information
             <p class="mb-1">Excel Fundraising</p>
             <p class="mb-1">Rate: 3.0/5.0</p>
             <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
-                                has
-                                been a positive experience for
-                                me.
-                                Having a supportive and understanding boss has made the work environment
-                                enjoyable.</span></p>
+                    has
+                    been a positive experience for
+                    me.
+                    Having a supportive and understanding boss has made the work environment
+                    enjoyable.</span></p>
         </a>
         <a href="javascript:void(0)" class="list-group-item">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Lottery Fundraiser</h5>
                 <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
-                        data-bs-target="#EditReview2">Edit
+                    data-bs-target="#EditReview2">Edit
                 </button>
 
                 <!-- The Modal -->
@@ -210,7 +227,7 @@ Job Seeker Information
                             <div class="modal-header">
                                 <h4 class="modal-title">Edit Review</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    aria-label="Close"></button>
                             </div>
 
                             <!-- Modal Body -->
@@ -220,12 +237,12 @@ Job Seeker Information
                                     <div class="form-group mb-3">
                                         <label for="Rating" class="form-label">Rate</label>
                                         <input type="number" class="form-control" id="Rating" min="0" max="5" step="0.5"
-                                               placeholder="Enter your rating">
+                                            placeholder="Enter your rating">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="Comments" class="form-label">Comment</label>
                                         <textarea class="form-control" id="Comments" rows="5"
-                                                  placeholder="Add your comments here"></textarea>
+                                            placeholder="Add your comments here"></textarea>
                                     </div>
 
                                     <!-- Modal Footer -->
@@ -243,17 +260,17 @@ Job Seeker Information
             <p class="mb-1">Excel Fundraising</p>
             <p class="mb-1">Rate: 3.0/5.0</p>
             <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
-                                has
-                                been a positive experience for
-                                me.
-                                Having a supportive and understanding boss has made the work environment
-                                enjoyable.</span></p>
+                    has
+                    been a positive experience for
+                    me.
+                    Having a supportive and understanding boss has made the work environment
+                    enjoyable.</span></p>
         </a>
         <a href="javascript:void(0)" class="list-group-item">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Lottery Fundraiser</h5>
                 <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
-                        data-bs-target="#EditReview3">Edit
+                    data-bs-target="#EditReview3">Edit
                 </button>
 
                 <!-- The Modal -->
@@ -265,7 +282,7 @@ Job Seeker Information
                             <div class="modal-header">
                                 <h4 class="modal-title">Edit Review</h4>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    aria-label="Close"></button>
                             </div>
 
                             <!-- Modal Body -->
@@ -275,12 +292,12 @@ Job Seeker Information
                                     <div class="form-group mb-3">
                                         <label for="Rating" class="form-label">Rate</label>
                                         <input type="number" class="form-control" id="Rating" min="0" max="5" step="0.5"
-                                               placeholder="Enter your rating">
+                                            placeholder="Enter your rating">
                                     </div>
                                     <div class="form-group mb-3">
                                         <label for="Comments" class="form-label">Comment</label>
                                         <textarea class="form-control" id="Comments" rows="5"
-                                                  placeholder="Add your comments here"></textarea>
+                                            placeholder="Add your comments here"></textarea>
                                     </div>
 
                                     <!-- Modal Footer -->
@@ -298,14 +315,73 @@ Job Seeker Information
             <p class="mb-1">Excel Fundraising</p>
             <p class="mb-1">Rate: 3.0/5.0</p>
             <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
-                                has
-                                been a positive experience for
-                                me.
-                                Having a supportive and understanding boss has made the work environment
-                                enjoyable.</span></p>
+                    has
+                    been a positive experience for
+                    me.
+                    Having a supportive and understanding boss has made the work environment
+                    enjoyable.</span></p>
+        </a>
+        <a href="javascript:void(0)" class="list-group-item">
+            <div class="d-flex w-100 justify-content-between my-2">
+                <h5 class="mb-1 text-primary">Lottery Fundraiser</h5>
+                <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
+                    data-bs-target="#EditReview3">Edit
+                </button>
+
+                <!-- The Modal -->
+                <div class="modal" id="EditReview3">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Review</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- The form goes here -->
+                                <form>
+                                    <div class="form-group mb-3">
+                                        <label for="Rating" class="form-label">Rate</label>
+                                        <input type="number" class="form-control" id="Rating" min="0" max="5" step="0.5"
+                                            placeholder="Enter your rating">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Comments" class="form-label">Comment</label>
+                                        <textarea class="form-control" id="Comments" rows="5"
+                                            placeholder="Add your comments here"></textarea>
+                                    </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="mb-1">Excel Fundraising</p>
+            <p class="mb-1">Rate: 3.0/5.0</p>
+            <p class="mb-1">Review: <span class="text-secondary">Engaging in this part-time work
+                    has
+                    been a positive experience for
+                    me.
+                    Having a supportive and understanding boss has made the work environment
+                    enjoyable.</span></p>
         </a>
     </div>
 </div>
+
+
+
+
 
 
 {% endblock %}
