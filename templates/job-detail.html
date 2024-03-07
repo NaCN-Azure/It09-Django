@@ -81,18 +81,21 @@
 
         <div class="container">
             <div class="row">
+                
                 <div class="col-8 offset-md-1">
-                    <h4>Weekend Serviced Apartment Assistance(Reception)</h4>
-                    <h6>xxxx company</h6>
+                    <h4>{{ job.title }}</h4>
+                    <h6>{{ job.employer }}</h6>
 
                     <div class = "job-details">
                         <h5>Job Details</h5>
-                            <p>&#128181; Salary: £10.75 an hour</p>
-                            <p>&#9201; Job Type: Temporary</p>
+                            <p>&#128181; <b>Salary:</b> £{{ job.salary }}</p>
+                            <p>&#9201; <b>Job Type: </b>{{ job.get_type_display }}</p>
                             <p>&#128187; Remote: In-Person</p>
+                            <p>&#128205; <b>Location: </b>{{ job.city }}</p>
                             <p>&#9201; Shift and Schedule: weekend availability</p>
                             <p>&#127891; Education Level Requirement: GCSE</p>
-                            <p>&#128172; Skills: Communication, Attention to details</p>    
+                            <p>&#128172; Skills: Communication, Attention to details</p> 
+                               
                     </div>
 
                     <div class="job-details">

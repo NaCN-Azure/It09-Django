@@ -11,7 +11,9 @@ import json
 Create job view for Employer
 '''
 def index(request):
-    return render(request,'index.html')
+    jobs = job_service.get_all_jobs()
+    return render(request, 'index.html', {'jobs': jobs})
+    
 def job_detail(request):
     return render(request,'job-detail.html')
 def job_info(request):
@@ -61,7 +63,7 @@ def list_jobs_by_employer(request, employer_id):
 Return the job info selected by user
 '''
 @require_http_methods(["GET"])
-@login_required
+#@login_required
 def get_job_by_jobId_view(request, job_id):
     job = job_service.get_job_by_jobID(job_id)
     job_info = {
@@ -84,7 +86,7 @@ def get_job_by_jobId_view(request, job_id):
 List all the job for user 
 '''
 @require_http_methods(["GET"])
-@login_required
+#@login_required
 def list_all_jobs_view(request):
     jobs = job_service.get_all_jobs()
     jobs_data = serialize_jobs(jobs)

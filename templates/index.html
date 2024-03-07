@@ -3,223 +3,260 @@
 {% extends "base.html" %}
 {% block title_block %}Home{% endblock %}
 <html lang="en">
-   
-    <body>
-        {% block body_block %}
-        <div class="container-wrapper">
-            <style>
-                .sorted-bar {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-block: 10px 20px;
-                } 
-                .btn {
-                    margin: 10px;
-                    padding: 10px;
-                    border: 1px solid #26462b;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                }
-                .job-listing {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center; 
-                }
-                .job {
-                    
-                    justify-content: center;
-                    border: 1px solid #dcdcdc;
-                    margin-block: 10px 10px;
-                    padding: 20px;
-                    border-radius: 10px;
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                }
-                .job-link {
-                    text-decoration: none; /* Remove underline by default */
-                    color: #474747; /* Set your preferred color */
-                }
 
-                .job-link:hover h3 {
-                    text-decoration: underline; /* Add underline to h3 on hover over the block */
-                }
-                .job-details {
-                    display: flex;
-                    justify-content: space-between;
-                    flex-wrap: wrap;  
-                    padding-right: 10%; 
-                }
+<body>
 
-            </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="sorted-bar">
-                        
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Location
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#" data-filter="1-option1">Glasgow</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="1-option2">Edinburgh</a></li>
-<!--                                爱丁堡拼错了给你改了一下，阅后删-->
-                                <li><a class="dropdown-item" href="#" data-filter="1-option3">Stirling</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="1-option4">Aberdeen</a></li>
-                            </ul>
-                        </div>
-                    
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Industry
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item" href="#" data-filter="2-option1">Retail</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="2-option2">Construction, Repair and Maintenance Services</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="2-option3">Personal Customer Services</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="2-option4">Restaurants & Food Services</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="2-option5">Hotel & Travel Accommodation</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="2-option6">Others</a></li>
-                            </ul>
-                        </div>
-                    
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
-                                Job Type
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <li><a class="dropdown-item" href="#" data-filter="3-option1">Part-Time</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="3-option2">Temporary</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="3-option3">Volunteer</a></li>
-                        </div>
+<!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    {% block body_block %}
+    <div class="container-wrapper">
+        <style>
+            .sorted-bar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-block: 10px 20px;
+            }
 
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">
-                                Education Level
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <li><a class="dropdown-item" href="#" data-filter="4-option1">Foundation Degree</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="4-option2">GCSE</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="4-option3">Certificate of Higher Education</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="4-option4">Bachelor's Degree</a></li>
-                            </ul>
-                        </div>
+            .btn {
+                margin: 10px;
+                padding: 10px;
+                border: 1px solid #26462b;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
 
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton6" data-bs-toggle="dropdown" aria-expanded="false">
-                                Remote
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <li><a class="dropdown-item" href="#" data-filter="5-option1">In-Person</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="5-option2">Hybrid</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="5-option3">Remote</a></li>
-                            </ul>
-                        </div>
+            .job-listing {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-                        <div class="dropdown">
-                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
-                                Sorted by Salary
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <li><a class="dropdown-item" href="#" data-filter="6-option1">From highest to lowest</a></li>
-                                <li><a class="dropdown-item" href="#" data-filter="6-option2">From lowest to highest</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            .job {
 
-            <div class="job-listing">
-                <div class="row">
-                    <a href="/index/job_detail" class="job-link">
-                    <div class="col-12"> 
-                        <div class="job">
-                            <h3>Weekend Serviced Apartment Assistant (Reception)</h3>
-                                <p>xxxx company</p>
-                                <div class="job-details">
-                                    <p><b>Salary:</b> £10.75 an hour</p>
-                                    <p><b>Remote:</b> In-Person</p>
-                                    <p><b>Job Type:</b> Temporary</p>
-                                </div>
-                                <p><b>Shift and Schedule:</b> weekend availability</p>
-                                <p><b>Education Level Requirement:</b> GCSE</p>
-                                <p><b>skills:</b> Communication, Attention to detail</p>
-                                <p><b>Description:</b> We are currently recruiting an enthusiastic and customer focussed Serviced Apartment Assistant based in our Glasgow location. This would mainly be a weekend position, with additional weekday shifts sometimes available. </p>
-                        </div>
-                    </div>
-                    </a>
+                justify-content: center;
+                border: 1px solid #dcdcdc;
+                margin-block: 10px 10px;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
 
-                    <div class="col-12">  
-                        <div class="job">
-                            <h2>Bookkeeper</h2>
-                                <p>yyyy company</p>
-                                <div class="job-details">
-                                    <p>Salary: £15 an hour</p>
-                                    <p>Remote: In-Person</p>
-                                    <p>Job type: Part-Time</p>
-                                    <p>Shift and Schedule: flexible</p>
-                                    <p>Education Level Requirement: GCSE</p>
-                                </div>
-                                <p>skills: English Communication, Organisation</p>
-                                <p>Job Description: looking for a highly organised, part-time bookkeeper to join our small, family-run business. You will work from our Glasgow based offices. This role is for 16 hours a month as required with a flexible schedule to work around your existing lifestyle.</p>
-                        </div>
+            .job-link {
+                text-decoration: none;
+                /* Remove underline by default */
+                color: #474747;
+                /* Set your preferred color */
+            }
+
+            .job-link:hover h3 {
+                text-decoration: underline;
+                /* Add underline to h3 on hover over the block */
+            }
+
+            .job-details {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                padding-right: 10%;
+            }
+        </style>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="sorted-bar">
+
+                    <div class="dropdown" data-category="location" data-filterType="filter">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Location
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#" data-filter="1-option1">Glasgow</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="1-option2">Edinburgh</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="1-option3">Stirling</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="1-option4">Aberdeen</a></li>
+                        </ul>
                     </div>
 
+                    <div class="dropdown" data-category="Industry" data-filterType="filter">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton2"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Industry
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="#" data-filter="2-option1">Retail</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="2-option2">Construction, Repair and
+                                    Maintenance Services</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="2-option3">Personal Customer Services</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" data-filter="2-option4">Restaurants & Food
+                                    Services</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="2-option5">Hotel & Travel
+                                    Accommodation</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="2-option6">Others</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown" data-category="Job Type" data-filterType="filter">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton3"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Job Type
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                            <li><a class="dropdown-item" href="#" data-filter="3-option1">Part-Time</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="3-option2">Temporary</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="3-option3">Volunteer</a></li>
+                    </div>
+
+                    <div class="dropdown" data-category="Education Level" data-filterType="filter">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton4"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Education Level
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                            <li><a class="dropdown-item" href="#" data-filter="4-option1">Foundation Degree</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="4-option2">GCSE</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="4-option3">Certificate of Higher
+                                    Education</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="4-option4">Bachelor's Degree</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown" data-category="Remote" data-filterType="filter">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton6"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Remote
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                            <li><a class="dropdown-item" href="#" data-filter="5-option1">In-Person</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="5-option2">Hybrid</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="5-option3">Remote</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown" data-category="Salary Sort" data-filterType="sort">
+                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton5"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Sorted by Salary
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                            <li><a class="dropdown-item" href="#" data-filter="6-option1">From highest to lowest</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#" data-filter="6-option2">From lowest to highest</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Get all job elements
-                const jobs = document.querySelectorAll('.job');
 
-                // Function to filter jobs based on the selected option
-                function filterJobs(filterOption) {
-                    jobs.forEach(job => {
-                        const option = job.dataset.filter;
-                        job.style.display = option === filterOption || filterOption === 'all' ? 'block' : 'none';
-                    });
-                }
+        <div class="job-listing">
+            <div class="row">
+                {% for job in jobs %}
+                <div class="col-12">
+                    <a href="{% url 'get_job_by_jobId' job_id=job.id %}" class="job-link">
 
-                // Function to sort jobs based on salary
-                function sortJobsBySalary(order) {
-                    const sortedJobs = Array.from(jobs).sort((a, b) => {
-                        const salaryA = parseFloat(a.dataset.salary);
-                        const salaryB = parseFloat(b.dataset.salary);
 
-                        return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;
-                    });
+                        <div class="job" data-location="{{ job.city }}" data-industry="{{ job.industry }}"
+                            data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}"
+                            data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
+                            <h3>{{ job.title }}</h3>
+                            <p>{{ job.employer }}</p>
+                            <div class="job-details">
+                                <p><b>Salary:</b> £{{ job.salary }}</p>
+                                <p><b>Remote: </b>{{ job.get_remote_display }}</p>
+                                <p><b>Job Type: </b>{{ job.get_type_display }}</p>
+                                <p><b>Location: </b>{{ job.city }}</p>
+                            </div>
+                            <p><b>Shift and Schedule:</b> {{ job.schedule }}</p>
+                            <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>
+                            <p><b>Duration:</b> {{ job.start_date }} - {{ job.end_date }}</p>
+                            <p><b>Description:</b> {{ job.description }}</p>
+                        </div>
+                </div>
+                </a>
+                {% endfor %}
 
-                    // Remove existing job elements
-                    jobs.forEach(job => job.remove());
 
-                    // Append sorted job elements back to the container
-                    sortedJobs.forEach(job => {
-                        document.querySelector('.job-listing').appendChild(job);
-                    });
-                }
+            </div>
+        </div>
+    </div>
 
-                // Event listeners for dropdowns
-                document.querySelectorAll('.dropdown-item').forEach(item => {
-                    item.addEventListener('click', function () {
-                        const filterType = this.closest('.dropdown').dataset.filterType;
-                        const filterOption = this.dataset.filter;
-
-                        if (filterType === 'filter') {
-                            filterJobs(filterOption);
-                        } else if (filterType === 'sort') {
-                            sortJobsBySalary(filterOption);
-                        }
-                    });
-                });
-            });
-
-        </script>
-
-       
-          
-        {% endblock %}
-
-    </body>
     
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const jobs = document.querySelectorAll('.job');
+
+            function filterJobs(filterOption, category) {
+                jobs.forEach(job => {
+                    const option = job.dataset[category];
+                    job.style.display = option === filterOption || filterOption === 'all' ? 'block' : 'none';
+                });
+            }
+
+            function sortJobsBySalary(order) {
+                const sortedJobs = Array.from(jobs).sort((a, b) => {
+                    const salaryA = parseFloat(a.dataset.salary);
+                    const salaryB = parseFloat(b.dataset.salary);
+                    return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;
+                });
+
+                jobs.forEach(job => job.remove());
+
+                sortedJobs.forEach(job => {
+                    document.querySelector('.job-listing').appendChild(job);
+                });
+            }
+
+            document.addEventListener('click', function (event) {
+                const target = event.target;
+
+                if (target.classList.contains('dropdown-item')) {
+                    const filterType = target.closest('.dropdown').dataset.filterType;
+                    const filterOption = target.dataset.filter;
+                    const category = target.closest('.dropdown').dataset.category;
+
+                    if (filterType === 'filter') {
+                        filterJobs(filterOption, category);
+                    } else if (filterType === 'sort') {
+                        sortJobsBySalary(filterOption);
+                    }
+                }
+            });
+        });
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script>
+        $(document).ready(function () {
+            // Make an AJAX request to fetch all jobs
+            $.ajax({
+                url: "{% url 'index' %}",
+                method: "GET",
+                dataType: "json",
+                success: function (htmlContent) {
+                    console.log("AJAX response:", response);
+
+                    // Debugging: Log the number of jobs received
+                    console.log("Number of jobs:", response.jobs.length);
+
+                    $(".job-listing .row").html(htmlContent);
+                },
+                error: function (error) {
+                    console.error("Error fetching jobs:", error);
+                }
+            });
+        });
+    </script>
+
+    {% endblock %}
+
+</body>
+
 </html>
