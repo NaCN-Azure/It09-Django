@@ -45,7 +45,7 @@ class Job(models.Model):
 
 class Application(models.Model):
     STATUS_TYPE_CHOICES = (
-        (1,'applying'),
+        (1,'submitted'),
         (2,'success'),
         (3,'reject'),
         (4,'error')
