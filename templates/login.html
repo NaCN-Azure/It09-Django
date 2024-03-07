@@ -1,20 +1,50 @@
 <!-- templates/login.html -->
 {% load static %}
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    &lt;!&ndash; ... &ndash;&gt;-->
+<!--    <link href="{% static 'css/register_style.css' %}" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="login-container">-->
+<!--        <h2>登录</h2>-->
+<!--        <form method="post" action="{% url 'login' %}">-->
+<!--            {% csrf_token %}-->
+<!--            {{ form.as_p }}-->
+<!--            <button type="submit">登录</button>-->
+<!--        </form>-->
+<!--        <p>没有账号？<a href="{% url 'register' user_type=1 %}">注册</a></p>-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ... -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
 </head>
 <body>
     <div class="login-container">
-        <h2>登录</h2>
+        <h1>FLEXIBLE WORK HUB</h1>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">登录</button>
+            <div class="form-group">
+                <label for="id_username">Email:</label>
+                <input type="text" id="id_username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                <input type="password" id="id_password" name="password" required>
+            </div>
+            <div class="form-actions">
+                <input type="submit" value="Sign In" class="btn" />
+                <input type="button" value="Register" class="btn" onclick="location.href='{% url 'register' user_type=1 %}';" />
+            </div>
         </form>
-        <p>没有账号？<a href="{% url 'register' user_type=1 %}">注册</a></p>
     </div>
 </body>
 </html>
