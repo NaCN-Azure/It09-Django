@@ -33,7 +33,7 @@ urlpatterns = [
     path('index/seek/', job_views.job_em, name='index_seek'),
 
     #user视图部分
-    path('register/<int:user_type>', user_views.register, name='register'),
+    path('register/<int:user_type>/', user_views.register, name='register'),
     path('login/', user_views.login_view, name='login'),
     path('userInfo/<int:user_id>/', user_views.get_user_info, name='get_user_info'),
     path('userInfo/<int:user_id>/update/', user_views.update_user_info, name='update_user_info'),

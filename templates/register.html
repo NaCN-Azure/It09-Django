@@ -31,35 +31,46 @@
 <!--</body>-->
 <!--</html>-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <!-- Path to your CSS file -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
 </head>
 <body>
     <div class="register-container">
-        <h2>FLEXIBLE WORK HUB</h2>
+        <h2>FLEXIBLEWORK HUB</h2>
         <div class="choice-container">
-            <div class="choice" onclick="updateAction(1);">I'M EMPLOYER</div>
-            <div class="choice" onclick="updateAction(2);">I'M JOB SEEKER</div>
+            <div class="choice employer" onclick="setUserType(1);">
+                <img src="{% static 'image/user.png' %}" alt="User" class="choice-image">
+                <span>I am a user</span>
+            </div>
+            <div class="choice job-seeker" onclick="setUserType(2);">
+                <img src="{% static 'image/employer.png' %}" alt="Employer" class="choice-image">
+                <span>I am an employer</span>
+            </div>
         </div>
-        <form id="registrationForm" method="post" action="{% url 'register' 1 %}">
+        <form id="CustomUserCreationForm" method="post" action="{% url 'register' 1 %}">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="USERNAME" required>
+            <input type="text" name="user_name" placeholder="USERNAME" required>
             <input type="email" name="email" placeholder="E-MAIL" required>
-            <input type="password" name="password" placeholder="PASSWORD" required>
+            <input type="text" name="phone" placeholder="PHONE" required>
+            <input type="text" name="city" placeholder="CITY" required>
+            <input type="password" name="password1" placeholder="PASSWORD" required>
+            <input type="password" name="password2" placeholder="CONFIRM PASSWORD" required>
             <button type="submit">Register</button>
         </form>
+        <p>Already have an account？<a href="{% url 'login' %}">Sign in</a></p>
     </div>
 
     <script>
-        function updateAction(userType) {
-            document.getElementById('registrationForm').action = '/register/' + userType + '/';
+        function setUserType(userType) {
+            history.pushState({}, '', '/register/' + userType);
+            document.getElementById('CustomUserCreationForm').action = '/register/' + userType + '/';
         }
     </script>
 </body>
 </html>
+
 

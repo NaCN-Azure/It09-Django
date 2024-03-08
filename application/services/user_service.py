@@ -7,6 +7,7 @@ from django.contrib.auth.models import update_last_login
 
 
 def register_user(request, form, type):
+    print(form)
     if form.is_valid():
         form['type'] = type
         form.save()
