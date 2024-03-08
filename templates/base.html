@@ -41,6 +41,7 @@
 
                 <div class="col-6 d-flex justify-content-end align-items-center">
                     <!--  已经登录 显示头像    -->
+                    {% if user.is_authenticated %}
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,9 +53,18 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
                         </ul>
                     </div>
+
+                    <!--   未登录，显示login和register     -->
+                    {% else %}
+                    <div class="col-md-4 text-end">
+                        <a href="{% url 'login' %}" class="btn btn-dark" role="button">Login</a>
+                        <a href="#" class="btn btn-outline-secondary" role="button">Register</a>
+                        <!-- 注册的url后续需修改 -->
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
