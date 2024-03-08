@@ -27,8 +27,8 @@ urlpatterns = [
     #这部分就是主要的视图方法
     #这部分是静态的测试区域
     path('admin/', admin.site.urls),
-    path('index/',job_views.index,name='index'),
-    path('index/job_detail', job_views.job_detail, name='index_job_detail'),
+    path('job/',job_views.index,name='index'),
+    path('job/job_detail/<int:job_id>/', job_views.job_detail, name='job_detail'),
     path('index/job/', job_views.job_info, name='index_job'),
     path('index/seek/', job_views.job_em, name='index_seek'),
 

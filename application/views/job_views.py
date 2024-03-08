@@ -3,7 +3,7 @@ from django.shortcuts import HttpResponse
 from django.http import JsonResponse
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
-from application.services import job_service
+from application.services import job_service,feedback_service
 from application.forms.job_form import JobForm
 from django.contrib.auth.decorators import login_required
 import json
@@ -14,8 +14,11 @@ def index(request):
     jobs = job_service.get_all_jobs()
     return render(request, 'index.html', {'jobs': jobs})
     
-def job_detail(request):
-    return render(request,'job-detail.html')
+def job_detail(request, job_id):
+    job = job_service.get_job_by_jobID(job_id)
+    feedbacks = feedback_service.get_feedbacks_by_job(job)
+    return render(request,'job-detail.html', {'job': job, 'feedbacks': feedbacks})
+
 def job_info(request):
     return render(request,'jobSeekerInfo.html')
 def job_em(request):

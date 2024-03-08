@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% extends "base.html" %}
-{% block title_block %}Weekend Serviced Apartment Assistance(Reception){% endblock %}
+{% block title_block %}{{ job.title }}{% endblock %}
 <html lang="en">
     <body>
         {% block body_block %}
@@ -63,7 +63,9 @@
                 border-bottom: 1px solid #dcdcdc;
                 padding-bottom: 10px;  
                 margin: 20px;
+                text-align: left;
             }
+            
         </style>
 
         <div class="container">
@@ -75,22 +77,20 @@
 
                     <div class = "job-details">
                         <h5>Job Details</h5>
-                            <p>&#128181; <b>Salary:</b> £{{ job.salary }}</p>
-                            <p>&#9201; <b>Job Type: </b>{{ job.get_type_display }}</p>
-                            <p>&#128187; Remote: In-Person</p>
                             <p>&#128205; <b>Location: </b>{{ job.city }}</p>
-                            <p>&#9201; Shift and Schedule: weekend availability</p>
-                            <p>&#127891; Education Level Requirement: GCSE</p>
-                            <p>&#128172; Skills: Communication, Attention to details</p> 
+                            <p>&#128181; <b>Salary:</b> £{{ job.salary }} per hour</p>
+                            <p>&#128188; <b>Job Type: </b>{{ job.get_type_display }}</p>
+                            <p>&#128187; <b>Remote: </b>{{ job.get_remote_display }}</p>
+                            <p>&#127747; <b>Shift and Schedule: </b>{{ job.schedule }}</p>
+                            <p>&#128198; <b>Duration: </b>{{ job.start_date|date:"d M Y" }} - {{ job.end_date|date:"d M Y" }}</p>
+                            <p>&#127891; <b>Education Level Requirement: </b>{{ job.get_requirement_display }}</p>
+                            <p>&#128172; <b>Skills: </b>Communication, Attention to details</p> 
                                
                     </div>
 
                     <div class="job-details">
                         <h5>Full Job Description</h5>
-                            <p>WE ARE LOOKING FOR A PART TIME RECEPTIONIST FOR OUR SMALL LUXURY HOTEL IN THE HEART OF THE PEAK DISTRICT- WORKING THURSDAY AND FRIDAY FROM 3PM UNTIL 11.30PM- Must be able to commute.</p>
-                            <p>The management and staff of this popular hotel pride themselves on creating an atmosphere like no other hotel - a really personal service with a 'can do' attitude. We are looking for a candidate with previous reception experience.</p>
-                            <p>As one of our Reception Team, you will ensure that the highest standards of hospitality and welcome are demonstrated at all times on front desk. We are looking for a bright personality - someone who can communicate at all levels and has a great telephone manner. You will be responsible for answering all telephone calls both reservations and general enquiries. You will develop a good knowledge of the hotel's facilities and local knowledge providing our guests with an exceptional level of customer service at all times and promoting the reputation of the hotel. During your shift you will be responsible for ensuring the smooth running of the reception area, managing your time efficiently whilst taking and entering reservations into the Hotel Executive system and dealing with confirmation letters and any other correspondence. Also our restaurant billing is performed by our Receptionists, both cash and credit cards.</p>
-                            <p>The position is 17hrs per week and 2 late shifts every Thursday and Friday. The shift starts at 3pm and finishes at 11.30pm, maybe later on busier nights. We are looking for a very special person who is friendly, professional, polite and bubbly with excellent customer service skills. The ideal candidate must have previous reception experience (not necessarily within a hospitality setting) and a knowledge of Front Office Systems would be a benefit, but not essential. Your application will not be considered if you do not have any form of reception experience.</p>
+                            <p>{{ job.description }}</p>
                     </div>
                     
 
@@ -118,26 +118,51 @@
                                 <button class="btn btn-primary btn-success">Submit Review</button>
                             </div>
                         </div>
-        
+
+                        {% for feedback in feedbacks %}
                         <div class="review-block">
-                            <div class="star-rating">⭐⭐⭐⭐⭐</div>
-                            <p>Customer review content goes here...</p>
+                            <p>{{ feedback.date }}</p>
+                            {% for star in "12345" %}
+                                {% if feedback.rate >= star|add:"0" %}
+                                    <span class="star">&#127775;</span>
+                                {% else %}
+                                    <span class="star">&#9733;</span>
+                                {% endif %}
+                            {% endfor %}
+                        
+                        <p>Comment: {{ feedback.comment }}</p>
+                            
                         </div>
+                        {% endfor %}
     
-                        <div class="review-block">
-                            <div class="star-rating">⭐⭐⭐⭐</div>
-                            <p>Another customer review content goes here...</p>
-                        </div>
     
                     </div>
                 </div>
         
                 <div class="col-4">
                     <div class="fixed-sidebar">
-                        <button class="btn btn-primary btn-success btn-lg btn-block d-block" onclick="showPopup()">Apply Now</button>
+                        <button class="btn btn-primary btn-success btn-lg btn-block d-block" id = "applyNowButton" data-bs-toggle="modal" data-bs-target="#applicationModal">Apply Now</button>
                     </div>
                 </div>
-            </div>   
+            </div> 
+            
+            <div class="modal fade" id="applicationModal" tabindex="-1" aria-labelledby="applicationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="applicationModalLabel">Application Submitted</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Your application is submitted successfully!</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="handleApplicationSubmission()">OK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         </div>
 
 
@@ -165,52 +190,37 @@
         </script>
        
         <!--for add comment in to database-->
-        <script>
-        $(document).ready(function () {
-            // Function to submit a review
-            function submitReview() {
-                // Get the selected star rating and comment
-                const starRating = $('#starRating').val();
-                const comment = $('#comment').val();
         
-                // AJAX request to submit the review
-                $.ajax({
-                    url: '/index/job_detail', // Replace with your actual endpoint
-                    method: 'POST',
-                    data: { starRating: starRating, comment: comment },
-                    dataType: 'json',
-                    success: function (response) {
-                        // Assuming your server returns the new review data in the response
-                        const newReview = response.review;
-        
-                        // Clear the comment input
-                        $('#comment').val('');
-        
-                        // Update the review section with the new review
-                        const reviewBlock = $('<div class="review-block"></div>');
-                        reviewBlock.append($('<div class="star-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>'));
-                        reviewBlock.append($('<p>').text(newReview.comment));
-        
-                        // Prepend the new review to the existing reviews
-                        $('.review-section').prepend(reviewBlock);
-                    },
-                    error: function (error) {
-                        console.error('Error submitting review:', error);
-                    }
-                });
-            }
-        
-            // Event listener for the submit button
-            $('.btn-primary').on('click', function () {
-                submitReview();
-            });
-        });
-        </script>
 
-        <script>
-            function showPopup() {
-                alert("Application submitted successfully!");
-            }
+    <script>
+        // function submitApplication() {
+        // // Here you would handle the logic to submit the application (AJAX request, etc.)
+        // // For simplicity, let's assume the application is successfully submitted.
+    
+        // // Show the modal
+        // $('#applicationModal').modal('show');
+        // }
+    
+        function handleApplicationSubmission() {
+        // Update the Apply Now button after the modal is closed
+            const applyNowButton = document.getElementById('applyNowButton');
+            applyNowButton.innerHTML = 'Submitted';
+            applyNowButton.classList.remove('btn-success');
+            applyNowButton.classList.add('btn-secondary');
+            applyNowButton.disabled = true;
+        }
+    </script>
+
+       <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            const applyNowButton = document.getElementById("applyNowButton");
+            const applicationModal = new bootstrap.Modal(document.getElementById("applicationModal"));
+
+            applyNowButton.addEventListener("click", function() {
+                // Show the modal when the button is clicked
+                applicationModal.show();
+            });
+            });
         </script>
        
         {% endblock %}

@@ -43,8 +43,7 @@
                 box-shadow: 0 0 5px rgb(166, 166, 166);
                 word-wrap: break-word;  /* Wrap long words onto the next line */
                 overflow: hidden;      /* Hide overflowing content */
-                text-overflow: ellipsis;
-                height: 300px; 
+                text-overflow: ellipsis; 
                 background-color: rgba(255, 255, 255, 0.5); 
                 backdrop-filter: blur(10px);
             }
@@ -86,7 +85,7 @@
                         </ul>
                     </div>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="Industry">
+                    <div class="dropdown" data-filter-type="filter" data-category="industry">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton2"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Industry
@@ -163,14 +162,14 @@
 
                 
                 {% for job in jobs %}
-                <div class="col-12">
-                    <a href="{% url 'get_job_by_jobId' job_id=job.id %}" class="job-link">    
+                <div class="col-12 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
+                    <a href="{% url 'job_detail' job_id=job.id %}" class="job-link">    
 
-                        <div class="job" data-location="{{ job.city }}" data-industry="{{ job.industry }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
+                        <div>
                             <h3>{{ job.title }}</h3>
                             <p>{{ job.employer }}</p>
                             <div class="job-details">
-                                <p><b>Salary:</b> £{{ job.salary }}</p>
+                                <p><b>Salary:</b> £{{ job.salary }} per hour</p>
                                 <p><b>Remote: </b>{{ job.get_remote_display }}</p>
                                 <p><b>Job Type: </b>{{ job.get_type_display }}</p>
                                 <p><b>Location: </b>{{ job.city }}</p>
@@ -178,7 +177,6 @@
                             <p><b>Shift and Schedule:</b> {{ job.schedule }}</p>
                             <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>
                             <p><b>Duration:</b> {{ job.start_date }} - {{ job.end_date }}</p>
-                            <p><b>Description:</b> {{ job.description }}</p>
                         </div>
                     </a>
                 </div>
@@ -211,6 +209,7 @@
                 });
     
                 jobs.forEach(job => job.remove());
+                console.log(sortedJobs);
     
                 sortedJobs.forEach(job => {
                     document.querySelector('.job-listing').appendChild(job);
