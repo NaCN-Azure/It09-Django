@@ -31,7 +31,7 @@ def delete_feedback_view(request, feedback_id):
 return the average rate for the job
 '''
 @require_http_methods(["GET"])
-@login_required
+#@login_required
 def job_average_rate_view(request, job_id):
     average_rate = feedback_service.job_average_rate(request, job_id)
     if average_rate is not None:

@@ -65,6 +65,9 @@
                 margin: 20px;
                 text-align: left;
             }
+            .star.full {
+                color: #f8d150;     
+            }
             
         </style>
 
@@ -72,25 +75,24 @@
             <div class="row">
                 
                 <div class="col-8 offset-md-1">
-                    <h4>{{ job.title }}</h4>
-                    <h6>{{ job.employer }}</h6>
+                    <h4> {{ job.title }}</h4>
+                    <p>Rate: {{ average_rate }}&#127775;</p>
+                    <h6>{{ job.employer }} </h6>
 
                     <div class = "job-details">
                         <h5>Job Details</h5>
-                            <p>&#128205; <b>Location: </b>{{ job.city }}</p>
+                            <p>&#128205; <b>Location: </b>{{ job.city }}, {{job.postcode}}</p>
                             <p>&#128181; <b>Salary:</b> £{{ job.salary }} per hour</p>
                             <p>&#128188; <b>Job Type: </b>{{ job.get_type_display }}</p>
                             <p>&#128187; <b>Remote: </b>{{ job.get_remote_display }}</p>
-                            <p>&#127747; <b>Shift and Schedule: </b>{{ job.schedule }}</p>
                             <p>&#128198; <b>Duration: </b>{{ job.start_date|date:"d M Y" }} - {{ job.end_date|date:"d M Y" }}</p>
                             <p>&#127891; <b>Education Level Requirement: </b>{{ job.get_requirement_display }}</p>
-                            <p>&#128172; <b>Skills: </b>Communication, Attention to details</p> 
-                               
+                            <p>&#128172; <b>Skills: </b>Communication, Attention to details</p>      
                     </div>
 
                     <div class="job-details">
                         <h5>Full Job Description</h5>
-                            <p>{{ job.description }}</p>
+                        <p>{{ job.description }}</p>
                     </div>
                     
 
@@ -124,7 +126,7 @@
                             <p>{{ feedback.date }}</p>
                             {% for star in "12345" %}
                                 {% if feedback.rate >= star|add:"0" %}
-                                    <span class="star">&#127775;</span>
+                                    <span class="star full">&#9733;</span>
                                 {% else %}
                                     <span class="star">&#9733;</span>
                                 {% endif %}

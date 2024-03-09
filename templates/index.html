@@ -3,7 +3,6 @@
 {% extends "base.html" %}
 {% block title_block %}Home{% endblock %}
 <html lang="en">
-
 <body>
     
     {% block body_block %}
@@ -72,7 +71,7 @@
             <div class="col-lg-6">
                 <div class="sorted-bar">
 
-                    <div class="dropdown" data-filter-type="filter" data-category="Location">
+                    <div class="dropdown" data-filter-type="filter" data-category="location">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Location
@@ -82,6 +81,7 @@
                             <li><a class="dropdown-item" href="#" data-filter="Edinburgh">Edinburgh</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Stirling">Stirling</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Aberdeen">Aberdeen</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                         </ul>
                     </div>
 
@@ -101,6 +101,7 @@
                             <li><a class="dropdown-item" href="#" data-filter="Hotel & Travel Accommodation">Hotel & Travel
                                     Accommodation</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Others">Others</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                         </ul>
                     </div>
 
@@ -113,9 +114,10 @@
                             <li><a class="dropdown-item" href="#" data-filter="Part-Time">Part-Time</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Temporary">Temporary</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Volunteer">Volunteer</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                     </div>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="Education">
+                    <div class="dropdown" data-filter-type="filter" data-category="education">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton4"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Education Level
@@ -126,10 +128,11 @@
                             <li><a class="dropdown-item" href="#" data-filter="Certificate of Higher Education">Certificate of Higher
                                     Education</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Bachelor's Degree">Bachelor's Degree</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                         </ul>
                     </div>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="Remote">
+                    <div class="dropdown" data-filter-type="filter" data-category="remote">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton5"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Remote
@@ -138,10 +141,11 @@
                             <li><a class="dropdown-item" href="#" data-filter="In-Person">In-Person</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Hybrid">Hybrid</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Remote">Remote</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                         </ul>
                     </div>
 
-                    <div class="dropdown" data-filter-type="sort" data-category="Salary">
+                    <div class="dropdown" data-filter-type="sort" data-category="salary">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton6"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Sorted by Salary
@@ -158,11 +162,11 @@
         </div>
 
         <div class="job-listing">
-            <div class="row">
+
 
                 
                 {% for job in jobs %}
-                <div class="col-12 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
+                <div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
                     <a href="{% url 'job_detail' job_id=job.id %}" class="job-link">    
 
                         <div>
@@ -174,9 +178,9 @@
                                 <p><b>Job Type: </b>{{ job.get_type_display }}</p>
                                 <p><b>Location: </b>{{ job.city }}</p>
                             </div>
-                            <p><b>Shift and Schedule:</b> {{ job.schedule }}</p>
                             <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>
-                            <p><b>Duration:</b> {{ job.start_date }} - {{ job.end_date }}</p>
+                            <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>
+                            <p><b>Other Information: </b> {{job.other}}</p>
                         </div>
                     </a>
                 </div>
@@ -184,18 +188,19 @@
                 {% endfor %}
 
 
-            </div>
+            
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script>
+    <!-- <script>
         document.addEventListener("DOMContentLoaded", function () {
             const jobs = document.querySelectorAll('.job');
     
             function filterJobs(filterOption, category) {
                 jobs.forEach(job => {
+
                     const option = job.dataset[category];
                     job.style.display = option === filterOption || filterOption === 'all' ? 'block' : 'none';
                 });
@@ -222,16 +227,79 @@
                 if (target.classList.contains('dropdown-item')) {
                     const filterType = target.closest('.dropdown').dataset.filterType;
                     const filterOption = target.dataset.filter;
-                    const category = target.closest('.dropdown').dataset.category;
+                    // const category = target.closest('.dropdown').dataset.category;
     
                     if (filterType === 'filter') {
-                        filterJobs(filterOption, category.toLowerCase());
+                        filterJobs();
                     } else if (filterType === 'sort') {
                         sortJobsBySalary(filterOption);
                     }
                 }
             });
         });
+    </script> -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const jobs = document.querySelectorAll('.job');
+        const filters = {};
+    
+        function filterJobs() {
+            jobs.forEach(job => {
+                let shouldShow = true;
+
+                for (const category in filters) {
+                    const option = filters[category];
+                    const jobOption = job.dataset[category];
+
+                    if (option !== 'All' && jobOption !== option) {
+                        shouldShow = false;
+                        break;
+                    }
+                }
+
+                job.style.display = shouldShow ? 'block' : 'none';
+            });
+        }
+    
+        function sortJobsBySalary(order) {
+            const sortedJobs = Array.from(jobs).sort((a, b) => {
+                const salaryA = parseFloat(a.dataset.salary);
+                const salaryB = parseFloat(b.dataset.salary);
+                return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;
+            });
+    
+            jobs.forEach(job => job.remove());
+    
+            sortedJobs.forEach(job => {
+                document.querySelector('.job-listing').appendChild(job);
+            });
+        }
+    
+        document.addEventListener('click', function (event) {
+            const target = event.target;
+
+            if (target.classList.contains('dropdown-item')) {
+                const filterType = target.closest('.dropdown').dataset.filterType;
+                const filterOption = target.dataset.filter;
+                const category = target.closest('.dropdown').dataset.category;
+
+                if (filterType === 'filter') {
+                    // Update the filters object for the selected category
+                    if (filterOption === 'All') {
+                        delete filters[category];
+                    } else {
+                        filters[category] = filterOption;
+                    }
+
+                    // Filter jobs based on all selected filters
+                    filterJobs();
+                } else if (filterType === 'sort') {
+                    sortJobsBySalary(filterOption);
+                }
+            }
+        });
+    });
     </script>
 
     
