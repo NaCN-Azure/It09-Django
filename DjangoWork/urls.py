@@ -53,6 +53,7 @@ urlpatterns = [
     path('application/update/<int:application_id>/', apply_views.update_application_status_view, name='update_application_status'),
     path('application/searchByUser/<int:user_id>/', apply_views.get_applications_by_user_view, name='get_applications_by_user'),
     path('application/searchByJob/<int:job_id>/', apply_views.get_applications_by_job_view, name='get_applications_by_job'),
+    path('application/checkJob/<int:job_id>/<int:user_id>/', apply_views.check_applications, name='check_applications'),
 
     #feedback视图部分
     path('feedback/create/',feedback_views.add_feedback_view,name='create_feedback'),

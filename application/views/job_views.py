@@ -3,6 +3,8 @@ from django.shortcuts import HttpResponse
 from django.http import JsonResponse
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
+
+from application.models import Job
 from application.services import job_service,feedback_service
 from application.forms.job_form import JobForm
 from django.contrib.auth.decorators import login_required
@@ -13,14 +15,24 @@ Create job view for Employer
 def index(request):
     jobs = job_service.get_all_jobs()
     return render(request, 'index.html', {'jobs': jobs})
-    
+
+@login_required
 def job_detail(request, job_id):
     job = job_service.get_job_by_jobID(job_id)
+    select = {
+        'job_type_choices': Job.JOB_TYPE_CHOICES,
+        'job_remote_choices':Job.JOB_REMOTE_CHOICES,
+        'job_request_choices':Job.JOB_REQUEST_CHOICES,
+        'job_industry_choices':Job.JOB_INDUSTRY_CHOICES
+    }
     feedbacks = feedback_service.get_feedbacks_by_job(job)
-    return render(request,'job-detail.html', {'job': job, 'feedbacks': feedbacks})
+    return render(request,'job-detail.html', {'job': job, 'feedbacks': feedbacks,'select': select})
 
+@login_required
 def job_info(request):
     return render(request,'jobSeekerInfo.html')
+
+@login_required
 def job_em(request):
     return render(request,'employerInfo.html')
 
