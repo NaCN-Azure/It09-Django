@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 from application.forms.user_form import CustomUserCreationForm, CustomLoginForm
 from application.services import user_service
@@ -15,12 +16,22 @@ import json
 '''
 用户注册，获取用户的表单填写，成功与否进行跳转
 '''
-def register(request,user_type):
-    form = CustomUserCreationForm(request.POST or None)
+def register(request, user_type):
     if request.method == 'POST':
-        if user_service.register_user(request, form,user_type):
+        form = CustomUserCreationForm(request.POST or None)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.type = user_type
+            user.save()
+            messages.success(request, "Registration successful!")
             return redirect(reverse('login'))
-    return render(request, 'register.html', {'form': form})
+        else:
+            messages.error(request, "Registration failed, please try again.")
+            print(form.errors)
+            return render(request, 'register.html', {'form': form, 'form_submitted': True, 'user_type': request.POST.get('user_type', '')})
+    else:
+        form = CustomUserCreationForm()
+        return render(request, 'register.html',  {'form': form})
 
 '''
 用户登陆，获取用户的邮箱/密码（登陆表单），然后进行验证
@@ -30,6 +41,8 @@ def login_view(request):
     if request.method == 'POST':
         if user_service.login_user(request, form):
             return redirect(reverse('index'))
+        else:
+            messages.error(request, "Incorrect email and password, please try again.")
     return render(request, 'login.html', {'form': form})
 
 '''
@@ -74,4 +87,4 @@ def change_password(request,user_id):
 '''
 def logout_user(request):
     user_service.logout_user(request)
-    return HttpResponseRedirect(reverse('login')) #这个重定向回头需要改一下，暂时这样
+    return HttpResponseRedirect(reverse('index')) #这个重定向回头需要改一下，暂时这样

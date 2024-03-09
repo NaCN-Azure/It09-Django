@@ -6,16 +6,15 @@ from application.models import User
 from django.contrib.auth.models import update_last_login
 
 
-def register_user(request, form, type):
-    print(form)
-    if form.is_valid():
-        form['type'] = type
-        form.save()
-        messages.success(request, "Registration successful.")
-        return True
-    else:
-        messages.error(request, "Registration failed.")
-        return False
+# def register_user(request, form, type):
+#     if form.is_valid():
+#         form['type'] = type
+#         form.save()
+#         messages.success(request, "Registration successful.")
+#         return True
+#     else:
+#         messages.error(request, "Registration failed.")
+#         return False
 
 
 def login_user(request, form):

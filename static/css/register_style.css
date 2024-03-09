@@ -60,14 +60,21 @@ h2 {
 }
 
 
-form input[type="text"],
-form input[type="email"],
-form input[type="password"] {
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.form-group input {
     width: calc(100% - 20px);
-    margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 4px;
 }
 
 form button {
@@ -96,4 +103,15 @@ p a {
 
 p a:hover {
     text-decoration: underline;
+}
+
+#backButton {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+            margin-right: auto;
 }
