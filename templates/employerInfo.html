@@ -125,7 +125,7 @@ Company Information
 
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <!-- Your form goes here -->
+                        <!-- The form goes here -->
                         <form>
                             <div class="form-group mb-3">
                                 <label for="Job" class="form-label">Job</label>
@@ -176,22 +176,86 @@ Company Information
     </div>
 </div>
 
-
-
-
-
-
 <div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
     <div class=list-group>
-        <a href="#item1Content" class="list-group-item list-group-item-action" data-bs-toggle="collapse" role="button"
-            aria-expanded="false" aria-controls="item1Content">
+        <!-- 第一行 -->
+        <a href="#item1Content" class="list-group-item" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="item1Content">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Sales Associate</h5>
-                <small>3 days ago</small>
+
+                <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
+                    data-bs-target="#EditPost1">Edit</button>
+
+                <!-- The Modal -->
+                <div class="modal" id="EditPost1">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Post</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- The form goes here -->
+                                <form>
+                                    <div class="form-group mb-3">
+                                        <label for="Job" class="form-label">Job</label>
+                                        <input type="text" class="form-control" id="Job" placeholder="Job">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Salary" class="form-label">Salary</label>
+                                        <input type="number" class="form-control" id="Salary" placeholder="Salary">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="JobCity" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="JobCity" placeholder="City">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="JobType" class="form-label">Job Type</label>
+                                        <select class="form-select" id="JobType" aria-label="Default select example">
+                                            <option selected>Open to select job type</option>
+                                            <option value="1">Part-Time</option>
+                                            <option value="2">Temporary</option>
+                                            <option value="3">Volunteer</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Remote" class="form-label">Remote</label>
+                                        <select class="form-select" id="Remote" aria-label="Default select example">
+                                            <option selected>Open to select remote type</option>
+                                            <option value="1">In-Person</option>
+                                            <option value="2">Hybrid</option>
+                                            <option value="3">Remote</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Note" class="form-label">Note</label>
+                                        <textarea class="form-control" id="Note" rows="5"
+                                            placeholder="Add any additional comments or notes"></textarea>
+                                    </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <p class="mb-1">Salary: £18.90 / hour</p>
         </a>
-        <!-- 包含的application项 -->
+
+        <!-- 第一行包含的application项 -->
         <div class="collapse" id="item1Content">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
@@ -206,7 +270,8 @@ Company Information
                             <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i
                                     class="bi bi-check-lg"></i> Hire</button>
                             <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i
-                                    class="bi bi-x-lg"></i> Reject</button>
+                                    class="bi bi-x-lg"></i>
+                                Reject</button>
                         </div>
                     </div>
                 </a>
@@ -222,22 +287,93 @@ Company Information
                             <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i
                                     class="bi bi-check-lg"></i> Hire</button>
                             <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i
-                                    class="bi bi-x-lg"></i> Reject</button>
+                                    class="bi bi-x-lg"></i>
+                                Reject</button>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
 
-        <a href="#item2Content" class="list-group-item list-group-item-action" data-bs-toggle="collapse" role="button"
-            aria-expanded="false" aria-controls="item2Content">
+
+        <!-- 第二行 -->
+        <a href="#item2Content" class="list-group-item" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="item2Content">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Sales Associate</h5>
-                <small>3 days ago</small>
+
+                <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
+                    data-bs-target="#EditPost2">Edit</button>
+
+                <!-- The Modal -->
+                <div class="modal" id="EditPost2">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Post</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- The form goes here -->
+                                <form>
+                                    <div class="form-group mb-3">
+                                        <label for="Job" class="form-label">Job</label>
+                                        <input type="text" class="form-control" id="Job" placeholder="Job">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Salary" class="form-label">Salary</label>
+                                        <input type="number" class="form-control" id="Salary" placeholder="Salary">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="JobCity" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="JobCity" placeholder="City">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="JobType" class="form-label">Job Type</label>
+                                        <select class="form-select" id="JobType" aria-label="Default select example">
+                                            <option selected>Open to select job type</option>
+                                            <option value="1">Part-Time</option>
+                                            <option value="2">Temporary</option>
+                                            <option value="3">Volunteer</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Remote" class="form-label">Remote</label>
+                                        <select class="form-select" id="Remote" aria-label="Default select example">
+                                            <option selected>Open to select remote type</option>
+                                            <option value="1">In-Person</option>
+                                            <option value="2">Hybrid</option>
+                                            <option value="3">Remote</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Note" class="form-label">Note</label>
+                                        <textarea class="form-control" id="Note" rows="5"
+                                            placeholder="Add any additional comments or notes"></textarea>
+                                    </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <p class="mb-1">Salary: £18.90 / hour</p>
         </a>
-        <!-- 包含的application项 -->
+
+        <!-- 第二行包含的application项 -->
         <div class="collapse" id="item2Content">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
@@ -252,7 +388,8 @@ Company Information
                             <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i
                                     class="bi bi-check-lg"></i> Hire</button>
                             <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i
-                                    class="bi bi-x-lg"></i> Reject</button>
+                                    class="bi bi-x-lg"></i>
+                                Reject</button>
                         </div>
                     </div>
                 </a>
@@ -268,22 +405,92 @@ Company Information
                             <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i
                                     class="bi bi-check-lg"></i> Hire</button>
                             <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i
-                                    class="bi bi-x-lg"></i> Reject</button>
+                                    class="bi bi-x-lg"></i>
+                                Reject</button>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
 
-        <a href="#item3Content" class="list-group-item list-group-item-action" data-bs-toggle="collapse" role="button"
-            aria-expanded="false" aria-controls="item3Content">
+        <!-- 第三行 -->
+        <a href="#item3Content" class="list-group-item" data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="item3Content">
             <div class="d-flex w-100 justify-content-between my-2">
                 <h5 class="mb-1 text-primary">Sales Associate</h5>
-                <small>3 days ago</small>
+
+                <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
+                    data-bs-target="#EditPost3">Edit</button>
+
+                <!-- The Modal -->
+                <div class="modal" id="EditPost3">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Post</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- The form goes here -->
+                                <form>
+                                    <div class="form-group mb-3">
+                                        <label for="Job" class="form-label">Job</label>
+                                        <input type="text" class="form-control" id="Job" placeholder="Job">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Salary" class="form-label">Salary</label>
+                                        <input type="number" class="form-control" id="Salary" placeholder="Salary">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="JobCity" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="JobCity" placeholder="City">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="JobType" class="form-label">Job Type</label>
+                                        <select class="form-select" id="JobType" aria-label="Default select example">
+                                            <option selected>Open to select job type</option>
+                                            <option value="1">Part-Time</option>
+                                            <option value="2">Temporary</option>
+                                            <option value="3">Volunteer</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Remote" class="form-label">Remote</label>
+                                        <select class="form-select" id="Remote" aria-label="Default select example">
+                                            <option selected>Open to select remote type</option>
+                                            <option value="1">In-Person</option>
+                                            <option value="2">Hybrid</option>
+                                            <option value="3">Remote</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Note" class="form-label">Note</label>
+                                        <textarea class="form-control" id="Note" rows="5"
+                                            placeholder="Add any additional comments or notes"></textarea>
+                                    </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <p class="mb-1">Salary: £18.90 / hour</p>
         </a>
-        <!-- 包含的application项 -->
+
+        <!-- 第三行包含的application项 -->
         <div class="collapse" id="item3Content">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
@@ -298,7 +505,8 @@ Company Information
                             <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i
                                     class="bi bi-check-lg"></i> Hire</button>
                             <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i
-                                    class="bi bi-x-lg"></i> Reject</button>
+                                    class="bi bi-x-lg"></i>
+                                Reject</button>
                         </div>
                     </div>
                 </a>
@@ -314,7 +522,8 @@ Company Information
                             <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i
                                     class="bi bi-check-lg"></i> Hire</button>
                             <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i
-                                    class="bi bi-x-lg"></i> Reject</button>
+                                    class="bi bi-x-lg"></i>
+                                Reject</button>
                         </div>
                     </div>
                 </a>
