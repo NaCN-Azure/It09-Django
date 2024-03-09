@@ -65,6 +65,51 @@
                 margin: 20px;
                 text-align: left;
             }
+            .modal-body {
+                font-family: Arial, sans-serif;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="date"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box; /* This makes sure padding doesn't affect the total width */
+            }
+
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+            /* Additional styles for the modal */
+            .modal-dialog {
+                max-width: 800px; /* Adjust as per your requirement */
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
             
         </style>
 
@@ -141,11 +186,78 @@
         
                 <div class="col-4">
                     <div class="fixed-sidebar">
+                        {% if user.type == 1 %}
                         <button class="btn btn-primary btn-success btn-lg btn-block d-block" id = "applyNowButton" data-bs-toggle="modal" data-bs-target="#applicationModal">Apply Now</button>
+                        {% elif user.type == 2 %}
+                        <button class="btn btn-primary btn-warning btn-lg btn-block d-block" id="editJobButton" data-bs-toggle="modal" data-bs-target="#editJobModal">Edit</button>
+                        {% endif %}
                     </div>
                 </div>
             </div> 
-            
+
+            <div class="modal fade" id="editJobModal" tabindex="-1" aria-labelledby="editJobModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editJobModalLabel">Edit Job</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="title">Job Title:</label>
+                <input type="text" id="title" name="title" value="{{ job.title }}">
+
+                    <label for="type">Type:</label>
+    <select id="type" name="type">
+        {% for value, label in select.job_type_choices %}
+            <option value="{{ value }}" {% if value == job.type %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="requirement">Requirement:</label>
+    <select id="requirement" name="requirement">
+        {% for value, label in select.job_request_choices %}
+            <option value="{{ value }}" {% if value == job.requirement %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="remote">Remote:</label>
+    <select id="remote" name="remote">
+        {% for value, label in select.job_remote_choices %}
+            <option value="{{ value }}" {% if value == job.remote %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="industry">Industry:</label>
+    <select id="industry" name="industry">
+        {% for value, label in select.job_industry_choices %}
+            <option value="{{ value }}" {% if value == job.industry %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="salary">Salary:</label>
+    <input type="number" id="salary" name="salary" value="{{ job.salary }}">
+
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ job.start_date|date:'Y-m-d' }}">
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" value="{{ job.end_date|date:'Y-m-d' }}">
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" value="{{ job.city }}">
+
+                <label for="description">Job Description:</label>
+                <textarea id="description" name="description">{{ job.description }}</textarea>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" onclick="handleJobEdit()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
             <div class="modal fade" id="applicationModal" tabindex="-1" aria-labelledby="applicationModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -155,6 +267,9 @@
                     </div>
                     <div class="modal-body">
                       <p>Your application is submitted successfully!</p>
+                        <form id="applicationForm" action="{% url 'create_application' %}" method="POST" style="display: none;">
+                            {% csrf_token %}
+                        </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="handleApplicationSubmission()">OK</button>
@@ -187,41 +302,101 @@
                     $('#starRating').val(starNumber);
                 });
             });
+
+            $(document).ready(function() {
+            var job_id = '{{ job.id }}';
+            var user_id = '{{ user.id }}';
+            var baseUrl = "{% url 'check_applications' 0 0 %}".replace('0/0', `${job_id}/${user_id}`);
+            $.ajax({
+                url: baseUrl,
+                type: 'GET',
+                success: function(response) {
+                if(response.exists) {
+                    const applyNowButton = document.getElementById('applyNowButton');
+                    applyNowButton.innerHTML = 'Submitted';
+                    applyNowButton.classList.remove('btn-success');
+                    applyNowButton.classList.add('btn-secondary');
+                    applyNowButton.disabled = true;
+                }
+            }
+            });
+            });
         </script>
        
         <!--for add comment in to database-->
-        
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        // function submitApplication() {
-        // // Here you would handle the logic to submit the application (AJAX request, etc.)
-        // // For simplicity, let's assume the application is successfully submitted.
-    
-        // // Show the modal
-        // $('#applicationModal').modal('show');
-        // }
-    
         function handleApplicationSubmission() {
-        // Update the Apply Now button after the modal is closed
-            const applyNowButton = document.getElementById('applyNowButton');
-            applyNowButton.innerHTML = 'Submitted';
-            applyNowButton.classList.remove('btn-success');
-            applyNowButton.classList.add('btn-secondary');
-            applyNowButton.disabled = true;
+            var user_id = {{ user.id }};
+            var job_id = {{ job.id }};
+
+            $.ajax({
+                url: '{% url "create_application" %}',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ user_id: user_id, job_id: job_id }),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function(response) {
+                     const applyNowButton = document.getElementById('applyNowButton');
+                     applyNowButton.innerHTML = 'Submitted';
+                     applyNowButton.classList.remove('btn-success');
+                     applyNowButton.classList.add('btn-secondary');
+                     applyNowButton.disabled = true;
+                },
+                error: function(xhr, status, error) {
+                    alert('Failed to submit application.');
+                }
+            });
+        };
+
+        function handleJobEdit() {
+            event.preventDefault();
+            var job_id = '{{ job.id }}';
+            var jobData = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                type: document.getElementById('type').value,
+                requirement: document.getElementById('requirement').value,
+                remote: document.getElementById('remote').value,
+                industry: document.getElementById('industry').value,
+                start_date: document.getElementById('start_date').value,
+                end_date: document.getElementById('end_date').value,
+                salary: document.getElementById('salary').value,
+                city: document.getElementById('city').value,
+            };
+            var jsonData = JSON.stringify(jobData);
+            var updateUrl = "{% url 'update_job' 0 %}".replace('0', `${job_id}`);
+            $.ajax({
+                url: updateUrl,
+                type: 'POST',
+                data: jsonData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}"); // 添加CSRF令牌头
+                },
+                success: function(response) {
+                    $('#editJobModal').modal('hide');
+                    alert(response.message);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.error);
+                }
+            });
         }
     </script>
-
-       <script>
-            document.addEventListener("DOMContentLoaded", function() {
-            const applyNowButton = document.getElementById("applyNowButton");
-            const applicationModal = new bootstrap.Modal(document.getElementById("applicationModal"));
-
-            applyNowButton.addEventListener("click", function() {
-                // Show the modal when the button is clicked
-                applicationModal.show();
-            });
-            });
-        </script>
+<!--        <script>-->
+<!--            document.addEventListener("DOMContentLoaded", function() {-->
+<!--            const applyNowButton = document.getElementById("applyNowButton");-->
+<!--            const applicationModal = new bootstrap.Modal(document.getElementById("applicationModal"));-->
+<!--            applyNowButton.addEventListener("click", function() {-->
+<!--                applicationModal.show();-->
+<!--            });-->
+<!--            });-->
+<!--        </script>-->
        
         {% endblock %}
 

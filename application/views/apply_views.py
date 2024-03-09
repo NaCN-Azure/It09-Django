@@ -38,7 +38,6 @@ def get_applications_by_user_view(request, user_id):
     applications_data = serialize_applications(applications)
     return JsonResponse({'applications': applications_data})
 
-
 '''
 雇主按照工位浏览的所有申请记录
 '''
@@ -47,6 +46,12 @@ def get_applications_by_job_view(request, job_id):
     applications = apply_service.get_applications_by_job_ordered(job_id)
     applications_data = serialize_applications(applications)
     return JsonResponse({'applications': applications_data})
+
+@require_http_methods(["GET"])
+def check_applications(request,job_id,user_id):
+    result = apply_service.check_applications(job_id,user_id)
+    return JsonResponse({'exists':result})
+
 
 def serialize_applications(applications):
     return list(applications.values('id', 'job__title', 'apply_date', 'status')) ##Django的语言里，貌似可以通过双下划线访问外键的键，这超级棒这个！！！

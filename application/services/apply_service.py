@@ -38,3 +38,6 @@ def get_order():
         default=Value(5),
         output_field=IntegerField(),
     )
+
+def check_applications(job_id,user_id):
+    return Application.objects.filter(job_id=job_id, user_id=user_id, status=1).exists()
