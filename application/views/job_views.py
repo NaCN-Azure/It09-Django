@@ -29,11 +29,11 @@ def job_detail(request, job_id):
     return render(request,'job-detail.html', {'job': job, 'feedbacks': feedbacks,'select': select})
 
 @login_required
-def job_info(request):
+def user_info(request):
     return render(request,'jobSeekerInfo.html')
 
 @login_required
-def job_em(request):
+def employer_info(request):
     return render(request,'employerInfo.html')
 
 

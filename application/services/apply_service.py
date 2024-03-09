@@ -21,9 +21,12 @@ def update_application_status(pk, new_status):
 def get_applications_by_user(user_id):
     return Application.objects.filter(user_id=user_id).order_by('status')
 
-def get_applications_by_user_ordered(user_id):
+def get_applications_by_user_ordered(user_id, status=None):
+    applications = Application.objects.filter(user_id=user_id)
+    if status is not None:
+        applications = applications.filter(status=status)
     ordering = get_order()
-    return Application.objects.filter(user_id=user_id).annotate(custom_order=ordering).order_by('custom_order')
+    return applications.annotate(custom_order=ordering).order_by('custom_order')
 
 def get_applications_by_job_ordered(job_id):
     ordering = get_order()

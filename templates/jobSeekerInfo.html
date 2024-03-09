@@ -5,9 +5,6 @@
 Job Seeker Information
 {% endblock %}
 
-
-
-
 {% block body_block %}
 
 <style>
@@ -26,6 +23,9 @@ Job Seeker Information
         </h3>
     </div>
     <div class="col-auto">
+        <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
+            data-bs-target="#changeModal">Change Password
+        </button>
         <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
             data-bs-target="#profileModal">Edit
         </button>
@@ -47,23 +47,19 @@ Job Seeker Information
                         <form>
                             <div class="form-group mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Company name">
+                                <input type="text" class="form-control" id="username" value = {{user.user_name}}>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="Email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="Email" placeholder="name@example.com">
+                                <input type="email" class="form-control" id="Email" value = {{user.email}}>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone" placeholder="Phone">
+                                <input type="text" class="form-control" id="phone" value = {{user.phone}}>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="City" class="form-label">City</label>
-                                <input type="text" class="form-control" id="City" placeholder="City">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="Date" class="form-label">Date</label>
-                                <input type="date" class="form-control" id="Date" name="Date">
+                                <input type="text" class="form-control" id="City" value = {{user.city}}>
                             </div>
 
                             <!-- Modal Footer -->
@@ -76,6 +72,41 @@ Job Seeker Information
                 </div>
             </div>
         </div>
+
+
+<div class="modal" id="changeModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Change Password</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassword" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmNewPassword" required>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="handleSubmitChangePassword()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
     </div>
 </div>
 
@@ -84,16 +115,25 @@ Job Seeker Information
         <li><strong>Username:</strong> </li>
         <li><strong>Email:</strong> </li>
         <li><strong>Phone:</strong> </li>
-        <li><strong>Date:</strong> </li>
+        <li><strong>Account Date:</strong> </li>
         <li><strong>City:</strong> </li>
     </ul>
 </div>
 
 
 <!-- My Applications部分 -->
-<h3 class="pb-4 mb-4 fst-italic border-bottom">
-    My Applications
-</h3>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="pb-4 mb-0 fst-italic border-bottom">
+        My Applications
+    </h3>
+    <select id="applicationStatusFilter" class="form-select w-auto">
+        <option value="all">All</option>
+        <option value="1">Applying</option>
+        <option value="2">Success</option>
+        <option value="3">Rejected</option>
+        <option value="4">Error</option>
+    </select>
+</div>
 
 <div class="bd-sidebar ps-lg-2  pb-4 mb-4">
     <div class=list-group id="userApplications">
@@ -102,19 +142,51 @@ Job Seeker Information
 
 
 <!-- My reviews部分 -->
-<h3 class="pb-4 mb-4 fst-italic border-bottom">
-    My Reviews
-</h3>
+    <h3 class="pb-4 mb-0 fst-italic border-bottom">
+        My Reviews
+    </h3>
+
 
 <div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
     <div class=list-group id="userFeedbacks">
-
     </div>
 </div>
 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    //获取没有 job_id 的 URL
+    var jobDetailBaseUrl = "{% url 'job_detail' job_id=0 %}".replace('/0/', '/');
+    var allreviews = [];
+
+    function handleSubmitChangePassword() {
+        var newPassword = $('#newPassword').val();
+        var confirmNewPassword = $('#confirmNewPassword').val();
+        if(newPassword !== confirmNewPassword) {
+            alert('Passwords do not match.');
+            return;
+        }
+        var userId = {{ user.id }};
+        $.ajax({
+            url: '{% url "change_password" user.id %}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({new_password: newPassword}),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function(response) {
+                $('#changeModal').modal('hide');
+                alert('Password changed successfully');
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + xhr.responseJSON.error);
+            }
+        });
+    }
+</script>
+
 <script>
     function getStatusBadge(status) {
         switch (status) {
@@ -147,7 +219,6 @@ Job Seeker Information
                     <li><strong>Username:</strong> ${user.user_name}</li>
                     <li><strong>Email:</strong> ${user.email}</li>
                     <li><strong>Phone:</strong> ${user.phone}</li>
-                    <li><strong>Date:</strong> ${date}</li>
                     <li><strong>City:</strong> ${user.city}</li>
                 `;
 
@@ -167,8 +238,9 @@ Job Seeker Information
                 var applicationsHtml = response.applications.map(function (app) {
                     var formattedDate = new Date(app.apply_date).toLocaleDateString();
                     var statusBadge = getStatusBadge(app.status);
+                    var jobDetailUrl = jobDetailBaseUrl + app.job_id + '/';
                     return `
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="${jobDetailUrl}" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between my-2">
                             <h5 class="mb-1 text-primary">${app.job__title}</h5>
                             <span>
@@ -194,9 +266,11 @@ Job Seeker Information
         dataType: 'json',
         success: function (response) {
             var feedbacksHtml = '';
+            allreviews = response.feedbacks;
             response.feedbacks.forEach(function (feedback) {
+                var jobDetailUrl = jobDetailBaseUrl + feedback.job_id + '/';
                 feedbacksHtml += `
-                        <a href="javascript:void(0)" class="list-group-item list-group-item-action">
+                        <a href="${jobDetailUrl}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between my-2">
                                 <h5 class="mb-1 text-primary">${feedback.job__title}</h5>
                                 <small>Rated: ${feedback.rate}/5</small>
@@ -214,9 +288,85 @@ Job Seeker Information
     });
 
 
+    $(document).ready(function() {
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            var userId = {{ user.id }};
+            var updateUrl = "{% url 'update_user_info' user_id=user.id %}";
+
+            var formData = {
+                "username": $('#username').val(),
+                "email": $('#Email').val(),
+                "phone": $('#phone').val(),
+                "city": $('#City').val()
+            };
+
+            $.ajax({
+                url: updateUrl,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}"); // 添加CSRF令牌
+                },
+                success: function(response) {
+                    alert("User information updated successfully");
+                    $('#profileModal').modal('hide');
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert("Failed to update user information");
+                }
+            });
+        });
+    });
+
+
+    $('#applicationStatusFilter').on('change', function() {
+        var selectedStatus = $(this).val();
+        filterApplications(selectedStatus);
+        console.log(selectedStatus)
+    });
+
+    function filterApplications(status) {
+    var userId = '{{ user.id }}';
+        var url = '{% url "get_applications_by_user" user.id %}';
+
+        if (status !== 'all') {
+            url += '?status=' + status;
+        }
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                var applicationsHtml = response.applications.map(function (app) {
+                    if(status === 'all' || app.status.toString() === status) {
+                        var formattedDate = new Date(app.apply_date).toLocaleDateString();
+                        var statusBadge = getStatusBadge(app.status);
+                        var jobDetailUrl = jobDetailBaseUrl + app.job_id + '/';
+                        return `
+                        <a href="${jobDetailUrl}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between my-2">
+                                <h5 class="mb-1 text-primary">${app.job__title}</h5>
+                                <span>
+                                    ${statusBadge}
+                                    <small> | ${formattedDate}</small>
+                                </span>
+                            </div>
+                        </a>
+                        `;
+                    }
+                }).join('');
+                $('#userApplications').html(applicationsHtml);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching application info:", error);
+            }
+        });
+    }
 </script>
-
-
 
 
 {% endblock %}

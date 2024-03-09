@@ -30,8 +30,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('job/',job_views.index,name='index'),
     path('job/job_detail/<int:job_id>/', job_views.job_detail, name='job_detail'),
-    path('profile/user/', job_views.job_info, name='index_user'),
-    path('profile/employer/', job_views.job_em, name='index_employer'),
+    path('profile/user/', job_views.user_info, name='index_user'),
+    path('profile/employer/', job_views.employer_info, name='index_employer'),
 
     #user视图部分
     path('register/<int:user_type>/', user_views.register, name='register'),

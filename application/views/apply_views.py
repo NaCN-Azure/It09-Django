@@ -34,7 +34,8 @@ def update_application_status_view(request, application_id):
 '''
 @require_http_methods(["GET"])
 def get_applications_by_user_view(request, user_id):
-    applications = apply_service.get_applications_by_user_ordered(user_id)
+    status = request.GET.get('status', None)
+    applications = apply_service.get_applications_by_user_ordered(user_id,status)
     applications_data = serialize_applications(applications)
     return JsonResponse({'applications': applications_data})
 
@@ -54,4 +55,4 @@ def check_applications(request,job_id,user_id):
 
 
 def serialize_applications(applications):
-    return list(applications.values('id', 'job__title', 'apply_date', 'status')) ##Django的语言里，貌似可以通过双下划线访问外键的键，这超级棒这个！！！
+    return list(applications.values('id', 'job__title', 'apply_date', 'status','job_id')) ##Django的语言里，貌似可以通过双下划线访问外键的键，这超级棒这个！！！
