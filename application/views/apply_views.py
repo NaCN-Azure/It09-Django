@@ -55,4 +55,4 @@ def check_applications(request,job_id,user_id):
 
 
 def serialize_applications(applications):
-    return list(applications.values('id', 'job__title', 'apply_date', 'status','job_id')) ##Django的语言里，貌似可以通过双下划线访问外键的键，这超级棒这个！！！
+    return list(applications.values('id', 'job__title', 'apply_date', 'status','job_id','user__user_name','user__email')) ##Django的语言里，貌似可以通过双下划线访问外键的键，这超级棒这个！！！

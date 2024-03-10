@@ -113,6 +113,7 @@ def serialize_jobs(jobs):
     jobs_data = []
     for job in jobs:
         job_dict = {
+            'id': job.id,
             'title': job.title,
             'description': job.description,
             'type': job.get_type_display(),  # 使用 get_FOO_display() 获取描述性字符串
