@@ -39,11 +39,23 @@ Job Seeker Information
         margin-left: auto;
     }
 
-
     .bd-sidebar {
         height: 60vh;
         overflow-y: auto;
         padding: 20px;
+    }
+    .star {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .star.full {
+        color: #f8d150;
+    }
+    .commentbox{
+        border: 1px solid #B0C4DE;
+        border-radius: 5px;
     }
 </style>
 
@@ -304,23 +316,30 @@ Job Seeker Information
             allreviews = response.feedbacks;
             response.feedbacks.forEach(function (feedback) {
                 var jobDetailUrl = jobDetailBaseUrl + feedback.job_id + '/';
+                var starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHtml += feedback.rate >= i ? '<span class="star full">&#9733;</span>' : '<span class="star">&#9733;</span>';
+                }
                 feedbacksHtml += `
-                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    <div class="d-flex flex-column">
-                        <a href="${jobDetailUrl}" class="text-decoration-none">
-                            <h5 class="mb-1 text-primary">${feedback.job__title}</h5>
-                        </a>
-                        <div>${feedback.rate}/5 Stars</div>
-                    </div>
-                    <div class="flex-grow-1 d-flex justify-content-center">
-                        <p class="mb-1 text-truncate">${feedback.comment.length > 20 ? feedback.comment.substring(0, 20) + '...' : feedback.comment}</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <small class="me-2">${new Date(feedback.date).toLocaleDateString()}</small>
-                        <span class="delete-feedback" data-feedback-id="${feedback.id}" style="cursor: pointer; color: red; border: 1px solid red; padding: 2px 5px; border-radius: 5px;">Delete</span>
+                <div class="list-group-item list-group-item-action d-flex align-items-center">
+                    <div class="row w-100">
+                        <div class="col-md-3 d-flex flex-column justify-content-center">
+                            <a href="#" class="text-decoration-none">
+                                <h5 class="mb-1 text-primary">${feedback.job__title}</h5>
+                            </a>
+                            <div>${starsHtml}</div>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center justify-content-center commentbox" >
+                            <p class="mb-1 text-truncate text-center">${feedback.comment.length > 20 ? feedback.comment.substring(0, 20)
+                                + '...' : feedback.comment}</p>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-end align-items-center">
+                            <small class="me-2">${new Date(feedback.date).toLocaleDateString()}</small>
+                            <span class="delete-feedback" data-feedback-id="${feedback.id}"
+                                style="cursor: pointer; color: red; border: 1px solid red; padding: 2px 5px; border-radius: 5px;">Delete</span>
+                        </div>
                     </div>
                 </div>
-
                 `;
             });
             $('#userFeedbacks').html(feedbacksHtml);
