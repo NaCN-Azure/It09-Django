@@ -336,7 +336,26 @@ select {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var today = new Date().toISOString().slice(0, 10);
+        document.getElementById('start_date').value = today;
+        document.getElementById('end_date').value = today;
+    });
     var jobDetailBaseUrl = "{% url 'job_detail' job_id=0 %}".replace('/0/', '/');
+    function getStatusBadge(status) {
+        switch (status) {
+            case 1:
+                return '<span class="badge bg-primary-subtle text-primary-emphasis rounded-pill">Applying</span>';
+            case 2:
+                return '<span class="badge bg-success-subtle text-success-emphasis rounded-pill">Success</span>';
+            case 3:
+                return '<span class="badge bg-danger-subtle text-danger-emphasis rounded-pill">Rejected</span>';
+            case 4:
+                return '<span class="badge bg-dark-subtle text-dark-emphasis rounded-pill">Error</span>';
+            default:
+                return '<span class="badge bg-secondary-subtle text-secondary-emphasis rounded-pill">Unknown</span>';
+        }
+    };
 
     $(document).ready(function() { 
     $.ajax({
@@ -345,17 +364,23 @@ select {
         dataType: 'json',
         success: function (response) {
             var jobsHtml = ''
-            var jobIds = response.jobs.map(job => job.id);
 
+            var jobIds = response.jobs.map(job => job.id);
            response.jobs.forEach( function(job) {
+                var start_date = job.start_date.split('T')[0];
+                var end_date = job.end_date.split('T')[0];
+                var jobDetailUrl = jobDetailBaseUrl + job.id + '/';
                jobsHtml += `
                    <a href="#item${ job.id }Content" class="list-group-item" data-bs-toggle="collapse" role="button" aria-expanded="false"
                        aria-controls="item${job.id }Content">
                        <div class="d-flex w-100 justify-content-between my-2">
                            <h5 class="mb-1 text-primary">${job.title}</h5>
                            <p class="mb-1">Salary: £${ job.salary} / hour</p>
-                           <button type="button" class="btn btn-primary btn-sm px-4 me-md-2" data-bs-toggle="modal"
-                               data-bs-target="#EditPost${ job.id }">Edit</button>
+                           <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-warning btn-sm px-4" onclick = "event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#EditPost${ job.id }">Edit</button>
+                            <button type="button" class="btn btn-primary btn-sm px-4 me-2" onclick=" event.stopPropagation();window.location.href='${jobDetailUrl}';">Detail</button>
+                            <button type="button" class="btn btn-danger btn-sm px-4 me-2" onclick = "event.stopPropagation();">Delete</button>
+                            </div>
                        </div>
                        <!-- The Modal -->
                        <div class="modal" id="EditPost${ job.id }">
@@ -371,52 +396,62 @@ select {
 
                                    <!-- Modal Body -->
                                    <div class="modal-body">
-                                       <!-- The form goes here -->
-                                       <form>
-                                           <div class="form-group mb-3">
-                                               <label for="Job" class="form-label">Job</label>
-                                               <input type="text" class="form-control" id="Job" placeholder="Job">
-                                           </div>
-                                           <div class="form-group mb-3">
-                                               <label for="Salary" class="form-label">Salary</label>
-                                               <input type="number" class="form-control" id="Salary" placeholder="Salary">
-                                           </div>
-                                           <div class="form-group mb-3">
-                                               <label for="JobCity" class="form-label">City</label>
-                                               <input type="text" class="form-control" id="JobCity" placeholder="City">
-                                           </div>
-                                           <div class="form-group mb-3">
-                                               <label for="JobType" class="form-label">Job Type</label>
-                                               <select class="form-select" id="JobType" aria-label="Default select example">
-                                                   <option selected>Open to select job type</option>
-                                                   <option value="1">Part-Time</option>
-                                                   <option value="2">Temporary</option>
-                                                   <option value="3">Volunteer</option>
-                                               </select>
-                                           </div>
-                                           <div class="form-group mb-3">
-                                               <label for="Remote" class="form-label">Remote</label>
-                                               <select class="form-select" id="Remote" aria-label="Default select example">
-                                                   <option selected>Open to select remote type</option>
-                                                   <option value="1">In-Person</option>
-                                                   <option value="2">Hybrid</option>
-                                                   <option value="3">Remote</option>
-                                               </select>
-                                           </div>
-                                           <div class="form-group mb-3">
-                                               <label for="Note" class="form-label">Note</label>
-                                               <textarea class="form-control" id="Note" rows="5"
-                                                   placeholder="Add any additional comments or notes"></textarea>
-                                           </div>
+                                        <label for="title${ job.id }">Job Title:</label>
+                                        <input type="text" id="title${ job.id }" name="title" value="${ job.title }">
 
-                                           <!-- Modal Footer -->
-                                           <div class="modal-footer">
-                                               <button type="button" class="btn btn-secondary"
-                                                   data-dismiss="modal">Close</button>
-                                               <button type="submit" class="btn btn-primary">Submit</button>
-                                           </div>
-                                       </form>
-                                   </div>
+                                        <label for="type${ job.id }">Type:</label>
+                                        <select id="type${ job.id }" name="type">
+                                            {% for value, label in select.job_type_choices %}
+                                            <option value="{{ value }}" {% if value == job.type %}selected{% endif %}>{{ label }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <label for="requirement${ job.id }">Requirement:</label>
+                                        <select id="requirement${ job.id }" name="requirement">
+                                            {% for value, label in select.job_request_choices %}
+                                            <option value="{{ value }}" {% if value == job.requirement %}selected{% endif %}>{{ label }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <label for="remote${ job.id }">Remote:</label>
+                                        <select id="remote${ job.id }" name="remote">
+                                            {% for value, label in select.job_remote_choices %}
+                                            <option value="{{ value }}" {% if value == job.remote %}selected{% endif %}>{{ label }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <label for="industry${ job.id }">Industry:</label>
+                                        <select id="industry${ job.id }" name="industry">
+                                            {% for value, label in select.job_industry_choices %}
+                                            <option value="{{ value }}" {% if value == job.industry %}selected{% endif %}>{{ label }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <label for="salary${ job.id }">Salary:</label>
+                                        <input type="number" id="salary${ job.id }" name="salary" value="${ job.salary }">
+
+                                        <label for="start_date${ job.id }">Start Date:</label>
+                                        <input type="date" id="start_date${ job.id }" name="start_date" value="${start_date}">
+
+                                        <label for="end_date${ job.id }">End Date:</label>
+                                        <input type="date" id="end_date${ job.id }" name="end_date" value="${end_date}">
+
+                                        <label for="city${ job.id }">City:</label>
+                                        <input type="text" id="city${ job.id }" name="city" value="${ job.city }">
+
+                                        <label for="postcode${ job.id }">Postcode:</label>
+                                        <input type="text" id="postcode${ job.id }" name="postcode" value="${ job.postcode}">
+
+                                        <label for="other${ job.id }">Other:</label>
+                                        <textarea id="other${ job.id }" name="other">${ job.other }</textarea>
+
+                                        <label for="description${ job.id }">Job Description:</label>
+                                        <textarea id="description${ job.id }" name="description">${ job.description }</textarea>
+                                    </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" onclick="handleJobEdit(${ job.id })">Save changes</button>
+                                        </div>
                                </div>
                            </div>
                        </div>
@@ -428,9 +463,8 @@ select {
                    </div>
                    `;
                 // 获取并显示每个工作的申请
-    
-                
            });
+
            $('#jobs-list').html(jobsHtml); 
            response.jobs.forEach(function(job) {
             fetchAndDisplayApplications(job.id);
@@ -448,13 +482,18 @@ select {
    
 function fetchAndDisplayApplications(jobId) {
     $.ajax({
-        url: '{% url "get_applications_by_job" 0 %}'.replace('0', jobId), // 确保你的 URL 和参数名称正确
+        url: '{% url "get_applications_by_job" 0 %}'.replace('0', jobId),
         type: 'GET',
         dataType: 'json',
         success: function(response) {
             var applicationsHtml = '';
             response.applications.forEach(function(application) {
-                
+            var statusBadge = getStatusBadge(application.status);
+            var actionButtons = application.status === 1 ?
+                    `<div class="d-flex gap-2 justify-content-between" role="group" aria-label="Small button group">
+                        <button type="button" class="btn btn-success btn-sm rounded-pill px-3" onclick="updateApplicationStatus(${application.id}, 2)"><i class="bi bi-check-lg"></i> Hire</button>
+                        <button type="button" class="btn btn-danger btn-sm rounded-pill px-3" onclick="updateApplicationStatus(${application.id}, 3)"><i class="bi bi-x-lg"></i> Reject</button>
+                    </div>` : '';
                 applicationsHtml += `
                     <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
                         <img src="{% static 'image/person-fill.svg' %}" alt="twbs" width="32" height="32" class="flex-shrink-0">
@@ -462,11 +501,9 @@ function fetchAndDisplayApplications(jobId) {
                             <div>
                                 <h6 class="mb-0">${application.user__user_name}</h6>
                                 <p class="mb-0 opacity-75">${application.user__email}</p>
+                                ${statusBadge}
                             </div>
-                            <div class="d-flex gap-2 justify-content-between" role="group" aria-label="Small button group">
-                                <button type="button" class="btn btn-success btn-sm rounded-pill px-3"><i class="bi bi-check-lg"></i> Hire</button>
-                                <button type="button" class="btn btn-danger btn-sm rounded-pill px-3"><i class="bi bi-x-lg"></i> Reject</button>
-                            </div>
+                            ${actionButtons}
                         </div>
                     </a>
                 `;
@@ -490,7 +527,6 @@ jobIds.forEach(function(jobId) {
             var feedbacksHtml = '';
             response.feedbacks.forEach(function (feedback) {
                 var jobDetailUrl = jobDetailBaseUrl + jobId + '/';
-                console.log(jobDetailUrl);
                 feedbacksHtml += ` 
                         <a href="${jobDetailUrl}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between my-2">
@@ -612,5 +648,65 @@ jobIds.forEach(function(jobId) {
                 }
             });
         };
+
+
+    function handleJobEdit(jobId) {
+            event.preventDefault();
+            var jobData = {
+                title: document.getElementById(`title${ jobId }`).value,
+                type: document.getElementById(`type${jobId}`).value,
+                requirement: document.getElementById(`requirement${jobId}`).value,
+                remote: document.getElementById(`remote${jobId}`).value,
+                industry: document.getElementById(`industry${jobId}`).value,
+                salary: document.getElementById(`salary${jobId}`).value,
+                start_date: document.getElementById(`start_date${jobId}`).value,
+                end_date: document.getElementById(`end_date${jobId}`).value,
+                city: document.getElementById(`city${jobId}`).value,
+                postcode: document.getElementById(`postcode${jobId}`).value,
+                other: document.getElementById(`other${jobId}`).value,
+                description: document.getElementById(`description${jobId}`).value,
+            };
+            var jsonData = JSON.stringify(jobData);
+            var updateUrl = "{% url 'update_job' 0 %}".replace('0', `${jobId}`);
+            $.ajax({
+                url: updateUrl,
+                type: 'POST',
+                data: jsonData,
+                processData: false,
+                contentType: false,
+                beforeSend: function(xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}"); // 添加CSRF令牌头
+                },
+                success: function(response) {
+                    $('#editJobModal').modal('hide');
+                    alert(response.message);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.error);
+                }
+            });
+        };
+
+
+    function updateApplicationStatus(applicationId, newStatus) {
+            var jsonData = JSON.stringify({status: newStatus});
+            $.ajax({
+                url: `{% url 'update_application_status' 0 %}`.replace('0', applicationId),
+                type: 'POST',
+                contentType: 'application/json',
+                data: jsonData,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function(response) {
+                    alert(response.message);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseJSON.error);
+                }
+            });
+        }
 </script>
 {% endblock %}

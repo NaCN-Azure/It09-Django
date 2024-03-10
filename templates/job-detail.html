@@ -263,6 +263,12 @@
     <label for="city">City:</label>
     <input type="text" id="city" name="city" value="{{ job.city }}">
 
+                  <label for="postcode">Postcode:</label>
+                <input type="text" id="postcode" name="postcode" value="{{ job.postcode}}">
+
+                <label for="other">Other:</label>
+                <textarea id="other" name="other">{{ job.other }}</textarea>
+
                 <label for="description">Job Description:</label>
                 <textarea id="description" name="description">{{ job.description }}</textarea>
 
@@ -395,6 +401,8 @@
                 start_date: document.getElementById('start_date').value,
                 end_date: document.getElementById('end_date').value,
                 salary: document.getElementById('salary').value,
+                postcode: document.getElementById('postcode').value,
+                other: document.getElementById('other').value,
                 city: document.getElementById('city').value,
             };
             var jsonData = JSON.stringify(jobData);
