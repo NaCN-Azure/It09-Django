@@ -26,7 +26,8 @@ def job_detail(request, job_id):
         'job_industry_choices':Job.JOB_INDUSTRY_CHOICES
     }
     feedbacks = feedback_service.get_feedbacks_by_job(job)
-    return render(request,'job-detail.html', {'job': job, 'feedbacks': feedbacks,'select': select})
+    average_rate = feedback_service.job_average_rate(request,job_id)
+    return render(request,'job-detail.html', {'job': job, 'feedbacks': feedbacks,'select': select,'average_rate':average_rate})
 
 @login_required
 def user_info(request):

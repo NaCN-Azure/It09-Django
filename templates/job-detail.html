@@ -113,6 +113,14 @@
             .modal-content {
                 padding: 20px;
             }
+            .comment-box {
+                background-color: #f8f9fa;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                margin-top: 10px;
+            }
+
             
         </style>
 
@@ -121,8 +129,11 @@
                 
                 <div class="col-8 offset-md-1">
                     <h4> {{ job.title }}</h4>
-                    <p>Rate: {{ average_rate }}&#127775;</p>
-                    <h6>{{ job.employer }} </h6>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin: 0;">Rate: <span id="averageRate">{{average_rate}}&nbsp;&nbsp;</span></p>
+                    <div id="averageRateStars"></div>
+                    </div>
+                    <h6>Contact me: {{ job.employer }} </h6>
 
                     <div class = "job-details">
                         <h5>Job Details</h5>
@@ -144,6 +155,7 @@
                     <div class="review-section text-center">
                         <h4><b>Reviews</b></h4>
 
+                        {% if user.type == 1 %}
                         <div class="review-form">
                             <h5><b>Leave Your Review</b></h5>
                             <div class="mb-3">
@@ -162,24 +174,27 @@
                             </div>
     
                             <div class="d-flex justify-content-end">
-                                <button class="btn btn-primary btn-success">Submit Review</button>
+                                <button class="btn btn-primary btn-success" id="submitReview">Submit Review</button>
                             </div>
                         </div>
+                        {% endif %}
 
                         {% for feedback in feedbacks %}
-                        <div class="review-block">
-                            <p>{{ feedback.date }}</p>
-                            {% for star in "12345" %}
-                                {% if feedback.rate >= star|add:"0" %}
-                                    <span class="star full">&#9733;</span>
-                                {% else %}
-                                    <span class="star">&#9733;</span>
-                                {% endif %}
-                            {% endfor %}
-                        
-                        <p>Comment: {{ feedback.comment }}</p>
-                            
-                        </div>
+                        <div class="card mb-3 review-block">
+                        <div class="card-body">
+                                    <h5 class="card-title">{{feedback.user.user_name}} | {{ feedback.date|date:"Y-m-d" }}</h5>
+                                    <p class="card-text">
+                                        {% for star in "12345" %}
+                                            {% if feedback.rate >= star|add:"0" %}
+                                                <span class="star full">&#9733;</span>
+                                            {% else %}
+                                                <span class="star">&#9733;</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    <p class="card-text comment-box">{{ feedback.comment }}</p>
+                                </div>
+                            </div>
                         {% endfor %}
     
     
@@ -323,6 +338,20 @@
             }
             });
             });
+
+            function renderStars(averageRate) {
+                const roundedRate = Math.round(averageRate);
+                let starsHtml = '';
+                for(let i = 1; i <= roundedRate ; i++) {
+                    starsHtml += '⭐';
+                }
+                for(let i = roundedRate + 1; i <= 5; i++) {
+                    starsHtml += '☆';
+                }
+                document.getElementById('averageRateStars').innerHTML = starsHtml;
+            }
+            const average_rate = {{ average_rate }};
+            renderStars(average_rate);
         </script>
        
         <!--for add comment in to database-->
@@ -388,20 +417,40 @@
                     alert(xhr.responseJSON.error);
                 }
             });
-        }
-    </script>
-<!--        <script>-->
-<!--            document.addEventListener("DOMContentLoaded", function() {-->
-<!--            const applyNowButton = document.getElementById("applyNowButton");-->
-<!--            const applicationModal = new bootstrap.Modal(document.getElementById("applicationModal"));-->
-<!--            applyNowButton.addEventListener("click", function() {-->
-<!--                applicationModal.show();-->
-<!--            });-->
-<!--            });-->
-<!--        </script>-->
-       
-        {% endblock %}
+        };
 
+
+        document.addEventListener("DOMContentLoaded", function() {
+                $('#submitReview').click(function(event) {
+                event.preventDefault();
+                var job_id = '{{ job.id }}';
+                var user_id = '{{ user.id }}';
+                var rate = $('#starRating').val();
+                var comment = $('#comment').val();
+                $.ajax({
+                    url: '{% url "create_feedback" %}',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        job_id: job_id,
+                        user_id: user_id,
+                        rate: rate,
+                        comment: comment
+                    }),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+                    },
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function() {
+                        alert('Failed to submit feedback.'); // 提示用户反馈添加失败
+                    }
+                });
+            });
+        });
+
+    </script>
+        {% endblock %}
     </body>
-    
 </html>

@@ -1,3 +1,5 @@
+import json
+
 from django.utils import timezone
 from django.http import JsonResponse
 from django.contrib import messages
@@ -6,10 +8,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Avg
 
 def add_feedback(request, user_id, job_id):
-    data = request.POST
+    data = json.loads(request.body.decode('utf-8'))
+    print(data)
     feedback = Feedback(
-        job = job_id,
-        user = user_id,
+        job_id = job_id,
+        user_id = user_id,
         rate = data.get('rate'),
         comment = data.get('comment'),
         date = timezone.now()
