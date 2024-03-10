@@ -35,7 +35,13 @@ def user_info(request):
 
 @login_required
 def employer_info(request):
-    return render(request,'employerInfo.html')
+    select = {
+        'job_type_choices': Job.JOB_TYPE_CHOICES,
+        'job_remote_choices': Job.JOB_REMOTE_CHOICES,
+        'job_request_choices': Job.JOB_REQUEST_CHOICES,
+        'job_industry_choices': Job.JOB_INDUSTRY_CHOICES
+    }
+    return render(request,'employerInfo.html',{'select':select})
 
 
 @require_http_methods(["POST"])
