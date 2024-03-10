@@ -86,6 +86,10 @@ def get_job_by_jobID(job_id):
 def get_all_jobs():
     return Job.objects.all().order_by('title')
 
+def delete_job(job_id):
+    job=Job.objects.get(pk=job_id)
+    job.delete()
+
 
         
     

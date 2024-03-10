@@ -113,6 +113,12 @@ def list_all_jobs_view(request):
     jobs = job_service.get_all_jobs()
     jobs_data = serialize_jobs(jobs)
     return JsonResponse({'jobs': jobs_data})
+
+@require_http_methods(["DELETE"])
+@login_required
+def delete_job_view(request, job_id):
+    job_service.delete_job(job_id)
+    return JsonResponse({'message': 'Job deleted'})
    
 def serialize_jobs(jobs):
     # return list(jobs.values('id', 'title', 'type','requirement', 'remote','industry','description',

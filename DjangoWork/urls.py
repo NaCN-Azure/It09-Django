@@ -47,6 +47,7 @@ urlpatterns = [
     path("job/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId'),
     path("job/getByEmployer/<int:employer_id>/",job_views.list_jobs_by_employer, name='get_job_by_employer_Id'),
     path("job/getAll/",job_views.list_all_jobs_view, name='get_job_all'),
+    path('job/delete/<int:job_id>/',job_views.delete_job_view,name='delete_job'),
 
     #application视图部分
     path('application/create/', apply_views.create_application_view, name='create_application'),
@@ -54,12 +55,13 @@ urlpatterns = [
     path('application/searchByUser/<int:user_id>/', apply_views.get_applications_by_user_view, name='get_applications_by_user'),
     path('application/searchByJob/<int:job_id>/', apply_views.get_applications_by_job_view, name='get_applications_by_job'),
     path('application/checkJob/<int:job_id>/<int:user_id>/', apply_views.check_applications, name='check_applications'),
+    path('application/delete/<int:application_id>/',apply_views.delete_application_view,name='delete_application'),
 
     #feedback视图部分
     path('feedback/create/',feedback_views.add_feedback_view,name='create_feedback'),
     path('feedback/delete/<int:feedback_id>/',feedback_views.delete_feedback_view,name='delete_feedback'),
-    path('feedback/getRateAverage/<int:job_id>',feedback_views.job_average_rate_view,name='get_average_view'),
-    path('feedback/getByUser/<int:user_id>',feedback_views.get_feedbacks_by_user_view,name='get_feedback_by_user'),
-    path('feedback/getByJob/<int:job_id>',feedback_views.get_feedbacks_by_job_view,name='get_feedback_by_job')
+    path('feedback/getRateAverage/<int:job_id>/',feedback_views.job_average_rate_view,name='get_average_view'),
+    path('feedback/getByUser/<int:user_id>/',feedback_views.get_feedbacks_by_user_view,name='get_feedback_by_user'),
+    path('feedback/getByJob/<int:job_id>/',feedback_views.get_feedbacks_by_job_view,name='get_feedback_by_job')
 
 ]

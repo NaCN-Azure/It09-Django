@@ -44,3 +44,7 @@ def get_order():
 
 def check_applications(job_id,user_id):
     return Application.objects.filter(job_id=job_id, user_id=user_id, status=1).exists()
+
+def delete_application(application_id):
+    application=Application.objects.get(pk=application_id)
+    application.delete()
