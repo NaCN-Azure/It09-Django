@@ -116,10 +116,10 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {% if user.type == 2 %}
                                 <!-- Employer default photo -->
-                                <img src="{% static 'image/employer.png' %}" alt="employer" width="32" height="32" class="rounded-circle">
+                                <img src="{% static 'image\default-employer.jpg' %}" alt="employer" width="32" height="32" class="rounded-circle">
                             {% else %}
                                 <!-- Job seeker default photo -->
-                                <img src="{% static 'image/user.png' %}" alt="user" width="32" height="32" class="rounded-circle">
+                                <img src="{% static 'image\default-user.jpg' %}" alt="user" width="32" height="32" class="rounded-circle">
                             {% endif %}
                         </a>
                         <ul class="dropdown-menu text-small">
