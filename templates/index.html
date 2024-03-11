@@ -3,28 +3,41 @@
 {% extends "base.html" %}
 {% block title_block %}Home{% endblock %}
 <html lang="en">
+
+
 <body>
     
     {% block body_block %}
     <div class="container-wrapper">
         <style>
-            body{
+            /* body{
                 background-color: hsla(0, 7%, 94%, 0.685); 
-            }
-            .sorted-bar {
+            } */
+            /* .sorted-bar {
                 display: flex;
                 justify-content: space-evenly;
                 align-items: center;
                 margin-block: 10px 20px;
             } 
-
             .btn {
+                background-color: #f4511e;
+  
+                color: white;
+                text-align: center;
+                font-size: 18px;
+                opacity: 0.6;
+                transition: 0.1s;
+                display: inline-block;
+                text-decoration: none;
+                cursor: pointer;
+
                 margin: 10px;
                 padding: 10px;
-                border: 1px solid #26462b;
+                border: 1px solid #463d26;
                 box-shadow: 0 0 5px rgb(176, 176, 176);
             }
-
+            .btn:hover {opacity: 1} */
+/* 
             .job-listing {
                 display: flex;
                 flex-direction: column;
@@ -40,8 +53,8 @@
                 padding: 20px;
                 border-radius: 10px;
                 box-shadow: 0 0 5px rgb(166, 166, 166);
-                word-wrap: break-word;  /* Wrap long words onto the next line */
-                overflow: hidden;      /* Hide overflowing content */
+                word-wrap: break-word;  
+                overflow: hidden;      
                 text-overflow: ellipsis; 
                 background-color: rgba(255, 255, 255, 0.5); 
                 backdrop-filter: blur(10px);
@@ -49,14 +62,14 @@
 
             .job-link {
                 text-decoration: none;
-                /* Remove underline by default */
+                
                 color: #474747;
-                /* Set your preferred color */
+              
             }
 
             .job-link:hover h3 {
                 text-decoration: underline;
-                /* Add underline to h3 on hover over the block */
+               
             }
 
             .job-details {
@@ -64,7 +77,7 @@
                 justify-content: space-between;
                 flex-wrap: wrap;
                 padding-right: 10%;
-            }
+            } */
         </style>
 
         <div class="row justify-content-center">
@@ -72,7 +85,7 @@
                 <div class="sorted-bar">
 
                     <div class="dropdown" data-filter-type="filter" data-category="location">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Location
                         </button>
@@ -86,7 +99,7 @@
                     </div>
 
                     <div class="dropdown" data-filter-type="filter" data-category="industry">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton2"
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Industry
                         </button>
@@ -106,7 +119,7 @@
                     </div>
 
                     <div class="dropdown" data-filter-type="filter" data-category="jobtype">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton3"
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton3"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Job Type
                         </button>
@@ -118,7 +131,7 @@
                     </div>
 
                     <div class="dropdown" data-filter-type="filter" data-category="education">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton4"
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton4"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Education Level
                         </button>
@@ -133,7 +146,7 @@
                     </div>
 
                     <div class="dropdown" data-filter-type="filter" data-category="remote">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton5"
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton5"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Remote
                         </button>
@@ -146,7 +159,7 @@
                     </div>
 
                     <div class="dropdown" data-filter-type="sort" data-category="salary">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton6"
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton6"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Sorted by Salary
                         </button>
@@ -172,7 +185,7 @@
                         <div>
                             <h3>{{ job.title }}</h3>
                             <p>{{ job.employer }}</p>
-                            <div class="job-details">
+                            <div class="job-detail">
                                 <p><b>Salary:</b> £{{ job.salary }} per hour</p>
                                 <p><b>Remote: </b>{{ job.get_remote_display }}</p>
                                 <p><b>Job Type: </b>{{ job.get_type_display }}</p>
@@ -193,51 +206,6 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const jobs = document.querySelectorAll('.job');
-    
-            function filterJobs(filterOption, category) {
-                jobs.forEach(job => {
-
-                    const option = job.dataset[category];
-                    job.style.display = option === filterOption || filterOption === 'all' ? 'block' : 'none';
-                });
-            }
-    
-            function sortJobsBySalary(order) {
-                const sortedJobs = Array.from(jobs).sort((a, b) => {
-                    const salaryA = parseFloat(a.dataset.salary);
-                    const salaryB = parseFloat(b.dataset.salary);
-                    return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;
-                });
-    
-                jobs.forEach(job => job.remove());
-                console.log(sortedJobs);
-    
-                sortedJobs.forEach(job => {
-                    document.querySelector('.job-listing').appendChild(job);
-                });
-            }
-    
-            document.addEventListener('click', function (event) {
-                const target = event.target;
-    
-                if (target.classList.contains('dropdown-item')) {
-                    const filterType = target.closest('.dropdown').dataset.filterType;
-                    const filterOption = target.dataset.filter;
-                    // const category = target.closest('.dropdown').dataset.category;
-    
-                    if (filterType === 'filter') {
-                        filterJobs();
-                    } else if (filterType === 'sort') {
-                        sortJobsBySalary(filterOption);
-                    }
-                }
-            });
-        });
-    </script> -->
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -300,25 +268,6 @@
             }
         });
     });
-    </script>
-
-    
-    
-    <script>
-        $(document).ready(function () {
-             // Make an AJAX request to fetch all jobs
-            $.ajax({
-                url: "{% url 'index' %}",
-                method: "GET",
-                dataType: "json",
-                success: function (response) {
-                    $(".job-listing .row").html(response);
-                },
-                error: function (error) {
-                    console.error("Error fetching jobs:", error);
-                }
-            });
-        });
     </script>
 
     {% endblock %}
