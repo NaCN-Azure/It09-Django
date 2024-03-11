@@ -27,7 +27,6 @@ def register(request, user_type):
             return redirect(reverse('login'))
         else:
             messages.error(request, "Registration failed, please try again.")
-            print(form.errors)
             return render(request, 'register.html', {'form': form, 'form_submitted': True, 'user_type': request.POST.get('user_type', '')})
     else:
         form = CustomUserCreationForm()
@@ -63,7 +62,6 @@ def get_user_info(request, user_id):
 @login_required
 def update_user_info(request, user_id):
     data = json.loads(request.body.decode('utf-8'))  # 正确获取 JSON 数据
-    print(data)
     if user_service.update_user_info(user_id, data):
         return JsonResponse({'success': 'User information updated successfully'})
     else:
@@ -87,4 +85,4 @@ def change_password(request,user_id):
 '''
 def logout_user(request):
     user_service.logout_user(request)
-    return HttpResponseRedirect(reverse('index')) #这个重定向回头需要改一下，暂时这样
+    return HttpResponseRedirect(reverse('index'))

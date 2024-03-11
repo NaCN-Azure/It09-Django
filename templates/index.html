@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 
 {% extends "base.html" %}
+{% load static %}
 {% block title_block %}Home{% endblock %}
 <html lang="en">
 
@@ -10,44 +12,10 @@
     {% block body_block %}
     <div class="container-wrapper">
         <style>
-            /* body{
-                background-color: hsla(0, 7%, 94%, 0.685); 
-            } */
-            /* .sorted-bar {
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                margin-block: 10px 20px;
-            } 
-            .btn {
-                background-color: #f4511e;
-  
-                color: white;
-                text-align: center;
-                font-size: 18px;
-                opacity: 0.6;
-                transition: 0.1s;
-                display: inline-block;
-                text-decoration: none;
-                cursor: pointer;
-
-                margin: 10px;
-                padding: 10px;
-                border: 1px solid #463d26;
-                box-shadow: 0 0 5px rgb(176, 176, 176);
-            }
-            .btn:hover {opacity: 1} */
-/* 
-            .job-listing {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                
-            }
-
             .job {
-                justify-content: center;
+                width:1000px;
+                display:flex;
+                justify-content: space-between;
                 border: 1px solid #dcdcdc;
                 margin-block: 10px 10px;
                 padding: 20px;
@@ -58,26 +26,24 @@
                 text-overflow: ellipsis; 
                 background-color: rgba(255, 255, 255, 0.5); 
                 backdrop-filter: blur(10px);
+                align-items:stretch;
             }
 
-            .job-link {
-                text-decoration: none;
-                
-                color: #474747;
-              
+            .job-image{
+                flex:50%;
+                display:flex;
+                height:300px;
+                justify-content:center;
+                align-items:center;
+                max-width:50%;
+                overflow:hidden;
             }
-
-            .job-link:hover h3 {
-                text-decoration: underline;
-               
+            .job-image img{
+                max-width:100%;
+                max-height:100%;
+                height:auto;
+                object-fit:contain;
             }
-
-            .job-details {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                padding-right: 10%;
-            } */
         </style>
 
         <div class="row justify-content-center">
@@ -178,27 +144,59 @@
 
 
                 
-                {% for job in jobs %}
-                <div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
-                    <a href="{% url 'job_detail' job_id=job.id %}" class="job-link">    
+<!--                {% for job in jobs %}-->
+<!--                <div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">-->
+<!--                    <a href="{% url 'job_detail' job_id=job.id %}" class="job-link">    -->
 
-                        <div>
-                            <h3>{{ job.title }}</h3>
-                            <p>{{ job.employer }}</p>
-                            <div class="job-detail">
-                                <p><b>Salary:</b> £{{ job.salary }} per hour</p>
-                                <p><b>Remote: </b>{{ job.get_remote_display }}</p>
-                                <p><b>Job Type: </b>{{ job.get_type_display }}</p>
-                                <p><b>Location: </b>{{ job.city }}</p>
-                            </div>
-                            <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>
-                            <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>
-                            <p><b>Other Information: </b> {{job.other}}</p>
-                        </div>
-                    </a>
-                </div>
-                    
-                {% endfor %}
+<!--                        <div>-->
+<!--                            <h3>{{ job.title }}</h3>-->
+<!--                            <p>{{ job.employer }}</p>-->
+<!--                            <div class="job-details">-->
+<!--                                <p><b>Salary:</b> £{{ job.salary }} per hour</p>-->
+<!--                                <p><b>Remote: </b>{{ job.get_remote_display }}</p>-->
+<!--                                <p><b>Job Type: </b>{{ job.get_type_display }}</p>-->
+<!--                                <p><b>Location: </b>{{ job.city }}</p>-->
+<!--                            </div>-->
+<!--                            <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>-->
+<!--                            <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>-->
+<!--                            <p><b>Other Information: </b> {{job.other}}</p>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <div class="job-image">-->
+<!--                        {% if job.avatar %}-->
+<!--                            <img src="{{ job.avatar }}" alt="{{ job.title }}" style="width: 100px; height: 100px;">-->
+<!--                        {% else %}-->
+<!--                            <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image" style="width: 100px; height: 100px;">-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--         job d-flex justify-content-between align-items-end mb-4       </div>-->
+<!--                {% endfor %}-->
+{% for job in jobs %}
+<div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
+    <a href="{% url 'job_detail' job_id=job.id %}" class="job-link flex-grow-1">
+        <div>
+            <h3>{{ job.title }}</h3>
+            <p>{{ job.employer }}</p>
+            <div class="job-detail">
+                <p><b>Salary:</b> £{{ job.salary }} per hour</p>
+                <p><b>Remote:</b> {{ job.get_remote_display }}</p>
+                <p><b>Job Type:</b> {{ job.get_type_display }}</p>
+                <p><b>Location:</b> {{ job.city }}</p>
+                <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>
+                <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>
+                <p><b>Other Information:</b> {{ job.other }}</p>
+            </div>
+        </div>
+    </a>
+    <div class="job-image">
+        {% if job.avatar %}
+            <img src="{{ job.avatar }}" alt="{{ job.title }}">
+        {% else %}
+            <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image">
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
 
 
             
@@ -253,13 +251,16 @@
                 const category = target.closest('.dropdown').dataset.category;
 
                 if (filterType === 'filter') {
+                    console.log(filterType);
+                    console.log(category);
+                    console.log(filters);
                     // Update the filters object for the selected category
                     if (filterOption === 'All') {
                         delete filters[category];
                     } else {
                         filters[category] = filterOption;
                     }
-
+                    console.log(filters);
                     // Filter jobs based on all selected filters
                     filterJobs();
                 } else if (filterType === 'sort') {
@@ -270,6 +271,26 @@
     });
     </script>
 
+<<<<<<< HEAD
+=======
+    
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            $.ajax({-->
+<!--                url: "{% url 'index' %}",-->
+<!--                method: "GET",-->
+<!--                dataType: "json",-->
+<!--                success: function (response) {-->
+<!--                    $(".job-listing .row").html(response);-->
+<!--                },-->
+<!--                error: function (error) {-->
+<!--                    console.error("Error fetching jobs:", error);-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+
+>>>>>>> 7f5e073cb90f2c5b55cf6ce804eaf1659c47d96f
     {% endblock %}
 
 </body>
