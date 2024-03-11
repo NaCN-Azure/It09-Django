@@ -205,7 +205,7 @@
                     <div class="fixed-sidebar">
                         {% if user.type == 1 %}
                         <button class="btn btn-primary btn-success btn-lg btn-block d-block" id = "applyNowButton" data-bs-toggle="modal" data-bs-target="#applicationModal">Apply Now</button>
-                        {% elif user.type == 2 %}
+                        {% elif user.type == 2 and job.employer_id == user.id %}
                         <button class="btn btn-primary btn-warning btn-lg btn-block d-block" id="editJobButton" data-bs-toggle="modal" data-bs-target="#editJobModal">Edit</button>
                         {% endif %}
                     </div>
