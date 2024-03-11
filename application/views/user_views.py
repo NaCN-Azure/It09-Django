@@ -1,13 +1,18 @@
 # views/user_views.py
+import os
+
 from django.contrib.auth import login
+from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.decorators.http import require_POST
+from django.conf import settings
+from django.views.decorators.http import require_POST, require_http_methods
 from django.contrib import messages
 
 from application.forms.user_form import CustomUserCreationForm, CustomLoginForm
+from application.models import User
 from application.services import user_service
 from django.middleware.csrf import get_token
 import json
@@ -79,6 +84,21 @@ def change_password(request,user_id):
     else:
         return JsonResponse({'error': 'Wrong password'}, status=400)
 
+@require_http_methods(['POST'])
+@login_required
+def upload_user_image(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST' and request.FILES['user_image']:
+        user_image = request.FILES['user_image']
+        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+        file_path = os.path.join(settings.MEDIA_ROOT, 'user', f'{user_id}.jpg')
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        filename = fs.save('user/' + f'{user_id}.jpg', user_image)
+        user.avatar = fs.url(filename)
+        user.save()
+        return JsonResponse({'message': 'User Image Updated'})
+    return JsonResponse({'message': 'Update Failed'}, status=400)
 
 '''
 登出用户

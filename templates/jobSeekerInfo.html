@@ -57,6 +57,22 @@ Job Seeker Information
         border: 1px solid #B0C4DE;
         border-radius: 5px;
     }
+
+    .user-image{
+                flex:50%;
+                display:flex;
+                height:230px;
+                justify-content:center;
+                align-items:center;
+                max-width:30%;
+                overflow:hidden;
+    }
+    .user-image img{
+                max-width:100%;
+                max-height:100%;
+                height:auto;
+                object-fit:contain;
+    }
 </style>
 
 <!-- My profile部分 -->
@@ -154,7 +170,8 @@ Job Seeker Information
     </div>
 </div>
 
-<div class="bd-content ps-lg-2 pb-4 mb-2" id="UserProfile">
+<div class="bd-content ps-lg-2 pb-4 mb-2" id="UserProfile" style="display: flex; align-items: flex-start;">
+    <div style="flex-grow: 1;">
     <ul>
         <li><strong>Username:</strong> </li>
         <li><strong>Email:</strong> </li>
@@ -162,6 +179,22 @@ Job Seeker Information
         <li><strong>Account Date:</strong> </li>
         <li><strong>City:</strong> </li>
     </ul>
+    </div>
+    <div class="user-image" onclick="document.getElementById('id_user_image_{{ user.id }}').click();">
+        {% if user.avatar %}
+        <img src="{{ user.avatar }}" alt="{{ user.title }}">
+        {% else %}
+            {% if user.type == 1 %}
+        <img src="{% static 'image/default-user.jpg' %}" alt="Default User Image">
+            {% elif user.type == 2 %}
+        <img src="{% static 'image/default-employer.jpg' %}" alt="Default User Image">
+            {% endif %}
+        {% endif %}
+        <form id="upload_form_{{ user.id }}" method="post" enctype="multipart/form-data" style="display:none;">
+                                {% csrf_token %}
+                                <input type="file" name="user_image" id="id_user_image_{{ user.id }}" onchange="uploadFormSubmit({{ user.id }});">
+        </form>
+    </div>
 </div>
 
 
@@ -473,6 +506,31 @@ $(document).on('click', '.delete-feedback', function() {
         });
     }
 });
+
+
+        function uploadFormSubmit(userId) {
+                var formData = new FormData();
+                formData.append('user_image', $('#id_user_image_' + userId)[0].files[0]);
+                var uploadUrl = `{% url 'upload_user_image' user_id=0 %}`.replace('0', userId);
+                $.ajax({
+                    url: uploadUrl,
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+                    },
+                    success: function(data) {
+                        alert('Picture Updated.');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('Failed to submit.');
+                    }
+                });
+            }
+
 
 </script>
 
