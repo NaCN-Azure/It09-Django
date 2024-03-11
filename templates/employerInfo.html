@@ -115,7 +115,21 @@ select {
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
-
+.user-image{
+                flex:50%;
+                display:flex;
+                height:230px;
+                justify-content:center;
+                align-items:center;
+                max-width:30%;
+                overflow:hidden;
+}
+.user-image img{
+                max-width:100%;
+                max-height:100%;
+                height:auto;
+                object-fit:contain;
+}
 </style>
 
 
@@ -177,7 +191,6 @@ select {
             </div>
         </div>
 
-
         <div class="modal" id="changeModal">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -214,18 +227,35 @@ select {
     </div>
 </div>
 
-<div class="bd-content ps-lg-2 pb-4 mb-2">
+<div class="bd-content ps-lg-2 pb-4 mb-2" style="display: flex; align-items: flex-start;">
+    <div style="flex-grow: 1;">
     <ul>
         <li><strong>Company Name:</strong> {{ user.user_name }}</li>
         <li><strong>Phone:</strong> {{ user.phone }}</li>
         <li><strong>Email:</strong> {{ user.email }}</li>
         <li><strong>City:</strong> {{ user.city }}</li>
-        <li><strong>Company Introduction:</strong> Lidl is a leading global supermarket chain known for
-            its commitment to providing high-quality products at affordable prices. With a strong
-            presence in the retail industry, we strive to make shopping convenient, enjoyable, and
-            budget-friendly for our customers.
-        </li>
+<!--        <li><strong>Company Introduction:</strong> Lidl is a leading global supermarket chain known for-->
+<!--            its commitment to providing high-quality products at affordable prices. With a strong-->
+<!--            presence in the retail industry, we strive to make shopping convenient, enjoyable, and-->
+<!--            budget-friendly for our customers.-->
+<!--        </li>-->
     </ul>
+    </div>
+    <div class="user-image" onclick="document.getElementById('id_user_image_{{ user.id }}').click();">
+        {% if user.avatar %}
+        <img src="{{ user.avatar }}" alt="{{ user.title }}">
+        {% else %}
+            {% if user.type == 1 %}
+        <img src="{% static 'image/default-user.jpg' %}" alt="Default User Image">
+            {% elif user.type == 2 %}
+        <img src="{% static 'image/default-employer.jpg' %}" alt="Default User Image">
+            {% endif %}
+        {% endif %}
+        <form id="upload_form_{{ user.id }}" method="post" enctype="multipart/form-data" style="display:none;">
+                                {% csrf_token %}
+                                <input type="file" name="user_image" id="id_user_image_{{ user.id }}" onchange="uploadFormSubmit({{ user.id }});">
+        </form>
+    </div>
 </div>
 
 
@@ -734,7 +764,32 @@ jobIds.forEach(function(jobId) {
             }
         });
     }
-}
+};
+
+
+            function uploadFormSubmit(userId) {
+                var formData = new FormData();
+                formData.append('user_image', $('#id_user_image_' + userId)[0].files[0]);
+                var uploadUrl = `{% url 'upload_user_image' user_id=0 %}`.replace('0', userId);
+                $.ajax({
+                    url: uploadUrl,
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+                    },
+                    success: function(data) {
+                        alert('Picture Updated.');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('Failed to submit.'); // 提示用户反馈添加失败
+                    }
+                });
+            }
+
 
 </script>
 {% endblock %}

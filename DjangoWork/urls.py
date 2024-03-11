@@ -42,6 +42,7 @@ urlpatterns = [
     path('userInfo/<int:user_id>/update/', user_views.update_user_info, name='update_user_info'),
     path('logout/', user_views.logout_user, name='logout'),
     path('userInfo/<int:user_id>/change_password/', user_views.change_password, name='change_password'),
+    path('user/<int:user_id>/upload_image/', user_views.upload_user_image, name='upload_user_image'),
 
     #Employer
     path("job/createJob/",job_views.create_job_view, name='create_job'),
