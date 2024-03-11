@@ -1,0 +1,24 @@
+runtime: python39  # 因为Python 3.11在GAE上可能不被支持，所以这里用3.9
+env: flex
+
+entrypoint: gunicorn -b :$PORT DjangoWork.wsgi:application
+
+runtime_config:  # 如果您决定使用Python 3.11，则需要灵活环境
+  python_version: 3
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: "DjangoWork.settings"
+  SECRET_KEY: "django-insecure-^inbutbg+wzkpc!jn=%3l1l1-88ap7soe6^5c*_e%5lup7qska"
+  DEBUG: "False"  # 在生产环境中应为False
+
+# 这部分通常用于静态文件处理，具体取决于你的项目配置
+handlers:
+- url: /static
+  static_dir: static/
+- url: /.*
+  script: auto
+
+# 指定依赖
+manual_scaling:
+  instances: 1  # 根据需要设置实例数量
+
