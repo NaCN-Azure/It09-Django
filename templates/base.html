@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,8 +46,18 @@
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
+                            {% if user.avatar %}
+                            <img src="{{ user.avatar }}" alt="mdo" width="32" height="32"
                                 class="rounded-circle">
+                            {% else %}
+                                {% if user.type == 1 %}
+                            <img src="{% static 'image/default-user.jpg' %}" alt="mdo" width="32" height="32"
+                                class="rounded-circle">
+                                {% elif user.type == 2 %}
+                            <img src="{% static 'image/default-employer.jpg' %}" alt="mdo" width="32" height="32"
+                                class="rounded-circle">
+                                {% endif %}
+                            {% endif %}
                         </a>
                         <ul class="dropdown-menu text-small">
                             {% if user.type == 1 %}
