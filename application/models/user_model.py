@@ -1,7 +1,11 @@
+import os
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
-
+def user_directory_path(instance,filename):
+    basefilename, file_extension = os.path.splitext(filename)
+    return 'user/{userid}/{basename}{ext}'.format(userid=instance.pk,basename=basefilename,ext=file_extension)
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -38,8 +42,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     last_login = models.DateTimeField(('last login'), blank=True, null=True)
+    avatar = models.ImageField(upload_to=user_directory_path,blank=True,null=True)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name']
     class Meta:
         db_table = 'user'
+

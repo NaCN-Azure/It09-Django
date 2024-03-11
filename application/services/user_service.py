@@ -41,15 +41,17 @@ def get_user_info(user_id):
                     'city': user.city,
                     'type': user.USER_TYPE_CHOICES[user.type],
                     'last_login': user.last_login,
+                    'avatar':str(user.avatar),
                 }}
     except User.DoesNotExist:
         return None
 
 
 def update_user_info(user_id, data):
+    print(data)
     try:
         user = User.objects.get(pk=user_id)
-        user.user_name = data.get('user_name', user.user_name)
+        user.user_name = data.get('username', user.user_name)
         user.email= data.get('email', user.email)
         user.phone = data.get('phone', user.phone)
         user.city = data.get('city', user.city)

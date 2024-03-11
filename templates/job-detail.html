@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% extends "base.html" %}
+{% load static %}
 {% block title_block %}{{ job.title }}{% endblock %}
 <html lang="en">
     <body>
@@ -20,11 +21,31 @@
                 height: 100%;
                 overflow: auto; /* Allow scrolling in the content area if needed */
             }
+            .job-containor{
+                display:flex;
+                border-top: 2px solid #dcdcdc;
+                border-bottom: 2px solid #dcdcdc;
+            }
             .job-details {
-                border-top: 2px solid #dcdcdc; /* Add a 2px solid border at the top with a light gray color */
+                flex:1;
                 padding-top: 20px; /* Add some padding to separate the border from the content */
-                margin-top: 20px;  
+                margin-top: 20px;
                 color: #474747;   
+            }
+            .job-image{
+                flex:50%;
+                display:flex;
+                height:350px;
+                justify-content:center;
+                align-items:center;
+                max-width:30%;
+                overflow:hidden;
+            }
+            .job-image img{
+                max-width:100%;
+                max-height:100%;
+                height:auto;
+                object-fit:contain;
             }
             .fixed-sidebar {
                 position: fixed;
@@ -135,6 +156,7 @@
                     </div>
                     <h6>Contact me: {{ job.employer }} </h6>
 
+                    <div class = "job-containor">
                     <div class = "job-details">
                         <h5>Job Details</h5>
                             <p>&#128205; <b>Location: </b>{{ job.city }}, {{job.postcode}}</p>
@@ -145,7 +167,26 @@
                             <p>&#127891; <b>Education Level Requirement: </b>{{ job.get_requirement_display }}</p>
                             <p>&#128172; <b>Skills: </b>Communication, Attention to details</p>      
                     </div>
+                        {% if user.is_authenticated and user.type == 2 and user.id == job.employer_id %}
+                            <div class="job-image" onclick="document.getElementById('id_job_image_{{ job.id }}').click();">
+                        {% else %}
+                            <div class="job-image">
+                        {% endif %}
+                                {% if job.avatar %}
+                                    <img src="{{ job.avatar }}" alt="{{ job.title }}">
+                                {% else %}
+                                    <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image">
+                                {% endif %}
+                            </div>
+                        {% if user.is_authenticated and user.type == 2 and user.id == job.employer_id %}
+                            <form id="upload_form_{{ job.id }}" method="post" enctype="multipart/form-data" style="display:none;">
+                                {% csrf_token %}
+                                <input type="file" name="job_image" id="id_job_image_{{ job.id }}" onchange="uploadFormSubmit({{ job.id }});">
+                            </form>
+                        {% endif %}
 
+
+                    </div>
                     <div class="job-details">
                         <h5>Full Job Description</h5>
                         <p>{{ job.description }}</p>
@@ -303,8 +344,6 @@
 
         </div>
 
-
-
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
         <!--for add reviews-->
@@ -349,10 +388,10 @@
                 const roundedRate = Math.round(averageRate);
                 let starsHtml = '';
                 for(let i = 1; i <= roundedRate ; i++) {
-                    starsHtml += '⭐';
+                    starsHtml +=  '<span class="star full">&#9733;</span>';
                 }
                 for(let i = roundedRate + 1; i <= 5; i++) {
-                    starsHtml += '☆';
+                    starsHtml += '<span class="star">&#9733;</span>';
                 }
                 document.getElementById('averageRateStars').innerHTML = starsHtml;
             }
@@ -457,6 +496,32 @@
                 });
             });
         });
+
+
+
+        function uploadFormSubmit(jobId) {
+                var formData = new FormData();
+                formData.append('job_image', $('#id_job_image_' + jobId)[0].files[0]);
+                var uploadUrl = `{% url 'upload_job_image' job_id=0 %}`.replace('0', jobId);
+                console.log(uploadUrl);
+                $.ajax({
+                    url: uploadUrl,
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+                    },
+                    success: function(data) {
+                        alert('Picture Updated.');
+                        location.reload();
+                    },
+                    error: function(error) {
+                        alert('Failed to submit.'); // 提示用户反馈添加失败
+                    }
+                });
+            }
 
     </script>
         {% endblock %}

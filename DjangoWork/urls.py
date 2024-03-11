@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from application.views import job_views,user_views,apply_views,feedback_views
 from django.urls import path, re_path
 
@@ -48,6 +50,7 @@ urlpatterns = [
     path("job/getByEmployer/<int:employer_id>/",job_views.list_jobs_by_employer, name='get_job_by_employer_Id'),
     path("job/getAll/",job_views.list_all_jobs_view, name='get_job_all'),
     path('job/delete/<int:job_id>/',job_views.delete_job_view,name='delete_job'),
+    path('job/<int:job_id>/upload_image/', job_views.upload_job_image, name='upload_job_image'),
 
     #application视图部分
     path('application/create/', apply_views.create_application_view, name='create_application'),
@@ -64,4 +67,5 @@ urlpatterns = [
     path('feedback/getByUser/<int:user_id>/',feedback_views.get_feedbacks_by_user_view,name='get_feedback_by_user'),
     path('feedback/getByJob/<int:job_id>/',feedback_views.get_feedbacks_by_job_view,name='get_feedback_by_job')
 
-]
+
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

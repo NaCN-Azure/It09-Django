@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import HttpResponse
+import os
+
 from django.http import JsonResponse
 from django.urls import reverse
+from django.shortcuts import get_object_or_404, render, redirect
+from django.core.files.storage import FileSystemStorage
 from django.views.decorators.http import require_http_methods
 
+from django.conf import settings
 from application.models import Job
 from application.services import job_service,feedback_service
 from application.forms.job_form import JobForm
@@ -101,6 +104,7 @@ def get_job_by_jobId_view(request, job_id):
             "city":  job.city,
             "salary": job.salary,
             "other": job.other,
+            "avatar":str(job.avatar),
         }
     return JsonResponse({'job_info': job_info})
 
@@ -119,6 +123,22 @@ def list_all_jobs_view(request):
 def delete_job_view(request, job_id):
     job_service.delete_job(job_id)
     return JsonResponse({'message': 'Job deleted'})
+
+@require_http_methods(['POST'])
+@login_required
+def upload_job_image(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if request.method == 'POST' and request.FILES['job_image']:
+        job_image = request.FILES['job_image']
+        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+        file_path = os.path.join(settings.MEDIA_ROOT, 'job', f'{job_id}.jpg')
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        filename = fs.save('job/' + f'{job_id}.jpg', job_image)
+        job.avatar = fs.url(filename)
+        job.save()
+        return JsonResponse({'message': 'Job Image Updated'})
+    return JsonResponse({'message': 'Update Failed'}, status=400)
    
 def serialize_jobs(jobs):
     # return list(jobs.values('id', 'title', 'type','requirement', 'remote','industry','description',
@@ -139,9 +159,12 @@ def serialize_jobs(jobs):
             'city': job.city,
             'salary': job.salary,
             'other': job.other,
+            'avatar':str(job.avatar),
         }
         jobs_data.append(job_dict)
     return jobs_data
+
+
 
 
 

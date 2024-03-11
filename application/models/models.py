@@ -1,6 +1,10 @@
+import os.path
+
 from django.db import models
 from .user_model import User
-
+def job_directory_path(instance,filename):
+    basefilename, file_extension = os.path.splitext(filename)
+    return 'job/{jobid}/{basename}{ext}'.format(jobid=instance.pk,basename=basefilename,ext=file_extension)
 class Job(models.Model):
     JOB_TYPE_CHOICES = (
         (1, 'Part-Time'),
@@ -32,13 +36,14 @@ class Job(models.Model):
     remote = models.PositiveSmallIntegerField(choices=JOB_REMOTE_CHOICES,null=True)
     industry = models.PositiveSmallIntegerField(choices=JOB_INDUSTRY_CHOICES,null=True)
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=512)
     postcode = models.CharField(max_length=255)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     city = models.CharField(max_length=255)
     salary = models.FloatField(null=True,blank=True)
-    other = models.CharField(max_length=255)
+    other = models.CharField(max_length=512)
+    avatar = models.ImageField(upload_to=job_directory_path, blank=True, null=True)
 
     class Meta:
         db_table = 'job'
@@ -67,4 +72,3 @@ class Feedback(models.Model):
 
     class Meta:
         db_table = 'feedback'
-
