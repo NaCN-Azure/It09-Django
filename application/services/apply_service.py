@@ -7,7 +7,7 @@ def create_application(user_id, job_id):
         user_id=user_id,
         job_id=job_id,
         apply_date=timezone.now(),
-        status=1  # 默认为 'applying'
+        status=1  # default is 'applying'
     )
     application.save()
     return application

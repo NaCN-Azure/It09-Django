@@ -15,12 +15,11 @@ class JobForm(forms.ModelForm):
             try:
                 employer = User.objects.get(pk=employer_id)
                 print(f"Employer's city: {employer.city}")
-                return employer.city  # 返回 employer 的 city 作为默认值
+                return employer.city
             except User.DoesNotExist:
                 raise forms.ValidationError("Employer not found.")
         return city
     
     def clean(self):
         cleaned_data = super().clean()
-        # 处理其他字段的清理逻辑...
         return cleaned_data

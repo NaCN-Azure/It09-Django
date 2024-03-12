@@ -6,17 +6,6 @@ from application.models import User
 from django.contrib.auth.models import update_last_login
 
 
-# def register_user(request, form, type):
-#     if form.is_valid():
-#         form['type'] = type
-#         form.save()
-#         messages.success(request, "Registration successful.")
-#         return True
-#     else:
-#         messages.error(request, "Registration failed.")
-#         return False
-
-
 def login_user(request, form):
     if form.is_valid():
         user = form.get_user()
@@ -56,7 +45,7 @@ def update_user_info(user_id, data):
         user.phone = data.get('phone', user.phone)
         user.city = data.get('city', user.city)
         user.save()
-        # 更新最后登录时间
+        # Update the last login time
         update_last_login(None, user)
         return True
     except User.DoesNotExist:
