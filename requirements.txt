@@ -1,0 +1,11 @@
+asgiref==3.7.2
+certifi==2024.2.2
+charset-normalizer==3.3.2
+Django==4.2.6
+idna==3.6
+mysqlclient==2.2.4
+pillow @ file:///C:/b/abs_e22m71t0cb/croot/pillow_1707233126420/work
+requests==2.31.0
+sqlparse==0.4.4
+tzdata==2024.1
+urllib3==2.2.1
