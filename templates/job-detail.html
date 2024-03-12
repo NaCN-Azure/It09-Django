@@ -6,13 +6,12 @@
 <html lang="en">
     <body>
         {% block body_block %}
-        <div class="job-detail-page">
         <style>
             body, html {
                 height: 100%;
                 margin-left: 20px;
                 padding: 0;
-                overflow-x: hidden; 
+                overflow-x: hidden;
                 margin-left: 0;
             }
             .row {
@@ -31,7 +30,7 @@
                 flex:1;
                 padding-top: 20px; /* Add some padding to separate the border from the content */
                 margin-top: 20px;
-                color: #474747;   
+                color: #474747;
             }
             .job-image{
                 flex:50%;
@@ -59,18 +58,18 @@
                 padding: 2em;
                 border-left: 1px solid #dcdcdc;
                 width: 20%;
-                max-width: 300px;          
+                max-width: 300px;
             }
             .review-section {
                 background-color: rgba(255, 255, 255, 0.6); /* Background color for the entire review section */
                 padding: 20px;
                 border-radius: 10px;
-                
+
             }
             .review-form {
                 margin: 20px;
-        
-                
+
+
             }
             .star-container {
                 display: inline-block;
@@ -83,18 +82,20 @@
                 font-size: 32px;
             }
             .star.selected {
-                color: #f8d150; 
+                color: #f8d150;
             }
             .review-block {
                 border-bottom: 1px solid #dcdcdc;
-                padding-bottom: 10px;  
+                padding-bottom: 10px;
                 margin: 20px;
                 text-align: left;
             }
             .star.full {
-                color: #f8d150;     
+                color: #f8d150;
             }
+
             .modal-body {
+                overflow-y: auto;
                 font-family: Arial, sans-serif;
             }
 
@@ -114,7 +115,7 @@
                 margin-bottom: 15px;
                 border: 1px solid #ddd;
                 border-radius: 4px;
-                box-sizing: border-box; /* This makes sure padding doesn't affect the total width */
+                box-sizing: border-box;
             }
 
             input[type="submit"] {
@@ -131,7 +132,6 @@
                 background-color: #45a049;
             }
 
-            /* Additional styles for the modal */
             .modal-dialog {
                 max-width: 800px; /* Adjust as per your requirement */
             }
@@ -146,8 +146,9 @@
                 padding: 10px;
                 margin-top: 10px;
             }
-            
+
         </style>
+        <div class="job-detail-page">
 
         <div class="container">
             <div class="row">
@@ -258,73 +259,79 @@
             </div> 
 
             <div class="modal fade" id="editJobModal" tabindex="-1" aria-labelledby="editJobModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editJobModalLabel">Edit Job</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label for="title">Job Title:</label>
-                <input type="text" id="title" name="title" value="{{ job.title }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editJobModalLabel">Edit Job</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <label for="title">Job Title:</label>
+                                <input type="text" id="title" name="title" value="{{ job.title }}">
 
-                    <label for="type">Type:</label>
-    <select id="type" name="type">
-        {% for value, label in select.job_type_choices %}
-            <option value="{{ value }}" {% if value == job.type %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
+                                    <label for="type">Type:</label>
+                    <select id="type" name="type">
+                        {% for value, label in select.job_type_choices %}
+                            <option value="{{ value }}" {% if value == job.type %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
 
-    <label for="requirement">Requirement:</label>
-    <select id="requirement" name="requirement">
-        {% for value, label in select.job_request_choices %}
-            <option value="{{ value }}" {% if value == job.requirement %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
+                    <label for="requirement">Requirement:</label>
+                    <select id="requirement" name="requirement">
+                        {% for value, label in select.job_request_choices %}
+                            <option value="{{ value }}" {% if value == job.requirement %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
 
-    <label for="remote">Remote:</label>
-    <select id="remote" name="remote">
-        {% for value, label in select.job_remote_choices %}
-            <option value="{{ value }}" {% if value == job.remote %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
+                    <label for="remote">Remote:</label>
+                    <select id="remote" name="remote">
+                        {% for value, label in select.job_remote_choices %}
+                            <option value="{{ value }}" {% if value == job.remote %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
 
-    <label for="industry">Industry:</label>
-    <select id="industry" name="industry">
-        {% for value, label in select.job_industry_choices %}
-            <option value="{{ value }}" {% if value == job.industry %}selected{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
+                    <label for="industry">Industry:</label>
+                    <select id="industry" name="industry">
+                        {% for value, label in select.job_industry_choices %}
+                            <option value="{{ value }}" {% if value == job.industry %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
 
-    <label for="salary">Salary:</label>
-    <input type="number" id="salary" name="salary" value="{{ job.salary }}">
+                    <label for="salary">Salary:</label>
+                    <input type="number" id="salary" name="salary" value="{{ job.salary }}">
 
-    <label for="start_date">Start Date:</label>
-    <input type="date" id="start_date" name="start_date" value="{{ job.start_date|date:'Y-m-d' }}">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ job.start_date|date:'Y-m-d' }}">
 
-    <label for="end_date">End Date:</label>
-    <input type="date" id="end_date" name="end_date" value="{{ job.end_date|date:'Y-m-d' }}">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ job.end_date|date:'Y-m-d' }}">
 
-    <label for="city">City:</label>
-    <input type="text" id="city" name="city" value="{{ job.city }}">
+                                <label for="city">City:</label>
+                                <select id="city" name="city" required>
+                                    <option value="Glasgow" {% if job.city == "Glasgow" %}selected{% endif %}>Glasgow</option>
+                                    <option value="Edinburgh" {% if job.city == "Edinburgh" %}selected{% endif %}>Edinburgh</option>
+                                    <option value="Stirling" {% if job.city == "Stirling" %}selected{% endif %}>Stirling</option>
+                                    <option value="Aberdeen" {% if job.city == "Aberdeen" %}selected{% endif %}>Aberdeen</option>
+                                </select>
 
-                  <label for="postcode">Postcode:</label>
-                <input type="text" id="postcode" name="postcode" value="{{ job.postcode}}">
 
-                <label for="other">Other:</label>
-                <textarea id="other" name="other">{{ job.other }}</textarea>
+                                  <label for="postcode">Postcode:</label>
+                                <input type="text" id="postcode" name="postcode" value="{{ job.postcode}}">
 
-                <label for="description">Job Description:</label>
-                <textarea id="description" name="description">{{ job.description }}</textarea>
+                                <label for="other">Other:</label>
+                                <textarea id="other" name="other">{{ job.other }}</textarea>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" onclick="handleJobEdit()">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+                                <label for="description">Job Description:</label>
+                                <textarea id="description" name="description">{{ job.description }}</textarea>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" onclick="handleJobEdit()">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <div class="modal fade" id="applicationModal" tabindex="-1" aria-labelledby="applicationModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -355,16 +362,10 @@
             $(document).ready(function () {
                 $('.star').on('click', function () {
                     const starNumber = $(this).index() ;
-    
-                    // Reset all stars to default state
                     $('.star').removeClass('selected');
-    
-                    // Highlight selected stars
                     for (let i = 1; i <= starNumber; i++) {
                         $(`#star${i}`).addClass('selected');
                     }
-    
-                    // Update the hidden input value
                     $('#starRating').val(starNumber);
                 });
             });
@@ -495,13 +496,11 @@
                         location.reload();
                     },
                     error: function() {
-                        alert('Failed to submit feedback.'); // 提示用户反馈添加失败
+                        alert('Failed to submit feedback.');
                     }
                 });
             });
         });
-
-
 
         function uploadFormSubmit(jobId) {
                 var formData = new FormData();
@@ -522,12 +521,13 @@
                         location.reload();
                     },
                     error: function(error) {
-                        alert('Failed to submit.'); // 提示用户反馈添加失败
+                        alert('Failed to submit.');
                     }
                 });
             }
 
     </script>
         {% endblock %}
+
     </body>
 </html>

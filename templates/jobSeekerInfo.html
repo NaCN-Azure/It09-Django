@@ -26,6 +26,18 @@ Job Seeker Information
         background-color: red;
         color: white;
     }
+    .delete-feedback {
+        padding: 5px 10px;
+        border: 1px solid red;
+        color: red;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .delete-feedback:hover {
+        background-color: red;
+        color: white;
+    }
 
     .text-decoration-none {
         text-decoration: none;
@@ -371,8 +383,7 @@ Job Seeker Information
                         </div>
                         <div class="col-md-3 d-flex justify-content-end align-items-center">
                             <small class="me-2">${new Date(feedback.date).toLocaleDateString()}</small>
-                            <span class="delete-feedback" data-feedback-id="${feedback.id}"
-                                style="cursor: pointer; color: red; border: 1px solid red; padding: 2px 5px; border-radius: 5px;">Delete</span>
+                            <span class="delete-feedback" data-feedback-id="${feedback.id}">Delete</span>
                         </div>
                     </div>
                 </div>

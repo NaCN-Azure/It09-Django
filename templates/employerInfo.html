@@ -325,8 +325,14 @@ select {
                 <label for="end_date">End Date:</label>
                 <input type="date" id="end_date" name="end_date" placeholder="YYYY-MM-DD">
 
-                <label for="city">City:</label>
-                <input type="text" id="city" name="city" value="">
+               <label for="city">City:</label>
+                <select id="city" name="city" required>
+                    <option value="Glasgow" {% if value.city == "Glasgow" %}selected{% endif %}>Glasgow</option>
+                    <option value="Edinburgh" {% if value.city == "Edinburgh" %}selected{% endif %}>Edinburgh</option>
+                    <option value="Stirling" {% if value.city == "Stirling" %}selected{% endif %}>Stirling</option>
+                    <option value="Aberdeen" {% if value.city == "Aberdeen" %}selected{% endif %}>Aberdeen</option>
+                </select>
+
 
                 <label for="postcode">Postcode:</label>
                 <input type="text" id="postcode" name="postcode" value="">
@@ -471,8 +477,13 @@ select {
                                         <label for="end_date${ job.id }">End Date:</label>
                                         <input type="date" id="end_date${ job.id }" name="end_date" value="${end_date}">
 
-                                        <label for="city${ job.id }">City:</label>
-                                        <input type="text" id="city${ job.id }" name="city" value="${ job.city }">
+                                       <label for="city${job.id}">City:</label>
+                                        <select id="city${job.id}" name="city">
+                                            <option value="Glasgow" ${job.city == "Glasgow" ? 'selected' : ''}>Glasgow</option>
+                                            <option value="Edinburgh" ${job.city == "Edinburgh" ? 'selected' : ''}>Edinburgh</option>
+                                            <option value="Stirling" ${job.city == "Stirling" ? 'selected' : ''}>Stirling</option>
+                                            <option value="Aberdeen" ${job.city == "Aberdeen" ? 'selected' : ''}>Aberdeen</option>
+                                        </select>
 
                                         <label for="postcode${ job.id }">Postcode:</label>
                                         <input type="text" id="postcode${ job.id }" name="postcode" value="${ job.postcode}">

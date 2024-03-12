@@ -152,32 +152,6 @@
         </div>
 
         <div class="job-listing">
-<!--            {% for job in jobs %}-->
-<!--            <div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">-->
-<!--                <a href="{% url 'job_detail' job_id=job.id %}" class="job-link flex-grow-1">-->
-<!--                    <div>-->
-<!--                        <h3>{{ job.title }}</h3>-->
-<!--                        <p>{{ job.employer }}</p>-->
-<!--                        <div class="job-detail">-->
-<!--                            <p><b>Salary:</b> £{{ job.salary }} per hour</p>-->
-<!--                            <p><b>Remote:</b> {{ job.get_remote_display }}</p>-->
-<!--                            <p><b>Job Type:</b> {{ job.get_type_display }}</p>-->
-<!--                            <p><b>Location:</b> {{ job.city }}</p>-->
-<!--                            <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>-->
-<!--                            <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>-->
-<!--                            <p><b>Other Information:</b> {{ job.other }}</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </a>-->
-<!--                <div class="job-image">-->
-<!--                    {% if job.avatar %}-->
-<!--                        <img src="{{ job.avatar }}" alt="{{ job.title }}">-->
-<!--                    {% else %}-->
-<!--                        <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image">-->
-<!--                    {% endif %}-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            {% endfor %}-->
         </div>
     </div>
 
@@ -187,13 +161,12 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-<!--        const jobs = document.querySelectorAll('.job');-->
         const jobsContainer = document.getElementById('job-listing');
         const filters = {}
 
         function renderJobs(jobsData) {
     const jobsListContainer = document.querySelector('.job-listing');
-    jobsListContainer.innerHTML = ''; // 清空当前的工作列表内容
+    jobsListContainer.innerHTML = '';
 
     jobsData.forEach(job => {
         const jobElement = document.createElement('div');
@@ -238,62 +211,7 @@
         jobsListContainer.appendChild(jobElement);
     });
 };
-
   renderJobs(jobsData);
-
-<!--        function filterJobs() {-->
-<!--            jobs.forEach(job => {-->
-<!--                let shouldShow = true;-->
-
-<!--                for (const category in filters) {-->
-<!--                    const option = filters[category];-->
-<!--                    const jobOption = job.dataset[category];-->
-
-<!--                    if (option !== 'All' && jobOption !== option) {-->
-<!--                        shouldShow = false;-->
-<!--                        break;-->
-<!--                    }-->
-<!--                }-->
-
-<!--                job.style.display = shouldShow ? 'block' : 'none';-->
-<!--            });-->
-<!--        }-->
-
-<!--        function sortJobsBySalary(order) {-->
-<!--            const sortedJobs = Array.from(jobs).sort((a, b) => {-->
-<!--                const salaryA = parseFloat(a.dataset.salary);-->
-<!--                const salaryB = parseFloat(b.dataset.salary);-->
-<!--                return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;-->
-<!--            });-->
-
-<!--            jobs.forEach(job => job.remove());-->
-
-<!--            sortedJobs.forEach(job => {-->
-<!--                document.querySelector('.job-listing').appendChild(job);-->
-<!--            });-->
-<!--        }-->
-
-<!--        document.addEventListener('click', function (event) {-->
-<!--            const target = event.target;-->
-
-<!--            if (target.classList.contains('dropdown-item')) {-->
-<!--                const filterType = target.closest('.dropdown').dataset.filterType;-->
-<!--                const filterOption = target.dataset.filter;-->
-<!--                const category = target.closest('.dropdown').dataset.category;-->
-
-<!--                if (filterType === 'filter') {-->
-<!--                    if (filterOption === 'All') {-->
-<!--                        delete filters[category];-->
-<!--                    } else {-->
-<!--                        filters[category] = filterOption;-->
-<!--                    }-->
-<!--                    filterJobs();-->
-<!--                } else if (filterType === 'sort') {-->
-<!--                    sortJobsBySalary(filterOption);-->
-<!--                }-->
-<!--            }-->
-<!--        });-->
-
 function filterJobs() {
     const filteredJobs = jobsData.filter(job => {
         let shouldShow = true;
