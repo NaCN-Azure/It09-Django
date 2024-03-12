@@ -9,7 +9,6 @@ from django.db.models import Avg
 
 def add_feedback(request, user_id, job_id):
     data = json.loads(request.body.decode('utf-8'))
-    print(data)
     feedback = Feedback(
         job_id = job_id,
         user_id = user_id,

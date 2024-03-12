@@ -72,14 +72,11 @@
 
             .job-link {
                 text-decoration: none;
-                /* Remove underline by default */
                 color: #474747;
-                /* Set your preferred color */
             }
 
             .job-link:hover h3 {
                 text-decoration: underline;
-                /* Add underline to h3 on hover over the block */
             }
 
             .job-detail {
@@ -88,6 +85,26 @@
                 flex-wrap: wrap;
                  padding-right: 10px;
             }
+            .custom-link {
+                border-radius: 10px;
+                transition: background-color 0.3s, font-size 0.3s, transform 0.3s;
+            }
+
+            .custom-link:hover {
+                background-color: rgba(144, 238, 144, 0.3);
+                transform: scale(1.02);
+            }
+            .user-link img{
+               transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+               border: 3px solid #098faae1;
+            }
+
+            .user-link img:hover {
+                transform: scale(1.15);
+                border-color: #ff8c00;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+             }
+
     </style>
 </head>
 
@@ -95,26 +112,25 @@
     <header class="p-3 mb-3 border-bottom text-bg-light">
         <div class="container">
             <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-3 pt-1">
+                <div class="col-3 pt-1 custom-link" >
                     <a href="/job/" class="blog-header-logo text-body-emphasis text-decoration-none ">
                         <span class="fs-5 text-nowrap">FLEXIBLEWORK HUB</span>
                     </a>
                 </div>
 
                 <div class="col-6 d-flex justify-content-end align-items-center">
-                    <!--  已经登录 显示头像    -->
                     {% if user.is_authenticated %}
-                    <div class="dropdown text-end">
+                    <div class="dropdown text-end user-link">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {% if user.avatar%}
                                  <img src="{{ user.avatar }}" alt="employer" width="32" height="32" class="rounded-circle">
                             {% else %}
                             {% if user.type == 2 %}
-                                <!-- Employer default photo -->
+
                                 <img src="{% static 'image\default-employer.jpg' %}" alt="employer" width="32" height="32" class="rounded-circle">
                             {% else %}
-                                <!-- Job seeker default photo -->
+
                                 <img src="{% static 'image\default-user.jpg' %}" alt="user" width="32" height="32" class="rounded-circle">
                             {% endif %}
                             {% endif %}

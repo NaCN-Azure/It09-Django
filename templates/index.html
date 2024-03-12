@@ -9,7 +9,6 @@
     
     {% block body_block %}
     <div class="container-wrapper">
-
         <style>
                     .job {
                         width:1000px;
@@ -27,6 +26,12 @@
                         background-color: rgba(255, 255, 255, 0.5);
                         backdrop-filter: blur(10px);
                         align-items:stretch;
+                        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+                    }
+                    .job:hover{
+                         transform: scale(1.05);
+                         border-color: #ff8c00;
+                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
                     }
                     .job-detail{
                         display: flex;
@@ -67,11 +72,11 @@
                             Location
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Glasgow">Glasgow</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Edinburgh">Edinburgh</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Stirling">Stirling</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Aberdeen">Aberdeen</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                         </ul>
                     </div>
 
@@ -81,6 +86,7 @@
                             Industry
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Retail">Retail</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Construction, Repair and Maintenance Services">Construction, Repair and
                                     Maintenance Services</a></li>
@@ -91,7 +97,7 @@
                             <li><a class="dropdown-item" href="#" data-filter="Hotel & Travel Accommodation">Hotel & Travel
                                     Accommodation</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Others">Others</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+
                         </ul>
                     </div>
 
@@ -101,10 +107,11 @@
                             Job Type
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Part-Time">Part-Time</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Temporary">Temporary</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Volunteer">Volunteer</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+
                     </div>
 
                     <div class="dropdown" data-filter-type="filter" data-category="requirement">
@@ -113,12 +120,13 @@
                             Education Level
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Foundation Degree">Foundation Degree</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="GCSE">GCSE</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Certificate of Higher Education">Certificate of Higher
                                     Education</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Bachelor's Degree">Bachelor's Degree</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+
                         </ul>
                     </div>
 
@@ -128,10 +136,11 @@
                             Remote
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="In-Person">In-Person</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Hybrid">Hybrid</a></li>
                             <li><a class="dropdown-item" href="#" data-filter="Remote">Remote</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+
                         </ul>
                     </div>
 

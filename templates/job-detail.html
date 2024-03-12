@@ -49,6 +49,12 @@
                 border-radius: 5px;
                 border: 3px solid #098faae1;
                 box-shadow: 0 0 5px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            }
+            .job-image img:hover {
+                transform: scale(0.95);
+                border-color: #ff8c00;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             }
             .fixed-sidebar {
                 position: fixed;
@@ -196,7 +202,10 @@
                         <h5>Full Job Description</h5>
                         <p>{{ job.description }}</p>
                     </div>
-                    
+
+                        <div id="map" style="height: 400px; width: 100%;"></div>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNlvR6umqj_dLhn2Z5lSBPxDE0F6TSLSA&callback=initMap&language=en"></script>
+
 
                     <div class="review-section text-center">
                         <h4><b>Reviews</b></h4>
@@ -228,7 +237,15 @@
                         {% for feedback in feedbacks %}
                         <div class="card mb-3 review-block">
                         <div class="card-body">
-                                    <h5 class="card-title">{{feedback.user.user_name}} | {{ feedback.date|date:"Y-m-d" }}</h5>
+
+                                    <h5 class="card-title">
+                                        {% if feedback.user.avatar %}
+                                            <img src="{{ feedback.user.avatar }}" alt="employer" width="32" height="32" class="rounded-circle">
+                                        {% else %}
+                                            <img src="{% static 'image\default-user.jpg' %}" alt="user" width="32" height="32" class="rounded-circle">
+                                        {% endif %}
+                                        &nbsp;&nbsp;{{feedback.user.user_name}} | {{ feedback.date|date:"Y-m-d" }}
+                                    </h5>
                                     <p class="card-text">
                                         {% for star in "12345" %}
                                             {% if feedback.rate >= star|add:"0" %}
@@ -458,7 +475,7 @@
                 processData: false,
                 contentType: false,
                 beforeSend: function(xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}"); // 添加CSRF令牌头
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
                 },
                 success: function(response) {
                     $('#editJobModal').modal('hide');
@@ -525,6 +542,30 @@
                     }
                 });
             }
+
+
+        function initMap() {
+                var geocoder = new google.maps.Geocoder();
+                var address = '{{job.postcode}}';
+
+                geocoder.geocode({'address': address}, function(results, status) {
+                    if (status == 'OK') {
+                        var mapOptions = {
+                            zoom: 15,
+                            center: results[0].geometry.location
+                        }
+                        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        console.error('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+
 
     </script>
         {% endblock %}
