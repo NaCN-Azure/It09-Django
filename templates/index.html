@@ -28,15 +28,20 @@
                         backdrop-filter: blur(10px);
                         align-items:stretch;
                     }
-                    .job-detail p {
-                        margin-bottom: 15px;
+                    .job-detail{
+                        display: flex;
+                        flex-direction: column;
+                        padding: 10px;
+                    }
+                    .job-detail p{
                         text-align: left;
+                        font-size: 0.9em;
                     }
 
                     .job-image{
                         flex:50%;
                         display:flex;
-                        height:300px;
+                        height:270px;
                         justify-content:center;
                         align-items:center;
                         max-width:50%;
@@ -47,6 +52,9 @@
                         max-height:100%;
                         height:auto;
                         object-fit:contain;
+                        border-radius: 5px;
+                        border: 3px solid #098faae1;
+                        box-shadow: 0 0 5px rgba(0,0,0,0.2);
                     }
                 </style>
         <div class="row justify-content-center">

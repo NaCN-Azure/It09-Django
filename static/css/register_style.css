@@ -5,7 +5,13 @@ body, html {
     align-items: center;
     height: 100vh; 
     margin: 0;
+}
+body{
     font-family: Arial, sans-serif;
+    background-image: url('../image/loginback.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .register-container {

@@ -30,6 +30,8 @@ def job_average_rate(request, job_id):
     
 def get_average_rate_by_job(job):
     average_rate = Feedback.objects.filter(job=job).aggregate(average_rate=Avg('rate'))
+    if(average_rate['average_rate'] is None):
+        return 0
     return average_rate['average_rate']
 
 def get_feedbacks_by_user(user):

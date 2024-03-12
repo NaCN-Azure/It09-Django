@@ -37,7 +37,7 @@ def job_average_rate_view(request, job_id):
     if average_rate is not None:
         return JsonResponse({'average_rate': average_rate})
     else:
-        return JsonResponse({'error': 'No feedback found for this job'}, status=404)
+        return JsonResponse({'average_rate': 0})
     
 
 '''
