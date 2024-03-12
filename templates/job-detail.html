@@ -74,9 +74,14 @@
             }
             .review-form {
                 margin: 20px;
-
-
             }
+            .col-9 {
+                background-color: rgba(255, 255, 255, 0.5);
+                backdrop-filter: blur(10px);
+                padding: 20px;
+                border-radius: 10px;
+            }
+            
             .star-container {
                 display: inline-block;
                 font-size: 24px;
@@ -159,7 +164,7 @@
         <div class="container">
             <div class="row">
                 
-                <div class="col-8 offset-md-1">
+                <div class="col-9 offset-md-1">
                     <h4> {{ job.title }}</h4>
                     <div style="display: flex; align-items: center;">
                         <p style="margin: 0;">Rate: <span id="averageRate">{{average_rate}}&nbsp;&nbsp;</span></p>
