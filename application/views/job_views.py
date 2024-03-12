@@ -46,7 +46,9 @@ def employer_info(request):
     }
     return render(request,'employerInfo.html',{'select':select})
 
-
+'''
+Create job for employer
+'''
 @require_http_methods(["POST"])
 @login_required
 def create_job_view(request):
@@ -118,12 +120,20 @@ def list_all_jobs_view(request):
     jobs_data = serialize_jobs(jobs)
     return JsonResponse({'jobs': jobs_data})
 
+
+'''
+Delete a job by job id
+'''
 @require_http_methods(["DELETE"])
 @login_required
 def delete_job_view(request, job_id):
     job_service.delete_job(job_id)
     return JsonResponse({'message': 'Job deleted'})
 
+
+'''
+Upload images for a job
+'''
 @require_http_methods(['POST'])
 @login_required
 def upload_job_image(request, job_id):
@@ -139,7 +149,11 @@ def upload_job_image(request, job_id):
         job.save()
         return JsonResponse({'message': 'Job Image Updated'})
     return JsonResponse({'message': 'Update Failed'}, status=400)
-   
+ 
+    
+'''
+Serialize the job data
+'''
 def serialize_jobs(jobs):
     # return list(jobs.values('id', 'title', 'type','requirement', 'remote','industry','description',
     #                         'postcode','start_date','end_date','city','salary','other'))
@@ -149,7 +163,7 @@ def serialize_jobs(jobs):
             'id': job.id,
             'title': job.title,
             'description': job.description,
-            'type': job.get_type_display(),  # 使用 get_FOO_display() 获取描述性字符串
+            'type': job.get_type_display(), 
             'requirement': job.get_requirement_display(),
             'remote': job.get_remote_display(),
             'industry': job.get_industry_display(),
@@ -172,7 +186,7 @@ def time_serialize_jobs(jobs):
             'id': job.id,
             'title': job.title,
             'description': job.description,
-            'type': job.get_type_display(),  # 使用 get_FOO_display() 获取描述性字符串
+            'type': job.get_type_display(),  
             'requirement': job.get_requirement_display(),
             'remote': job.get_remote_display(),
             'industry': job.get_industry_display(),

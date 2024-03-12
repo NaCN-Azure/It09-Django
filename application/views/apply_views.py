@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
 '''
-表单获取user_id和job_id，以此创建一个申请的对象
+Get user is and job id from the form, and create an instance
 '''
 @require_http_methods(["POST"])
 @login_required
@@ -18,7 +18,7 @@ def create_application_view(request):
 
 
 '''
-更新表单的status字段，一般是employer要调用的
+Update status
 '''
 @require_http_methods(["POST"])
 @login_required
@@ -33,7 +33,7 @@ def update_application_status_view(request, application_id):
 
 
 '''
-用户浏览自己的所有申请记录
+Return all applications created by the user according to user id
 '''
 @require_http_methods(["GET"])
 @login_required
@@ -44,7 +44,7 @@ def get_applications_by_user_view(request, user_id):
     return JsonResponse({'applications': applications_data})
 
 '''
-雇主按照工位浏览的所有申请记录
+Return all applications under one job 
 '''
 @require_http_methods(["GET"])
 @login_required
@@ -53,12 +53,20 @@ def get_applications_by_job_view(request, job_id):
     applications_data = serialize_applications(applications)
     return JsonResponse({'applications': applications_data})
 
+
+'''
+Check a specific applications info
+'''
 @require_http_methods(["GET"])
 @login_required
 def check_applications(request,job_id,user_id):
     result = apply_service.check_applications(job_id,user_id)
     return JsonResponse({'exists':result})
 
+
+'''
+Delete a specific application
+'''
 @require_http_methods(["DELETE"])
 @login_required
 def delete_application_view(request, application_id):
@@ -67,4 +75,4 @@ def delete_application_view(request, application_id):
 
 
 def serialize_applications(applications):
-    return list(applications.values('id', 'job__title', 'apply_date', 'status','job_id','user__user_name','user__email')) ##Django的语言里，貌似可以通过双下划线访问外键的键，这超级棒这个！！！
+    return list(applications.values('id', 'job__title', 'apply_date', 'status','job_id','user__user_name','user__email'))

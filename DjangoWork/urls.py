@@ -22,12 +22,8 @@ from application.views import job_views,user_views,apply_views,feedback_views
 from django.urls import path, re_path
 
 
-# 我说明一下，这个name字段是给前端html获取这个url的名称，比如{% url 'get_user_info' 1 %}，就会得到userInfo/1，虽然不知道为什么出现在这里
-# user的地方除了info没有其他返回的，具体返回的数据被分装在Json里，具体的你们可以去看get_user_info的逻辑，前端可以通过字典拿到那个json,其他的get方法你可以沿用这个逻辑
-# 一般而言，调用时肯定要用到ajax
 urlpatterns = [
-    #这部分就是主要的视图方法
-    #这部分是静态的测试区域
+
     path('', job_views.index,name='index'),
     path('admin/', admin.site.urls),
     path('job/',job_views.index,name='index'),
@@ -35,7 +31,7 @@ urlpatterns = [
     path('profile/user/', job_views.user_info, name='index_user'),
     path('profile/employer/', job_views.employer_info, name='index_employer'),
 
-    #user视图部分
+    #user view
     path('register/<int:user_type>/', user_views.register, name='register'),
     path('login/', user_views.login_view, name='login'),
     path('userInfo/<int:user_id>/', user_views.get_user_info, name='get_user_info'),
@@ -44,7 +40,7 @@ urlpatterns = [
     path('userInfo/<int:user_id>/change_password/', user_views.change_password, name='change_password'),
     path('user/<int:user_id>/upload_image/', user_views.upload_user_image, name='upload_user_image'),
 
-    #Employer
+    #Employer view
     path("job/createJob/",job_views.create_job_view, name='create_job'),
     path("job/updateJob/<int:job_id>/",job_views.update_job_view, name='update_job'),
     path("job/jobInfo/<int:job_id>/",job_views.get_job_by_jobId_view, name='get_job_by_jobId'),
@@ -53,7 +49,7 @@ urlpatterns = [
     path('job/delete/<int:job_id>/',job_views.delete_job_view,name='delete_job'),
     path('job/<int:job_id>/upload_image/', job_views.upload_job_image, name='upload_job_image'),
 
-    #application视图部分
+    #application view
     path('application/create/', apply_views.create_application_view, name='create_application'),
     path('application/update/<int:application_id>/', apply_views.update_application_status_view, name='update_application_status'),
     path('application/searchByUser/<int:user_id>/', apply_views.get_applications_by_user_view, name='get_applications_by_user'),
@@ -61,7 +57,7 @@ urlpatterns = [
     path('application/checkJob/<int:job_id>/<int:user_id>/', apply_views.check_applications, name='check_applications'),
     path('application/delete/<int:application_id>/',apply_views.delete_application_view,name='delete_application'),
 
-    #feedback视图部分
+    #feedback view
     path('feedback/create/',feedback_views.add_feedback_view,name='create_feedback'),
     path('feedback/delete/<int:feedback_id>/',feedback_views.delete_feedback_view,name='delete_feedback'),
     path('feedback/getRateAverage/<int:job_id>/',feedback_views.job_average_rate_view,name='get_average_view'),

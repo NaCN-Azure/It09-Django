@@ -50,6 +50,10 @@ def get_feedbacks_by_user_view(request, user_id):
     feedbacks_data = list(feedbacks.values('user','job__title','rate','comment','date','job_id','user__user_name','id'))
     return JsonResponse({'feedbacks': feedbacks_data})
 
+
+'''
+return the feedbacks under one job
+'''
 @require_http_methods(["GET"])
 @login_required
 def get_feedbacks_by_job_view(request, job_id):

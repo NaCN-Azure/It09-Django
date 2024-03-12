@@ -19,7 +19,7 @@ import json
 
 
 '''
-用户注册，获取用户的表单填写，成功与否进行跳转
+User register, get user form, and redirect to the page
 '''
 def register(request, user_type):
     if request.method == 'POST':
@@ -38,7 +38,7 @@ def register(request, user_type):
         return render(request, 'register.html',  {'form': form})
 
 '''
-用户登陆，获取用户的邮箱/密码（登陆表单），然后进行验证
+User login, get the user eamil and password, and check 
 '''
 def login_view(request):
     form = CustomLoginForm(data=request.POST or None)
@@ -50,7 +50,7 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 '''
-根据用户id获取用户的所有信息
+Get user info by user id
 '''
 @login_required
 def get_user_info(request, user_id):
@@ -61,7 +61,7 @@ def get_user_info(request, user_id):
         return JsonResponse({'error': 'User not found'}, status=404)
 
 '''
-根据用户id更新用户信息（除密码）
+Update user info by user id(exclude password)
 '''
 @require_POST
 @login_required
@@ -73,7 +73,7 @@ def update_user_info(request, user_id):
         return JsonResponse({'error': 'User not found'}, status=404)
 
 '''
-根据请求修改密码，回头根据安全性，可能需要改为请求
+Change password when requested
 '''
 @login_required
 def change_password(request,user_id):
@@ -101,7 +101,7 @@ def upload_user_image(request, user_id):
     return JsonResponse({'message': 'Update Failed'}, status=400)
 
 '''
-登出用户
+Logout the user
 '''
 def logout_user(request):
     user_service.logout_user(request)
