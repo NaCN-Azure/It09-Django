@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-
 {% extends "base.html" %}
 {% load static %}
 {% block title_block %}{{ job.title }}{% endblock %}
-<html lang="en">
-    <body>
-        {% block body_block %}
+
+{% block body_block %}
         <style>
             body, html {
                 height: 100%;
@@ -371,6 +368,8 @@
               </div>
         </div>
     </div>
+        </div>
+
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -565,10 +564,6 @@
                     }
                 });
             }
-
-
     </script>
-        {% endblock %}
+{% endblock %}
 
-    </body>
-</html>

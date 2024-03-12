@@ -11,7 +11,6 @@ import json
 
 
 def create_job(request, employer_id, job_data):
-    #job_data = request.POST
     try:
         job = Job.objects.create(
             title=job_data.get('title'),
