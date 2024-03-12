@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-<!--{% load static %}-->
+{% load static %}
 
 {% block title_block %}
 Job Seeker Information
@@ -71,24 +71,24 @@ Job Seeker Information
     }
 
     .user-image{
-                flex:50%;
-                display:flex;
-                height:230px;
-                justify-content:center;
-                align-items:center;
-                max-width:30%;
-                overflow:hidden;
+        flex:50%;
+        display:flex;
+        height:230px;
+        justify-content:center;
+        align-items:center;
+        max-width:30%;
+        overflow:hidden;
 
     }
     .user-image img{
-                max-width:100%;
-                max-height:100%;
-                height:auto;
-                object-fit:contain;
-                border-radius: 5px;
-                border: 3px solid #098faae1;
-                box-shadow: 0 0 5px rgba(0,0,0,0.2);
-                transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        max-width:100%;
+        max-height:100%;
+        height:auto;
+        object-fit:contain;
+        border-radius: 5px;
+        border: 3px solid #098faae1;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     .user-image img:hover {
         transform: scale(0.95);
@@ -97,7 +97,7 @@ Job Seeker Information
     }
 </style>
 
-<!-- My profile部分 -->
+<!-- My profile Part -->
 <div class="row pb-4 mb-4 border-bottom">
     <div class="col">
         <h3 class=" fst-italic ">
@@ -198,7 +198,6 @@ Job Seeker Information
         <li><strong>Username:</strong> </li>
         <li><strong>Email:</strong> </li>
         <li><strong>Phone:</strong> </li>
-        <li><strong>Account Date:</strong> </li>
         <li><strong>City:</strong> </li>
     </ul>
     </div>
@@ -220,7 +219,7 @@ Job Seeker Information
 </div>
 
 
-<!-- My Applications部分 -->
+<!-- My Applications Part -->
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3 class="pb-4 mb-0 fst-italic border-bottom">
         My Applications
@@ -240,7 +239,7 @@ Job Seeker Information
 </div>
 
 
-<!-- My reviews部分 -->
+<!-- My reviews Part -->
     <h3 class="pb-4 mb-0 fst-italic border-bottom">
         My Reviews
     </h3>

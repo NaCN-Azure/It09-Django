@@ -1,4 +1,3 @@
-# application/forms/user_form.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from application.models.user_model import User

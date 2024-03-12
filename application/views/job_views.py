@@ -155,8 +155,6 @@ def upload_job_image(request, job_id):
 Serialize the job data
 '''
 def serialize_jobs(jobs):
-    # return list(jobs.values('id', 'title', 'type','requirement', 'remote','industry','description',
-    #                         'postcode','start_date','end_date','city','salary','other'))
     jobs_data = []
     for job in jobs:
         job_dict = {

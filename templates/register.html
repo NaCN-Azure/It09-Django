@@ -78,7 +78,6 @@
         <p>Already have an account？<a href="{% url 'login' %}">Sign in</a></p>
     </div>
 	<div id="registerUrl" data-url="{% url 'register' 1 %}" style="display: none;"></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function setUserType(userType) {
             history.pushState({}, '', '/register/' + userType);

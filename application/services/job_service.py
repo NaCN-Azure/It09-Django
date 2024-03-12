@@ -9,22 +9,9 @@ import json
 
 #Employer side functions
 
-# def create_job(request, form,employer_id):
-#     if form.is_valid():
-#         job = form.save(commit=False)
-#         job.employer_id = employer_id
-#         job.save()
-#         messages.success(request, "Job created")
-#         return True
-#     else:
-#         print(form.errors)  # 打印表单错误
-#         messages.error(request, "Job creation failed due to form errors")
-#         return False
 
 def create_job(request, employer_id, job_data):
-    #job_data = request.POST
     try:
-        # 直接使用模型创建工作职位
         job = Job.objects.create(
             title=job_data.get('title'),
             description=job_data.get('description'),
@@ -35,7 +22,7 @@ def create_job(request, employer_id, job_data):
             postcode=job_data.get('postcode'),
             start_date=job_data.get('start_date'),
             end_date=job_data.get('end_date'),
-            city=job_data.get('city') or User.objects.get(pk=employer_id).city,  # 如果未提供 city，则尝试从 employer 获取
+            city=job_data.get('city') or User.objects.get(pk=employer_id).city,  # If city is not provided, attempt to retrieve it from the employer
             salary=job_data.get('salary'),
             other=job_data.get('other'),
             employer=User.objects.get(pk=employer_id),
@@ -46,7 +33,7 @@ def create_job(request, employer_id, job_data):
     except User.DoesNotExist:
         messages.error(request, "Employer not found")
         return False
-    except Exception as e:  # 捕获并处理可能发生的其他异常
+    except Exception as e:
         print(e)
         messages.error(request, "Job creation failed due to an error")
         return False
