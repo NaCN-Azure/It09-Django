@@ -1,7 +1,7 @@
 import os
 
 from django.http import JsonResponse
-from django.urls import reverse
+from datetime import datetime, timedelta
 from django.shortcuts import get_object_or_404, render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.http import require_http_methods
@@ -17,7 +17,7 @@ Create job view for Employer
 '''
 def index(request):
     jobs = job_service.get_all_jobs()
-    return render(request, 'index.html', {'jobs': jobs})
+    return render(request, 'index.html', {'jobs': time_serialize_jobs(jobs)})
 
 @login_required
 def job_detail(request, job_id):
@@ -160,6 +160,31 @@ def serialize_jobs(jobs):
             'salary': job.salary,
             'other': job.other,
             'avatar':str(job.avatar),
+        }
+        jobs_data.append(job_dict)
+    return jobs_data
+
+def time_serialize_jobs(jobs):
+    jobs_data = []
+    for job in jobs:
+        duration = (job.end_date - job.start_date).days
+        job_dict = {
+            'id': job.id,
+            'title': job.title,
+            'description': job.description,
+            'type': job.get_type_display(),  # 使用 get_FOO_display() 获取描述性字符串
+            'requirement': job.get_requirement_display(),
+            'remote': job.get_remote_display(),
+            'industry': job.get_industry_display(),
+            'postcode': job.postcode,
+            'start_date': job.start_date.isoformat(),
+            'end_date': job.end_date.isoformat(),
+            'city': job.city,
+            'salary': job.salary,
+            'other': job.other,
+            'avatar':str(job.avatar),
+            'duration': duration,
+            'employer_email':job.employer_email
         }
         jobs_data.append(job_dict)
     return jobs_data

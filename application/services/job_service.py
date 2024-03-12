@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.utils import timezone
-from django.db.models import Case, When, Value, IntegerField
+from django.db.models import Case, When, Value, IntegerField,F
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from application.models import Job,User
@@ -84,7 +84,7 @@ def get_job_by_jobID(job_id):
         return None
     
 def get_all_jobs():
-    return Job.objects.all().order_by('title')
+    return Job.objects.all().annotate(employer_email=F('employer__email')).order_by('title')
 
 def delete_job(job_id):
     job=Job.objects.get(pk=job_id)

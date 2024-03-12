@@ -5,52 +5,55 @@
 {% load static %}
 {% block title_block %}Home{% endblock %}
 <html lang="en">
-
-
 <body>
     
     {% block body_block %}
     <div class="container-wrapper">
+
         <style>
-            .job {
-                width:1000px;
-                display:flex;
-                justify-content: space-between;
-                border: 1px solid #dcdcdc;
-                margin-block: 10px 10px;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 0 5px rgb(166, 166, 166);
-                word-wrap: break-word;  
-                overflow: hidden;      
-                text-overflow: ellipsis; 
-                background-color: rgba(255, 255, 255, 0.5); 
-                backdrop-filter: blur(10px);
-                align-items:stretch;
-            }
+                    .job {
+                        width:1000px;
+                        height:300px;
+                        display:flex;
+                        justify-content: space-between;
+                        border: 1px solid #dcdcdc;
+                        margin-block: 10px 10px;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 0 5px rgb(166, 166, 166);
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        background-color: rgba(255, 255, 255, 0.5);
+                        backdrop-filter: blur(10px);
+                        align-items:stretch;
+                    }
+                    .job-detail p {
+                        margin-bottom: 15px;
+                        text-align: left;
+                    }
 
-            .job-image{
-                flex:50%;
-                display:flex;
-                height:300px;
-                justify-content:center;
-                align-items:center;
-                max-width:50%;
-                overflow:hidden;
-            }
-            .job-image img{
-                max-width:100%;
-                max-height:100%;
-                height:auto;
-                object-fit:contain;
-            }
-        </style>
-
+                    .job-image{
+                        flex:50%;
+                        display:flex;
+                        height:300px;
+                        justify-content:center;
+                        align-items:center;
+                        max-width:50%;
+                        overflow:hidden;
+                    }
+                    .job-image img{
+                        max-width:100%;
+                        max-height:100%;
+                        height:auto;
+                        object-fit:contain;
+                    }
+                </style>
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="sorted-bar">
 
-                    <div class="dropdown" data-filter-type="filter" data-category="location">
+                    <div class="dropdown" data-filter-type="filter" data-category="city">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Location
@@ -84,7 +87,7 @@
                         </ul>
                     </div>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="jobtype">
+                    <div class="dropdown" data-filter-type="filter" data-category="type">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton3"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Job Type
@@ -96,7 +99,7 @@
                             <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
                     </div>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="education">
+                    <div class="dropdown" data-filter-type="filter" data-category="requirement">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton4"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Education Level
@@ -141,156 +144,197 @@
         </div>
 
         <div class="job-listing">
-
-
-                
-<!--                {% for job in jobs %}-->
-<!--                <div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">-->
-<!--                    <a href="{% url 'job_detail' job_id=job.id %}" class="job-link">    -->
-
-<!--                        <div>-->
-<!--                            <h3>{{ job.title }}</h3>-->
-<!--                            <p>{{ job.employer }}</p>-->
-<!--                            <div class="job-details">-->
-<!--                                <p><b>Salary:</b> £{{ job.salary }} per hour</p>-->
-<!--                                <p><b>Remote: </b>{{ job.get_remote_display }}</p>-->
-<!--                                <p><b>Job Type: </b>{{ job.get_type_display }}</p>-->
-<!--                                <p><b>Location: </b>{{ job.city }}</p>-->
-<!--                            </div>-->
+<!--            {% for job in jobs %}-->
+<!--            <div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">-->
+<!--                <a href="{% url 'job_detail' job_id=job.id %}" class="job-link flex-grow-1">-->
+<!--                    <div>-->
+<!--                        <h3>{{ job.title }}</h3>-->
+<!--                        <p>{{ job.employer }}</p>-->
+<!--                        <div class="job-detail">-->
+<!--                            <p><b>Salary:</b> £{{ job.salary }} per hour</p>-->
+<!--                            <p><b>Remote:</b> {{ job.get_remote_display }}</p>-->
+<!--                            <p><b>Job Type:</b> {{ job.get_type_display }}</p>-->
+<!--                            <p><b>Location:</b> {{ job.city }}</p>-->
 <!--                            <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>-->
 <!--                            <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>-->
-<!--                            <p><b>Other Information: </b> {{job.other}}</p>-->
+<!--                            <p><b>Other Information:</b> {{ job.other }}</p>-->
 <!--                        </div>-->
-<!--                    </a>-->
-<!--                    <div class="job-image">-->
-<!--                        {% if job.avatar %}-->
-<!--                            <img src="{{ job.avatar }}" alt="{{ job.title }}" style="width: 100px; height: 100px;">-->
-<!--                        {% else %}-->
-<!--                            <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image" style="width: 100px; height: 100px;">-->
-<!--                        {% endif %}-->
 <!--                    </div>-->
-<!--         job d-flex justify-content-between align-items-end mb-4       </div>-->
-<!--                {% endfor %}-->
-{% for job in jobs %}
-<div class="col-10 job" data-location="{{ job.city }}" data-industry="{{ job.get_industry_display }}" data-jobtype="{{ job.get_type_display }}" data-education="{{ job.get_requirement_display }}" data-remote="{{ job.get_remote_display }}" data-salary="{{ job.salary }}">
-    <a href="{% url 'job_detail' job_id=job.id %}" class="job-link flex-grow-1">
-        <div>
-            <h3>{{ job.title }}</h3>
-            <p>{{ job.employer }}</p>
-            <div class="job-detail">
-                <p><b>Salary:</b> £{{ job.salary }} per hour</p>
-                <p><b>Remote:</b> {{ job.get_remote_display }}</p>
-                <p><b>Job Type:</b> {{ job.get_type_display }}</p>
-                <p><b>Location:</b> {{ job.city }}</p>
-                <p><b>Education Level Requirement:</b> {{ job.get_requirement_display }}</p>
-                <p><b>Duration:</b> {{ job.start_date|date:"d M Y"}} - {{ job.end_date|date:"d M Y" }}</p>
-                <p><b>Other Information:</b> {{ job.other }}</p>
-            </div>
-        </div>
-    </a>
-    <div class="job-image">
-        {% if job.avatar %}
-            <img src="{{ job.avatar }}" alt="{{ job.title }}">
-        {% else %}
-            <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image">
-        {% endif %}
-    </div>
-</div>
-{% endfor %}
-
-
-            
+<!--                </a>-->
+<!--                <div class="job-image">-->
+<!--                    {% if job.avatar %}-->
+<!--                        <img src="{{ job.avatar }}" alt="{{ job.title }}">-->
+<!--                    {% else %}-->
+<!--                        <img src="{% static 'image/default-job.jpg' %}" alt="Default Job Image">-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<script>
+    const jobsData = {{ jobs|safe }};
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        const jobs = document.querySelectorAll('.job');
-        const filters = {};
-    
-        function filterJobs() {
-            jobs.forEach(job => {
-                let shouldShow = true;
+<!--        const jobs = document.querySelectorAll('.job');-->
+        const jobsContainer = document.getElementById('job-listing');
+        const filters = {}
 
-                for (const category in filters) {
-                    const option = filters[category];
-                    const jobOption = job.dataset[category];
+        function renderJobs(jobsData) {
+    const jobsListContainer = document.querySelector('.job-listing');
+    jobsListContainer.innerHTML = ''; // 清空当前的工作列表内容
 
-                    if (option !== 'All' && jobOption !== option) {
-                        shouldShow = false;
-                        break;
-                    }
-                }
+    jobsData.forEach(job => {
+        const jobElement = document.createElement('div');
+        jobElement.classList.add('col-10', 'job');
+        jobElement.dataset.city = job.city;
+        jobElement.dataset.industry = job.industry;
+        jobElement.dataset.type = job.type;
+        jobElement.dataset.requirement = job.requirement;
+        jobElement.dataset.remote = job.remote;
+        jobElement.dataset.salary = job.salary;
 
-                job.style.display = shouldShow ? 'block' : 'none';
-            });
-        }
-    
-        function sortJobsBySalary(order) {
-            const sortedJobs = Array.from(jobs).sort((a, b) => {
-                const salaryA = parseFloat(a.dataset.salary);
-                const salaryB = parseFloat(b.dataset.salary);
-                return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;
-            });
-    
-            jobs.forEach(job => job.remove());
-    
-            sortedJobs.forEach(job => {
-                document.querySelector('.job-listing').appendChild(job);
-            });
-        }
-    
-        document.addEventListener('click', function (event) {
-            const target = event.target;
+        const jobLink = document.createElement('a');
+        jobLink.href = `/job/job_detail/${job.id}/`; // 假设你有一个名为 job_detail 的 URL，并接受 job_id 作为参数
+        jobLink.classList.add('job-link', 'flex-grow-1');
 
-            if (target.classList.contains('dropdown-item')) {
-                const filterType = target.closest('.dropdown').dataset.filterType;
-                const filterOption = target.dataset.filter;
-                const category = target.closest('.dropdown').dataset.category;
+        const jobDetailHtml = `
+            <div>
+                <h3>${job.title}</h3>
+                <p>${job.employer_email}</p>
+                <div class="job-detail">
+                    <p><b>Salary:</b> £${job.salary} per hour</p>
+                    <p><b>Remote:</b> ${job.remote}</p>
+                    <p><b>Job Type:</b> ${job.type}</p>
+                    <p><b>Location:</b> ${job.city}</p>
+                    <p><b>Education Level Requirement:</b> ${job.requirement}</p>
+                    <p><b>Duration:</b> ${job.duration}</p>
+                    <p><b>Other Information:</b> ${job.other}</p>
+                </div>
+            </div>
+        `;
 
-                if (filterType === 'filter') {
-                    console.log(filterType);
-                    console.log(category);
-                    console.log(filters);
-                    // Update the filters object for the selected category
-                    if (filterOption === 'All') {
-                        delete filters[category];
-                    } else {
-                        filters[category] = filterOption;
-                    }
-                    console.log(filters);
-                    // Filter jobs based on all selected filters
-                    filterJobs();
-                } else if (filterType === 'sort') {
-                    sortJobsBySalary(filterOption);
-                }
+        const jobImageDiv = document.createElement('div');
+        jobImageDiv.classList.add('job-image');
+        const jobImage = document.createElement('img');
+        jobImage.src = job.avatar ? job.avatar : '{% static "image/default-job.jpg" %}';
+        jobImage.alt = "Job Image";
+        jobImageDiv.appendChild(jobImage);
+
+        jobLink.innerHTML = jobDetailHtml;
+        jobElement.appendChild(jobLink);
+        jobElement.appendChild(jobImageDiv);
+        jobsListContainer.appendChild(jobElement);
+    });
+};
+
+  renderJobs(jobsData);
+
+<!--        function filterJobs() {-->
+<!--            jobs.forEach(job => {-->
+<!--                let shouldShow = true;-->
+
+<!--                for (const category in filters) {-->
+<!--                    const option = filters[category];-->
+<!--                    const jobOption = job.dataset[category];-->
+
+<!--                    if (option !== 'All' && jobOption !== option) {-->
+<!--                        shouldShow = false;-->
+<!--                        break;-->
+<!--                    }-->
+<!--                }-->
+
+<!--                job.style.display = shouldShow ? 'block' : 'none';-->
+<!--            });-->
+<!--        }-->
+
+<!--        function sortJobsBySalary(order) {-->
+<!--            const sortedJobs = Array.from(jobs).sort((a, b) => {-->
+<!--                const salaryA = parseFloat(a.dataset.salary);-->
+<!--                const salaryB = parseFloat(b.dataset.salary);-->
+<!--                return order === 'asc' ? salaryA - salaryB : salaryB - salaryA;-->
+<!--            });-->
+
+<!--            jobs.forEach(job => job.remove());-->
+
+<!--            sortedJobs.forEach(job => {-->
+<!--                document.querySelector('.job-listing').appendChild(job);-->
+<!--            });-->
+<!--        }-->
+
+<!--        document.addEventListener('click', function (event) {-->
+<!--            const target = event.target;-->
+
+<!--            if (target.classList.contains('dropdown-item')) {-->
+<!--                const filterType = target.closest('.dropdown').dataset.filterType;-->
+<!--                const filterOption = target.dataset.filter;-->
+<!--                const category = target.closest('.dropdown').dataset.category;-->
+
+<!--                if (filterType === 'filter') {-->
+<!--                    if (filterOption === 'All') {-->
+<!--                        delete filters[category];-->
+<!--                    } else {-->
+<!--                        filters[category] = filterOption;-->
+<!--                    }-->
+<!--                    filterJobs();-->
+<!--                } else if (filterType === 'sort') {-->
+<!--                    sortJobsBySalary(filterOption);-->
+<!--                }-->
+<!--            }-->
+<!--        });-->
+
+function filterJobs() {
+    const filteredJobs = jobsData.filter(job => {
+        let shouldShow = true;
+        for (const category in filters) {
+            const option = filters[category];
+            if (option !== 'All' && job[category] !== option) {
+                shouldShow= false;
+                break;
             }
-        });
+        }
+        return shouldShow;
+    });
+
+    renderJobs(filteredJobs);
+}
+
+function sortJobsBySalary(order) {
+    const sortedJobs = [...jobsData].sort((a, b) => {
+        return order === 'asc' ? a.salary - b.salary : b.salary - a.salary;
+    });
+
+    renderJobs(sortedJobs);
+}
+
+document.addEventListener('click', function (event) {
+    const target = event.target;
+
+    if (target.classList.contains('dropdown-item')) {
+        const filterType = target.closest('.dropdown').dataset.filterType;
+        const filterOption = target.dataset.filter;
+        const category = target.closest('.dropdown').dataset.category;
+
+        if (filterType === 'filter') {
+            if (filterOption === 'All') {
+                delete filters[category];
+            } else {
+                filters[category] = filterOption;
+            }
+            filterJobs();
+        } else if (filterType === 'sort') {
+            const order = filterOption; // Assuming filterOption is 'asc' or 'desc'
+            sortJobsBySalary(order);
+        }
+    }
+});
+
+
     });
     </script>
-
-<<<<<<< HEAD
-=======
-    
-<!--    <script>-->
-<!--        $(document).ready(function () {-->
-<!--            $.ajax({-->
-<!--                url: "{% url 'index' %}",-->
-<!--                method: "GET",-->
-<!--                dataType: "json",-->
-<!--                success: function (response) {-->
-<!--                    $(".job-listing .row").html(response);-->
-<!--                },-->
-<!--                error: function (error) {-->
-<!--                    console.error("Error fetching jobs:", error);-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
-
->>>>>>> 7f5e073cb90f2c5b55cf6ce804eaf1659c47d96f
     {% endblock %}
 
 </body>
