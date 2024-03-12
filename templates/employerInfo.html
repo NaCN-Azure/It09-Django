@@ -14,11 +14,11 @@ Company Information
         overflow-y: auto;
         padding: 20px;
     }
-.modal-content {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    .modal-content {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
 .modal-header {
     border-bottom: 1px solid #eee;
@@ -144,6 +144,16 @@ select {
 .star.full {
       color: #f8d150;
 }
+.d-flex a, .d-flex a:hover, .d-flex a:visited {
+    text-decoration: none;
+    transition: font-size 0.3s ease, text-decoration 0.3s ease;
+}
+
+.d-flex a:hover h5 {
+    text-decoration: underline;
+    font-size: 1.3em; /* 字体稍微增大 */
+}
+
 </style>
 
 
@@ -248,11 +258,6 @@ select {
         <li><strong>Phone:</strong> {{ user.phone }}</li>
         <li><strong>Email:</strong> {{ user.email }}</li>
         <li><strong>City:</strong> {{ user.city }}</li>
-<!--        <li><strong>Company Introduction:</strong> Lidl is a leading global supermarket chain known for-->
-<!--            its commitment to providing high-quality products at affordable prices. With a strong-->
-<!--            presence in the retail industry, we strive to make shopping convenient, enjoyable, and-->
-<!--            budget-friendly for our customers.-->
-<!--        </li>-->
     </ul>
     </div>
     <div class="user-image" onclick="document.getElementById('id_user_image_{{ user.id }}').click();">
