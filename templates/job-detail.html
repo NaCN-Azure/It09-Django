@@ -48,6 +48,25 @@
                 box-shadow: 0 0 5px rgba(0,0,0,0.2);
                 transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             }
+            .job-otherimage{
+                flex:50%;
+                display:flex;
+                height:350px;
+                justify-content:center;
+                align-items:center;
+                max-width:30%;
+                overflow:hidden;
+            }
+            .job-otherimage img{
+                max-width:100%;
+                max-height:100%;
+                height:auto;
+                object-fit:contain;
+                border-radius: 5px;
+                border: 3px solid #098faae1;
+                box-shadow: 0 0 5px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            }
             .job-image img:hover {
                 transform: scale(0.95);
                 border-color: #ff8c00;
@@ -183,7 +202,7 @@
                         {% if user.is_authenticated and user.type == 2 and user.id == job.employer_id %}
                             <div class="job-image" onclick="document.getElementById('id_job_image_{{ job.id }}').click();">
                         {% else %}
-                            <div class="job-image">
+                            <div class="job-otherimage">
                         {% endif %}
                                 {% if job.avatar %}
                                     <img src="{{ job.avatar }}" alt="{{ job.title }}">
@@ -527,7 +546,6 @@
                 var formData = new FormData();
                 formData.append('job_image', $('#id_job_image_' + jobId)[0].files[0]);
                 var uploadUrl = `{% url 'upload_job_image' job_id=0 %}`.replace('0', jobId);
-                console.log(uploadUrl);
                 $.ajax({
                     url: uploadUrl,
                     type: 'POST',
