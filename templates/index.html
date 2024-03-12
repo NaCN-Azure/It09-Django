@@ -1,170 +1,164 @@
-
-<!DOCTYPE html>
-
 {% extends "base.html" %}
 {% load static %}
 {% block title_block %}Home{% endblock %}
-<html lang="en">
-<body>
-    
-    {% block body_block %}
-    <div class="container-wrapper">
-        <style>
-                    .job {
-                        width:1000px;
-                        height:300px;
-                        display:flex;
-                        justify-content: space-between;
-                        border: 1px solid #dcdcdc;
-                        margin-block: 10px 10px;
-                        padding: 20px;
-                        border-radius: 10px;
-                        box-shadow: 0 0 5px rgb(166, 166, 166);
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        background-color: rgba(255, 255, 255, 0.5);
-                        backdrop-filter: blur(10px);
-                        align-items:stretch;
-                        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-                    }
-                    .job:hover{
-                         transform: scale(1.05);
-                         border-color: #ff8c00;
-                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                    }
-                    .job-detail{
-                        display: flex;
-                        flex-direction: column;
-                        padding: 10px;
-                    }
-                    .job-detail p{
-                        text-align: left;
-                        font-size: 0.9em;
-                    }
 
-                    .job-image{
-                        flex:50%;
-                        display:flex;
-                        height:270px;
-                        justify-content:center;
-                        align-items:center;
-                        max-width:50%;
-                        overflow:hidden;
-                    }
-                    .job-image img{
-                        max-width:100%;
-                        max-height:100%;
-                        height:auto;
-                        object-fit:contain;
-                        border-radius: 5px;
-                        border: 3px solid #098faae1;
-                        box-shadow: 0 0 5px rgba(0,0,0,0.2);
-                    }
-                </style>
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="sorted-bar">
+{% block body_block %}
+<style>
+    .job {
+        width:1000px;
+        height:300px;
+        display:flex;
+        justify-content: space-between;
+        border: 1px solid #dcdcdc;
+        margin-block: 10px 10px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgb(166, 166, 166);
+        word-wrap: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background-color: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(10px);
+        align-items:stretch;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .job:hover{
+         transform: scale(1.05);
+         border-color: #ff8c00;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .job-detail{
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+    .job-detail p{
+        text-align: left;
+        font-size: 0.9em;
+    }
+    .job-image{
+        flex:50%;
+        display:flex;
+        height:270px;
+        justify-content:center;
+        align-items:center;
+        max-width:50%;
+        overflow:hidden;
+    }
+    .job-image img{
+        max-width:100%;
+        max-height:100%;
+        height:auto;
+        object-fit:contain;
+        border-radius: 5px;
+        border: 3px solid #098faae1;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+</style>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="city">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Location
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Glasgow">Glasgow</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Edinburgh">Edinburgh</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Stirling">Stirling</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Aberdeen">Aberdeen</a></li>
-                        </ul>
-                    </div>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="sorted-bar">
 
-                    <div class="dropdown" data-filter-type="filter" data-category="industry">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Industry
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Retail">Retail</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Construction, Repair and Maintenance Services">Construction, Repair and
-                                    Maintenance Services</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Personal Customer Services">Personal Customer Services</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#" data-filter="Restaurants & Food Services">Restaurants & Food
-                                    Services</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Hotel & Travel Accommodation">Hotel & Travel
-                                    Accommodation</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Others">Others</a></li>
+            <div class="dropdown" data-filter-type="filter" data-category="city">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Location
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Glasgow">Glasgow</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Edinburgh">Edinburgh</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Stirling">Stirling</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Aberdeen">Aberdeen</a></li>
+                </ul>
+            </div>
 
-                        </ul>
-                    </div>
+            <div class="dropdown" data-filter-type="filter" data-category="industry">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Industry
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Retail">Retail</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Construction, Repair and Maintenance Services">Construction, Repair and
+                            Maintenance Services</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Personal Customer Services">Personal Customer Services</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-filter="Restaurants & Food Services">Restaurants & Food
+                            Services</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Hotel & Travel Accommodation">Hotel & Travel
+                            Accommodation</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Others">Others</a></li>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="type">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton3"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Job Type
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Part-Time">Part-Time</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Temporary">Temporary</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Volunteer">Volunteer</a></li>
+                </ul>
+            </div>
 
-                    </div>
+            <div class="dropdown" data-filter-type="filter" data-category="type">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton3"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Job Type
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                    <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Part-Time">Part-Time</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Temporary">Temporary</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Volunteer">Volunteer</a></li>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="requirement">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton4"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Education Level
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Foundation Degree">Foundation Degree</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="GCSE">GCSE</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Certificate of Higher Education">Certificate of Higher
-                                    Education</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Bachelor's Degree">Bachelor's Degree</a></li>
+            </div>
 
-                        </ul>
-                    </div>
+            <div class="dropdown" data-filter-type="filter" data-category="requirement">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton4"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Education Level
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                    <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Foundation Degree">Foundation Degree</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="GCSE">GCSE</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Certificate of Higher Education">Certificate of Higher
+                            Education</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Bachelor's Degree">Bachelor's Degree</a></li>
 
-                    <div class="dropdown" data-filter-type="filter" data-category="remote">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton5"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Remote
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
-                            <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="In-Person">In-Person</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Hybrid">Hybrid</a></li>
-                            <li><a class="dropdown-item" href="#" data-filter="Remote">Remote</a></li>
+                </ul>
+            </div>
 
-                        </ul>
-                    </div>
+            <div class="dropdown" data-filter-type="filter" data-category="remote">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton5"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Remote
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                    <li><a class="dropdown-item" href="#" data-filter="All">All</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="In-Person">In-Person</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Hybrid">Hybrid</a></li>
+                    <li><a class="dropdown-item" href="#" data-filter="Remote">Remote</a></li>
 
-                    <div class="dropdown" data-filter-type="sort" data-category="salary">
-                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton6"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Sorted by Salary
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
-                            <li><a class="dropdown-item" href="#" data-filter="desc">From highest to lowest</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#" data-filter="asc">From lowest to highest</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                </ul>
+            </div>
+
+            <div class="dropdown" data-filter-type="sort" data-category="salary">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton6"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Sorted by Salary
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton6">
+                    <li><a class="dropdown-item" href="#" data-filter="desc">From highest to lowest</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-filter="asc">From lowest to highest</a>
+                    </li>
+                </ul>
             </div>
         </div>
-
-        <div class="job-listing">
-        </div>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<div class="job-listing">
+</div>
+</div>
+
+
 <script>
     const jobsData = {{ jobs|safe }};
     </script>
@@ -188,7 +182,7 @@
         jobElement.dataset.salary = job.salary;
 
         const jobLink = document.createElement('a');
-        jobLink.href = `/job/job_detail/${job.id}/`; // 假设你有一个名为 job_detail 的 URL，并接受 job_id 作为参数
+        jobLink.href = `/job/job_detail/${job.id}/`;
         jobLink.classList.add('job-link', 'flex-grow-1');
 
         const jobDetailHtml = `
@@ -261,17 +255,13 @@ document.addEventListener('click', function (event) {
             }
             filterJobs();
         } else if (filterType === 'sort') {
-            const order = filterOption; // Assuming filterOption is 'asc' or 'desc'
+            const order = filterOption;
             sortJobsBySalary(order);
         }
     }
 });
 
 
-    });
-    </script>
-    {% endblock %}
-
-</body>
-
-</html>
+});
+</script>
+{% endblock %}

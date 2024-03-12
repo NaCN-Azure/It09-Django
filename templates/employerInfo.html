@@ -19,145 +19,127 @@ Company Information
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    .modal-header {
+        border-bottom: 1px solid #eee;
+        padding: 20px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    .modal-title {
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .modal-body {
+        padding: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    select {
+        background-color: #fff;
+        cursor: pointer;
+    }
+    .modal-footer {
+        padding: 20px;
+        border-top: 1px solid #eee;
+    }
 
-.modal-header {
-    border-bottom: 1px solid #eee;
-    padding: 20px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.modal-title {
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.modal-body {
-    padding: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    font-size: 16px;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select,
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
-}
-
-select {
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.modal-footer {
-    padding: 20px;
-    border-top: 1px solid #eee;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: #fff;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.btn-secondary:hover {
-    background-color: #545b62;
-    border-color: #545b62;
-}
-
-.btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px solid transparent; /* Remove default border */
-    transition: background-color 0.2s ease-in-out;
-}
-
-.btn:not(:last-child) {
-    margin-right: 10px;
-}
-
-.btn-close {
-    border: none;
-    background: transparent;
-    font-size: 20px;
-}
-
-.btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-.user-image{
-                flex:50%;
-                display:flex;
-                height:230px;
-                justify-content:center;
-                align-items:center;
-                max-width:30%;
-                overflow:hidden;
-
-}
-.user-image img{
-                max-width:100%;
-                max-height:100%;
-                height:auto;
-                object-fit:contain;
-                border-radius: 5px;
-                border: 3px solid #098faae1;
-                box-shadow: 0 0 5px rgba(0,0,0,0.2);
-                transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-.user-image img:hover {
-    transform: scale(0.95);
-    border-color: #ff8c00;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.star {
-      display: inline-block;
-      margin-right: 10px;
-      font-size: 32px;
-}
-.star.full {
-      color: #f8d150;
-}
-.d-flex a, .d-flex a:hover, .d-flex a:visited {
-    text-decoration: none;
-    transition: font-size 0.3s ease, text-decoration 0.3s ease;
-}
-
-.d-flex a:hover h5 {
-    text-decoration: underline;
-    font-size: 1.3em; /* 字体稍微增大 */
-}
-
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    .btn-secondary:hover {
+        background-color: #545b62;
+        border-color: #545b62;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .btn:not(:last-child) {
+        margin-right: 10px;
+    }
+    .btn-close {
+        border: none;
+        background: transparent;
+        font-size: 20px;
+    }
+    .btn:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+    .user-image{
+        flex:50%;
+        display:flex;
+        height:230px;
+        justify-content:center;
+        align-items:center;
+        max-width:30%;
+        overflow:hidden;
+    }
+    .user-image img{
+        max-width:100%;
+        max-height:100%;
+        height:auto;
+        object-fit:contain;
+        border-radius: 5px;
+        border: 3px solid #098faae1;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .user-image img:hover {
+        transform: scale(0.95);
+        border-color: #ff8c00;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .star {
+          display: inline-block;
+          margin-right: 10px;
+          font-size: 32px;
+    }
+    .star.full {
+          color: #f8d150;
+    }
+    .d-flex a, .d-flex a:hover, .d-flex a:visited {
+        text-decoration: none;
+        transition: font-size 0.3s ease, text-decoration 0.3s ease;
+    }
+    .d-flex a:hover h5 {
+        text-decoration: underline;
+        font-size: 1.3em;
+    }
 </style>
 
 
-<!-- My profile部分 -->
+<!-- My profile Part -->
 <div class="row pb-4 mb-4 border-bottom">
     <div class="col">
         <h3 class=" fst-italic ">
@@ -247,7 +229,6 @@ select {
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -277,8 +258,7 @@ select {
     </div>
 </div>
 
-
-<!-- My Posts部分 -->
+<!-- My Posts Part -->
 <div class="row pb-4 mb-4 border-bottom">
     <div class="col">
         <h3 class=" fst-italic ">
@@ -349,7 +329,6 @@ select {
                     <option value="Aberdeen" {% if value.city == "Aberdeen" %}selected{% endif %}>Aberdeen</option>
                 </select>
 
-
                 <label for="postcode">Postcode:</label>
                 <input type="text" id="postcode" name="postcode" value="">
 
@@ -374,20 +353,18 @@ select {
 <div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
     <div class=list-group id="jobs-list">
         <!-- job list -->
-    
     </div>
 </div>
 
-
-<!-- My reviews部分 -->
+<!-- My reviews Part -->
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
         My Received Feedback
     </h3>
 
-<div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
-    <div class=list-group id="userFeedbacks">
+    <div class="bd-sidebar ps-lg-2  pb-4 mb-4 ">
+        <div class=list-group id="userFeedbacks">
+        </div>
     </div>
-</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -428,17 +405,22 @@ select {
                 var jobDetailUrl = jobDetailBaseUrl + job.id + '/';
                jobsHtml += `
                     <div class="list-group-item" role="button" aria-expanded="false">
-                       <div class="d-flex w-100 justify-content-between my-2">
-                       <a href="#item${job.id}Content" data-bs-toggle="collapse" aria-controls="item${job.id}Content">
-                           <h5 class="mb-1 text-primary">${job.title}</h5>
-                       </a>
-                           <p class="mb-1">Salary: £${ job.salary} / hour</p>
-                           <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-warning btn-sm px-4" onclick = "event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#EditPost${ job.id }">Edit</button>
-                            <button type="button" class="btn btn-primary btn-sm px-4 me-2" onclick=" event.stopPropagation();window.location.href='${jobDetailUrl}';">Detail</button>
-                            <button type="button" class="btn btn-danger btn-sm px-4 me-2 delete-job" data-job-id="${job.id}" onclick="event.stopPropagation(); deleteJob(${job.id});">Delete</button>
+                           <div class="row my-2">
+                                <div class="col">
+                                    <a href="#item${job.id}Content" data-bs-toggle="collapse" aria-controls="item${job.id}Content">
+                                        <h5 class="mb-1 text-primary">${job.title}</h5>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <p class="mb-1">Salary: £${job.salary} / hour</p>
+                                </div>
+                                <div class="col d-flex justify-content-end">
+                                    <button type="button" class="btn btn-warning btn-sm px-4" onclick="event.stopPropagation();" data-bs-toggle="modal" data-bs-target="#EditPost${job.id}">Edit</button>
+                                    <button type="button" class="btn btn-primary btn-sm px-4 me-2" onclick="event.stopPropagation();window.location.href='${jobDetailUrl}';">Detail</button>
+                                    <button type="button" class="btn btn-danger btn-sm px-4 me-2 delete-job" data-job-id="${job.id}" onclick="event.stopPropagation(); deleteJob(${job.id});">Delete</button>
+                                </div>
                             </div>
-                       </div>
+                    </div>
                        <!-- The Modal -->
                        <div class="modal" id="EditPost${ job.id }">
                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -525,7 +507,6 @@ select {
                    </div>
                    </div>
                    `;
-                // 获取并显示每个工作的申请
            });
 
            $('#jobs-list').html(jobsHtml); 
@@ -534,8 +515,6 @@ select {
             
             });
             fetchAndDisplayFeedbacks(jobIds);
-
-           
         },
         error: function (xhr, status, error) {
             console.error("Error fetching jobs info:", error);
@@ -571,7 +550,7 @@ function fetchAndDisplayApplications(jobId) {
                     </a>
                 `;
             });
-            $(`#applications${jobId}`).html(applicationsHtml); // 确保每个工作的申请列表有一个唯一的 ID
+            $(`#applications${jobId}`).html(applicationsHtml);
         },
         error: function(xhr, status, error) {
             console.error("Error fetching applications:", error);
@@ -642,7 +621,6 @@ jobIds.forEach(function(jobId) {
         });
     }
 
-
      $(document).ready(function() {
         $('form').on('submit', function(e) {
             e.preventDefault();
@@ -675,7 +653,6 @@ jobIds.forEach(function(jobId) {
             });
         });
     });
-
 
     function handleJobCreate() {
             event.preventDefault();
@@ -716,7 +693,6 @@ jobIds.forEach(function(jobId) {
                 }
             });
         };
-
 
     function handleJobEdit(jobId) {
             event.preventDefault();
@@ -777,7 +753,6 @@ jobIds.forEach(function(jobId) {
             });
         }
 
-
     function deleteJob(jobId) {
     var deleteUrl = deleteJobUrlTemplate.replace('%jobId%', jobId);
     if (confirm('Are you sure you want to delete this job? This action cannot be undone.')) {
@@ -799,31 +774,27 @@ jobIds.forEach(function(jobId) {
         });
     }
 };
-
-
-            function uploadFormSubmit(userId) {
-                var formData = new FormData();
-                formData.append('user_image', $('#id_user_image_' + userId)[0].files[0]);
-                var uploadUrl = `{% url 'upload_user_image' user_id=0 %}`.replace('0', userId);
-                $.ajax({
-                    url: uploadUrl,
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
-                    },
-                    success: function(data) {
-                        alert('Picture Updated.');
-                        location.reload();
-                    },
-                    error: function(error) {
-                        alert('Failed to submit.'); // 提示用户反馈添加失败
-                    }
-                });
+    function uploadFormSubmit(userId) {
+        var formData = new FormData();
+        formData.append('user_image', $('#id_user_image_' + userId)[0].files[0]);
+        var uploadUrl = `{% url 'upload_user_image' user_id=0 %}`.replace('0', userId);
+        $.ajax({
+            url: uploadUrl,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
+            },
+            success: function(data) {
+                alert('Picture Updated.');
+                location.reload();
+            },
+            error: function(error) {
+                alert('Failed to submit.');
             }
-
-
+        });
+    }
 </script>
 {% endblock %}
