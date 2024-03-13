@@ -71,22 +71,20 @@
                 {% endif %}
             </div>
             <input type="hidden" name="type" id="userTypeField" value="">
-            <!-- Move the Back button to this position -->
             <button id="backButton" onclick="goBack()" style="display: none;">Back</button>
             <button type="submit">Register</button>
         </form>
         <p>Already have an account？<a href="{% url 'login' %}">Sign in</a></p>
     </div>
 	<div id="registerUrl" data-url="{% url 'register' 1 %}" style="display: none;"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function setUserType(userType) {
             history.pushState({}, '', '/register/' + userType);
             document.getElementById('CustomUserCreationForm').action = '/register/' + userType + '/';
             document.getElementById('userTypeField').value = userType;
-            // Show form, back button
             document.getElementById('CustomUserCreationForm').style.display = 'block';
-            document.getElementById('backButton').style.display = 'inline'; // Show Back Button
-            // Hide Selection Container
+            document.getElementById('backButton').style.display = 'inline';
             document.querySelector('.choice-container').style.display = 'none';
         }
 
@@ -95,19 +93,46 @@
             window.location.href = registerUrl;
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            var formSubmitted = document.getElementById('formSubmitted').value;
-            var userType = document.getElementById('userTypeField').value;
-
-            if (formSubmitted === 'True') {
-                if (userType) {
-                    setUserType(userType);
-                }
-                document.getElementById('CustomUserCreationForm').style.display = 'block';
-                document.getElementById('backButton').style.display = 'inline';
-                document.querySelector('.choice-container').style.display = 'none';
+        function checkEmailExistence(email, callback) {
+        $.ajax({
+            url: "{% url 'check_email' %}",
+            data: { 'email': email },
+            dataType: 'json',
+            success: function(response) {
+                callback(response.exists);
+            },
+            error: function() {
+                alert('Failed to check email existence. Please try again.');
             }
         });
+    }
+
+
+     document.getElementById('CustomUserCreationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var password1 = document.querySelector('input[name="password1"]').value;
+        var password2 = document.querySelector('input[name="password2"]').value;
+        var email = document.querySelector('input[name="email"]').value;
+        checkEmailExistence(email, function(exists) {
+            if (exists) {
+                alert('This email is already registered. Please use another email.');
+                return;
+            }
+
+            if (password1 !== password2) {
+                alert('The passwords do not match. Please re-enter them.');
+                return;
+            }
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('The email address is not valid. Please enter a valid email address.');
+                return;
+            }
+
+            document.getElementById('CustomUserCreationForm').submit();
+        });
+    });
 
     </script>
 </body>

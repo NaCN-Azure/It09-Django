@@ -106,3 +106,13 @@ Logout the user
 def logout_user(request):
     user_service.logout_user(request)
     return HttpResponseRedirect(reverse('index'))
+'''
+check user email if exists
+'''
+def check_email(request):
+    email = request.GET.get('email', None)
+    if email:
+        exists = user_service.email_exists(email)
+        return JsonResponse({'exists': exists})
+    else:
+        return JsonResponse({'error': 'Email parameter is missing'}, status=400)

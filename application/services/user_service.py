@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.http import JsonResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 from application.models import User
 from django.contrib.auth.models import update_last_login
@@ -62,3 +63,10 @@ def change_password(user_id, new_password):
 
 def logout_user(request):
     logout(request)
+
+def email_exists(email):
+    try:
+        User.objects.get(email=email)
+        return True
+    except ObjectDoesNotExist:
+        return False
